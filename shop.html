@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenlife Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --green: #2f4a3f;
+      --gold: #b58b57;
+      --sand: #f9f7f4;
+      --light: #f9f7f4;
+      --muted: #777;
+      --transition: all 0.3s ease;
+      --max: 1200px;
+    }
+    
+    body { 
+      margin:0; 
+      font-family: 'Georgia', serif; 
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Header & Navigation */
+    header { 
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+    
+    .header-container {
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      padding:20px 60px; 
+      max-width:1200px; 
+      margin:0 auto; 
+      flex-wrap: wrap;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+      z-index: 1001;
+    }
+    
+    nav { 
+      display: flex; 
+      align-items: center; 
+      flex-wrap: wrap;
+      transition: var(--transition);
+    }
+    
+    nav a { 
+      margin:0 10px; 
+      text-decoration:none; 
+      color:#333; 
+      font-size:15px; 
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    
+    nav a:hover {
+      color: var(--gold);
+    }
+    
+    .nav-btn {
+      padding: 8px 18px;
+      border-radius: 0.1px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: var(--transition);
+      margin-left: 10px;
+      font-weight: 600;
+    }
+    
+    .nav-btn.outline {
+      border: 1px solid #333;
+      color: #333;
+      background: transparent;
+    }
+    
+    .nav-btn.outline:hover {
+      background: #333;
+      color: white;
+    }
+    
+    .nav-btn.solid {
+      background: var(--green);
+      color: white;
+      border: none;
+    }
+    
+    .nav-btn.solid:hover {
+      background: #1f352b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Mobile Navigation */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--green);
+      z-index: 1001;
+      padding: 10px;
+    }
+
+    /* Hero Section - UPDATED */
+    .hero { 
+      background: var(--green); 
+      color: var(--sand); 
+      padding: 120px 20px; 
+      font-size: 50px; 
+      text-align: center; 
+      font-family: 'Playfair Display', serif;
+      margin-top: 70px;
+      line-height: 1.2;
+    }
+
+    .book {
+      background: #eee;
+    }
+
+    .get-started {
+      background: #2f5a45;
+      color: white;
+    }
+   
+    /* Main Content */
+    .section-title { 
+      text-align:center; 
+      font-size:28px; 
+      margin-top:40px; 
+      color: var(--green);
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .grid { 
+      display:grid; 
+      gap:25px; 
+      padding:40px 60px; 
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    
+    .grid-3 { 
+      grid-template-columns:repeat(3,1fr); 
+    }
+    
+    .card { 
+      border:1px solid #eee; 
+      padding:0; 
+      background:#fff; 
+      cursor:pointer; 
+      transition:0.3s;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .card:hover { 
+      transform:translateY(-4px); 
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .card img { 
+      width:100%; 
+      height:200px; 
+      display:block; 
+      object-fit: cover;
+    }
+    
+    .card-title { 
+      padding:18px; 
+      font-size:17px; 
+      text-align:center; 
+      color: var(--green);
+      font-weight: 600;
+    }
+    
+    .brands { 
+      display:flex; 
+      gap:40px; 
+      flex-wrap:wrap; 
+      padding:40px 60px; 
+      justify-content:center;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    
+    .brands img { 
+      height:45px; 
+      filter: grayscale(100%);
+      transition: var(--transition);
+    }
+    
+    .brands img:hover {
+      filter: grayscale(0%);
+    }
+    
+    .sub_foot { 
+      background:#1f2a23; 
+      color:#fff; 
+      padding:60px 20px; 
+      text-align:center; 
+    }
+    
+    .sub_foot h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .sub_foot p {
+      margin-bottom: 20px;
+      color: rgba(255,255,255,0.8);
+    }
+    
+    .sub_foot input { 
+      padding:12px; 
+      width:280px; 
+      border:none; 
+      border-radius:5px 0 0 5px; 
+      font-family: inherit;
+    }
+    
+    .sub_foot button { 
+      padding:12px 20px; 
+      border:none; 
+      background:var(--gold); 
+      color:#fff; 
+      border-radius:0 5px 5px 0; 
+      cursor:pointer;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    
+    .sub_foot button:hover {
+      background: #9c7749;
+    }
+
+    /* FOOTER SECTION */
+    footer {
+      background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
+      color: #fff;
+      padding: 80px 20px 30px;
+      margin-top: 80px;
+      position: relative;
+    }
+
+    footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--green), var(--gold));
+    }
+
+    footer .inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 24px;
+      color: #fff;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-col h4:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .footer-about p {
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .footer-contact p {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .footer-contact i {
+      color: var(--gold);
+      width: 20px;
+      margin-top: 4px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      transition: var(--transition);
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+      transform: translateX(5px);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: #fff;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .footer-social a:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 30px;
+      margin-top: 60px;
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-legal a {
+      color: rgba(255,255,255,0.6);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .footer-legal a:hover {
+      color: var(--gold);
+    }
+
+    .copyright {
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      padding: 40px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    
+    .modal h2 {
+      margin-top: 0;
+      color: var(--green);
+    }
+    
+    .modal form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .modal input, .modal select, .modal textarea {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    
+    .modal button {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: var(--transition);
+    }
+    
+    .modal button:hover {
+      background: #1f352b;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .header-container {
+        padding: 20px 30px;
+      }
+      
+      .hero {
+        font-size: 42px;
+        padding: 100px 20px;
+      }
+      
+      .grid {
+        padding: 40px 30px;
+      }
+      
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .brands {
+        padding: 40px 30px;
+        gap: 30px;
+      }
+      
+      footer .inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+        .header-container {
+                flex-direction: row;
+                padding: 15px 20px;
+                gap: 15px;
+                justify-content: space-between;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 80px 30px 30px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                overflow-y: auto;
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav a {
+                margin: 12px 0;
+                font-size: 18px;
+                width: 100%;
+                padding: 8px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+                padding: 10px 0 10px 20px;
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 15px 0 0;
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+      
+      .header-container {
+        padding: 15px 20px;
+      }
+      
+      .hero {
+        font-size: 36px;
+        padding: 80px 20px;
+      }
+      
+      .grid {
+        padding: 30px 20px;
+        gap: 20px;
+      }
+      
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      
+      .brands {
+        padding: 30px 20px;
+        gap: 20px;
+      }
+      
+      .brands img {
+        height: 35px;
+      }
+      
+      .sub_foot input {
+        width: 200px;
+      }
+      
+      footer .inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        font-size: 28px;
+        padding: 60px 15px;
+      }
+      
+      .section-title {
+        font-size: 24px;
+      }
+      
+      .grid {
+        padding: 20px 15px;
+      }
+      
+      .brands {
+        padding: 20px 15px;
+        gap: 15px;
+      }
+      
+      .brands img {
+        height: 30px;
+      }
+      
+      .sub_foot {
+        padding: 40px 15px;
+      }
+      
+      .sub_foot h2 {
+        font-size: 24px;
+      }
+      
+      .sub_foot input {
+        width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">Zenlife</div>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav id="main-nav">
+        <a href="index.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="locations.html">Locations</a>
+        <a href="shop.html">Shop</a>
+        <a href="articles.html">Articles</a>
+        <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
+        <a href="get-started.html" class="nav-btn solid">Get Started</a>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- UPDATED HERO SECTION -->
+  <div class="hero">We have your favorite Shop</div>
+  
+  <div class="grid grid-3">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop" alt="Beauty, Skincare & Lifestyle" />
+      <div class="card-title">Beauty, Skincare & Lifestyle →</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=400&h=300&fit=crop" alt="Gut Health and Digestion" />
+      <div class="card-title">Gut Health and Digestion →</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop" alt="Movement and Recovery" />
+      <div class="card-title">Movement and Recovery →</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop" alt="Immune and Inflammatory Health" />
+      <div class="card-title">Immune and Inflammatory Health →</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Metabolic and Hormone Health" />
+      <div class="card-title">Metabolic and Hormone Health →</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Stress and Sleep Support" />
+      <div class="card-title">Stress and Sleep Support →</div>
+    </div>
+  </div>
+
+  <div class="section-title">Featured Collections</div>
+  
+  <div class="grid grid-3">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop" alt="Zenlife × Metagenics" />
+      <div class="card-title">Zenlife × Metagenics →</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1585435557343-3b092031d5ad?w=400&h=300&fit=crop" alt="Zenlife × Thorne" />
+      <div class="card-title">Zenlife × Thorne →</div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop" alt="Zenlife × Fullscript" />
+      <div class="card-title">Zenlife × Fullscript →</div>
+    </div>
+  </div>
+
+  <div class="section-title">Our Trusted Brands</div>
+  <div class="brands">
+    <img src="https://via.placeholder.com/120x45?text=Brand+1" alt="Brand 1" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+2" alt="Brand 2" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+3" alt="Brand 3" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+4" alt="Brand 4" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+5" alt="Brand 5" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+6" alt="Brand 6" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+7" alt="Brand 7" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+8" alt="Brand 8" />
+    <img src="https://via.placeholder.com/120x45?text=Brand+9" alt="Brand 9" />
+  </div>
+
+  <section class="sub_foot">
+    <h2>Subscribe to our newsletter</h2>
+    <p>Subscribe to get notified of new products and wellness offerings.</p>
+    <div style="margin-top:20px;">
+      <input type="email" placeholder="Email" />
+      <button>→</button>
+    </div>
+  </section>
+
+  <!-- Modal for Booking -->
+  <div id="booking-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h2>Book Your Visit</h2>
+      <p>Schedule an appointment with one of our wellness experts.</p>
+      <form id="booking-form">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="tel" placeholder="Phone Number">
+        <select required>
+          <option value="">Select Service</option>
+          <option value="medicine">Medical Consultation</option>
+          <option value="therapy">Physical Therapy</option>
+          <option value="fitness">Fitness Training</option>
+          <option value="biometrics">Biometric Screening</option>
+        </select>
+        <input type="date" required>
+        <textarea placeholder="Additional Notes" rows="3"></textarea>
+        <button type="submit">Submit Booking Request</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="inner">
+      <div class="footer-col footer-about">
+        <div class="footer-logo">Zenlife</div>
+        <p>Premium wellness experiences since 2015. We combine medical expertise with personalized fitness programming to help you achieve optimal health and performance.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Atlanta · Roswell · Peachtree City · Nashville · North Charleston</p>
+        <p><i class="fas fa-phone"></i> (404) 254-5905</p>
+        <p><i class="fas fa-envelope"></i> hello@statwellness.com</p>
+        <p><i class="fas fa-clock"></i> Mon-Fri: 6am-8pm | Sat: 8am-4pm | Sun: 9am-2pm</p>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+            <a href="index.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="memberships.html">Memberships</a>
+          <a href="locations.html">Locations</a>
+          <a href="shop.html">Shop</a>
+          <a href="articles.html">Articles</a>
+          <a href="#" onclick="openModal()">Book A Visit</a>
+          <a href="get-started.html">Get Started</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="copyright">© 2025 Zenlife. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="cookies.html">Cookie Policy</a>
+        <a href="accessibility.html">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+        // Enhanced Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent event from bubbling up
+                    mainNav.classList.toggle('active');
+                    
+                    // Change icon based on menu state
+                    if (mainNav.classList.contains('active')) {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                    } else {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+                
+                // Close mobile menu when clicking on a link
+                const navLinks = mainNav.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNav = mainNav.contains(event.target);
+                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            }
+            
+            // Initialize page navigation
+            initializePageNavigation();
+            
+            // Initialize get started tabs
+            initializeGetStartedTabs();
+        });
+
+        // Page Navigation
+        function initializePageNavigation() {
+            // Get all navigation elements with data-page attribute
+            const navElements = document.querySelectorAll('[data-page]');
+            
+            navElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Hide all pages
+                    document.querySelectorAll('.page-section').forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    // Show target page
+                    document.getElementById(targetPage + '-page').classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                    
+                    // Close mobile menu if open
+                    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+                    const mainNav = document.getElementById('main-nav');
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+        }
+
+
+    // Modal Functions
+    function openModal() {
+      document.getElementById('booking-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('booking-modal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+      const modal = document.getElementById('booking-modal');
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Form submission
+    document.getElementById('booking-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your booking request! We will contact you shortly to confirm your appointment.');
+      closeModal();
+    });
+
+    // Newsletter form submission
+    document.querySelector('.sub_foot button').addEventListener('click', function(e) {
+      e.preventDefault();
+      const email = document.querySelector('.sub_foot input').value;
+      if (email && email.includes('@')) {
+        alert('Thank you for subscribing to our newsletter!');
+        document.querySelector('.sub_foot input').value = '';
+      } else {
+        alert('Please enter a valid email address.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenlife - Premium Health & Fitness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --green: #2f4a3f;
+            --gold: #b58b57;
+            --sand: #f9f7f4;
+            --light: #f9f7f4;
+            --muted: #777;
+            --transition: all 0.3s ease;
+            --max: 1200px;
+        }
+        
+        body { 
+            margin:0; 
+            font-family: 'Georgia', serif; 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        header { 
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        
+        .header-container {
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            padding:20px 60px; 
+            max-width:1200px; 
+            margin:0 auto; 
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--green);
+            z-index: 1001;
+        }
+        
+        nav { 
+            display: flex; 
+            align-items: center; 
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+        
+        nav a { 
+            margin:0 10px; 
+            text-decoration:none; 
+            color:#333; 
+            font-size:15px; 
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--gold);
+        }
+        
+        .dropdown { 
+            position:relative; 
+            display:inline-block; 
+        }
+        
+        .dropdown-menu { 
+            display:none; 
+            position:absolute; 
+            top:100%; 
+            left:0; 
+            background:#fff; 
+            box-shadow:0 2px 8px rgba(0,0,0,0.1); 
+            padding:20px; 
+            width:180px; 
+            z-index: 100;
+            border-radius: 4px;
+        }
+        
+        .dropdown:hover .dropdown-menu { 
+            display:block; 
+        }
+        
+        .nav-btn {
+            padding: 8px 18px;
+            border-radius: 0.1px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: var(--transition);
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .nav-btn.outline {
+            border: 1px solid #333;
+            color: #333;
+            background: transparent;
+        }
+        
+        .nav-btn.outline:hover {
+            background: #333;
+            color: white;
+        }
+        
+        .nav-btn.solid {
+            background: var(--green);
+            color: white;
+            border: none;
+        }
+        
+        .nav-btn.solid:hover {
+            background: #1f352b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--green);
+            z-index: 1001;
+            padding: 10px;
+        }
+        
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding-top: 100px;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        /* Hero Section */
+        .hero { 
+            background:var(--green); 
+            color:var(--sand); 
+            padding:120px 60px; 
+            font-size:50px; 
+            text-align:center; 
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .tabs { 
+            display:flex; 
+            justify-content:center; 
+            margin-top:-40px; 
+            flex-wrap: wrap;
+        }
+        
+        .tab { 
+            padding:15px 40px; 
+            background:var(--gold); 
+            margin:0 5px; 
+            color:#fff; 
+            font-weight:bold; 
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        
+        .tab:hover {
+            background: #9c7749;
+            transform: translateY(-2px);
+        }
+        
+        .tab.active { 
+            background:var(--gold); 
+            color:#fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .tab.inactive { 
+            background:#fff; 
+            color:#333; 
+            border:1px solid #ddd; 
+        }
+        
+        .tab.inactive:hover {
+            background: #f5f5f5;
+        }
+
+        /* ===============================
+           TWO COLUMN SECTION 
+        ================================ */
+        .two-column-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 150px auto;
+            display: flex;
+            align-items: stretch;
+            gap: 60px;
+        }
+
+        /* IMAGE DIV */
+        .left-img,
+        .right-img {
+            width: 50%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 4px;
+            position: relative;
+            transition: transform 0.4s ease;
+        }
+
+        .left-img img,
+        .right-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* HOVER ZOOM */
+        .left-img:hover,
+        .right-img:hover {
+            transform: scale(1.05);
+        }
+
+        .left-img:hover img,
+        .right-img:hover img {
+            transform: scale(1.12);
+        }
+
+        /* TEXT BOX */
+        .right-box,
+        .left-box {
+            width: 50%;
+            background: #f7f7f5;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .cat {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #8b8b6f;
+        }
+
+        .right-box h2,
+        .left-box h2 {
+            margin: 10px 0 20px;
+            font-size: 32px;
+            color: #2a2a2a;
+        }
+
+        .right-box p,
+        .left-box p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #6b6b6b;
+            margin-bottom: 35px;
+        }
+
+        /* LEARN MORE BUTTON */
+        .learn-btn {
+            width: 150px;
+            padding: 12px 0;
+            border: 1px solid #274a3f;
+            background: white;
+            color: #274a3f;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+            transition: 0.2s;
+        }
+
+        .learn-btn:hover {
+            background: #274a3f;
+            color: white;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding-top: 100px;
+        }
+
+        /* New Pages */
+        .page-hero {
+            background: var(--green);
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-top: 80px;
+        }
+
+        .page-hero h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .page-content {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* FOOTER SECTION - IMPROVED */
+        footer {
+            background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
+            color: #fff;
+            padding: 80px 20px 30px;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--green), var(--gold));
+        }
+
+        footer .inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: #fff;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .footer-contact p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .footer-contact i {
+            color: var(--gold);
+            width: 20px;
+            margin-top: 4px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            margin-top: 60px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--max);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255,255,255,0.6);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-legal a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .header-container {
+                padding: 20px 30px;
+            }
+            
+            .hero {
+                font-size: 40px;
+                padding: 100px 30px;
+                text-align: center;
+            }
+            
+            .tab {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+            
+            .two-column-section {
+                flex-direction: column;
+                margin: 100px auto;
+                gap: 30px;
+            }
+            
+            .left-img, .right-img, .left-box, .right-box {
+                width: 100%;
+            }
+            
+            .left-box, .right-box {
+                padding: 40px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                padding: 15px 20px;
+                gap: 15px;
+                justify-content: space-between;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 80px 30px 30px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                overflow-y: auto;
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav a {
+                margin: 12px 0;
+                font-size: 18px;
+                width: 100%;
+                padding: 8px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+                padding: 10px 0 10px 20px;
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 15px 0 0;
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+            
+            .hero, .services-hero, .page-hero, .get-started-hero {
+                padding: 80px 20px;
+                font-size: 32px;
+            }
+            
+            .tabs, .services-tab-container, .get-started-tab-container {
+                margin-top: 20px;
+                padding: 0 20px;
+            }
+            
+            .tab, .services-tab-btn, .get-started-tab-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                margin: 5px;
+            }
+            
+            .section {
+                padding: 40px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section h2 {
+                font-size: 32px;
+            }
+            
+            .approach-section {
+                padding: 70px 0;
+            }
+            
+            .approach-title {
+                font-size: 32px;
+            }
+            
+            .testimonials {
+                padding: 70px 20px;
+            }
+            
+            .testimonials h3, .faq h3 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+            
+            .feature {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .feature-icon {
+                align-self: center;
+            }
+            
+            .q {
+                padding: 20px 15px;
+                font-size: 16px;
+            }
+            
+            .answer {
+                padding: 0 15px;
+            }
+            
+            .answer.active {
+                padding: 0 15px 20px;
+            }
+            
+            .custom-cta {
+                padding: 60px 20px;
+                margin: 60px 20px 0;
+                border-radius: 12px;
+            }
+            
+            .custom-cta h3 {
+                font-size: 28px;
+            }
+            
+            .custom-cta p {
+                font-size: 16px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-legal {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .services-flex, .get-started-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .services-flex img, .get-started-flex img {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                font-size: 28px;
+                padding: 60px 15px;
+                text-align: center;
+            }
+            
+            .left-box, .right-box {
+                padding: 20px;
+            }
+            
+            .left-box h2, .right-box h2 {
+                fontSize: 24px;
+            }
+            
+            .page-hero h1 {
+                font-size: 32px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--muted);
+        }
+        
+        .modal h2 {
+            margin-top: 0;
+            color: var(--green);
+        }
+        
+        .modal form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .modal input, .modal select, .modal textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .modal button {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .modal button:hover {
+            background: #1f352b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Zenlife</div>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="main-nav">
+                <a href="index.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="memberships.html">Memberships</a>
+                <a href="locations.html">Locations</a>
+                <a href="shop.html">Shop</a>
+                <a href="articles.html">Articles</a>
+                <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
+                <a href="get-started.html" class="nav-btn solid">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Home Page Content -->
+    <div class="hero">Services That Work for You</div>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="medicine">MEDICINE</button>
+        <button class="tab inactive" data-tab="physical_therapy">Physical Therapy</button>
+        <button class="tab inactive" data-tab="fitness">Fitness</button>
+        <button class="tab inactive" data-tab="biometrics">Biometrics</button>
+        <button class="tab inactive" data-tab="treatments">Treatments</button>
+    </div>
+
+    <!-- SECTION 1 - Medicine -->
+    <section class="two-column-section active-section" id="medicine-section">
+        <div class="left-img">
+            <img src="dr.3.webp" alt="Medical Consultation">
+        </div>
+
+        <div class="right-box">
+            <span class="cat">MEDICINE</span>
+            <h2>Personalized Care</h2>
+            <p>
+                We believe that healthcare isn't just for the sick — it's for everyone. Our medical team provides comprehensive care tailored to your unique needs, from preventive screenings to chronic condition management.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+    </section>
+
+    <!-- SECTION 2 - Physical Therapy -->
+    <section class="two-column-section" id="therapy-section">
+
+        <div class="left-box">
+            <span class="cat">PHYSICAL THERAPY</span>
+            <h2>Physical Therapy Care</h2>
+            <p>
+                Our physical therapy services help you recover from injuries, improve mobility, and enhance performance. We combine evidence-based techniques with personalized attention to help you achieve your rehabilitation goals.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+
+        <div class="right-img">
+            <img src="dr.4.avif" alt="Physical Therapy">
+        </div>
+    </section>
+
+    <!-- SECTION 3 - Fitness -->
+    <section class="two-column-section" id="fitness-section">
+        <div class="left-img">
+            <img src="dr.4.avif" alt="Fitness Training">
+        </div>
+        <div class="right-box">
+            <span class="cat">FITNESS</span>
+            <h2>Fitness Training</h2>
+            <p>
+                Our certified trainers create personalized fitness programs to help you reach your goals, whether it's weight loss, strength building, or improving athletic performance. We offer one-on-one sessions and small group classes.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+    </section>
+
+    <!-- Modal for Booking -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Book Your Visit</h2>
+            <p>Schedule an appointment with one of our wellness experts.</p>
+            <form id="booking-form">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="tel" placeholder="Phone Number">
+                <select required>
+                    <option value="">Select Service</option>
+                    <option value="medicine">Medical Consultation</option>
+                    <option value="therapy">Physical Therapy</option>
+                    <option value="fitness">Fitness Training</option>
+                    <option value="biometrics">Biometric Screening</option>
+                </select>
+                <input type="date" required>
+                <textarea placeholder="Additional Notes" rows="3"></textarea>
+                <button type="submit">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="inner">
+            <div class="footer-col footer-about">
+                <div class="footer-logo">Zenlife</div>
+                <p>Premium wellness experiences since 2015. We combine medical expertise with personalized fitness programming to help you achieve optimal health and performance.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Atlanta · Roswell · Peachtree City · Nashville · North Charleston</p>
+                <p><i class="fas fa-phone"></i> (404) 254-5905</p>
+                <p><i class="fas fa-envelope"></i> hello@statwellness.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 6am-8pm | Sat: 8am-4pm | Sun: 9am-2pm</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="index.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="memberships.html">Memberships</a>
+                    <a href="locations.html">Locations</a>
+                    <a href="shop.html">Shop</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="#" onclick="openModal()">Book A Visit</a>
+                    <a href="get-started.html">Get Started</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">© 2025 Zenlife. All rights reserved.</div>
+            <div class="footer-legal">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="cookies.html">Cookie Policy</a>
+                <a href="accessibility.html">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent event from bubbling up
+                    mainNav.classList.toggle('active');
+                    
+                    // Change icon based on menu state
+                    if (mainNav.classList.contains('active')) {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                    } else {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+                
+                // Close mobile menu when clicking on a link
+                const navLinks = mainNav.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNav = mainNav.contains(event.target);
+                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            }
+            
+            // Initialize page navigation
+            initializePageNavigation();
+            
+            // Initialize get started tabs
+            initializeGetStartedTabs();
+        });
+
+        // Page Navigation
+        function initializePageNavigation() {
+            // Get all navigation elements with data-page attribute
+            const navElements = document.querySelectorAll('[data-page]');
+            
+            navElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Hide all pages
+                    document.querySelectorAll('.page-section').forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    // Show target page
+                    document.getElementById(targetPage + '-page').classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                    
+                    // Close mobile menu if open
+                    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+                    const mainNav = document.getElementById('main-nav');
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+        }
+
+
+        // Tab Functionality
+        const tabs = document.querySelectorAll('.tab');
+        const sections = document.querySelectorAll('.two-column-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Update tab states
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.add('inactive');
+                });
+                
+                this.classList.remove('inactive');
+                this.classList.add('active');
+                
+                // Hide all sections
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show the selected section
+                const tabType = this.getAttribute('data-tab');
+                document.getElementById(tabType + '-section').style.display = 'flex';
+            });
+        });
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('booking-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('booking-modal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your booking request! We will contact you shortly to confirm your appointment.');
+            closeModal();
+        });
+    </script>
+</body>
+</html>

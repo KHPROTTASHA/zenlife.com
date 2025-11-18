@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenlife - Premium Health & Fitness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Keep all your existing CSS styles */
+        :root {
+            --green: #2f4a3f;
+            --gold: #b58b57;
+            --sand: #f9f7f4;
+            --light: #f9f7f4;
+            --muted: #777;
+            --transition: all 0.3s ease;
+            --max: 1200px;
+        }
+        
+        body { 
+            margin:0; 
+            font-family: 'Georgia', serif; 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        header { 
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        
+        .header-container {
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            padding: 15px 20px; 
+            max-width:1200px; 
+            margin:0 auto; 
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--green);
+            z-index: 1001;
+        }
+        
+        nav { 
+            display: flex; 
+            align-items: center; 
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+        
+        nav a { 
+            margin:0 10px; 
+            text-decoration:none; 
+            color:#333; 
+            font-size:15px; 
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--gold);
+        }
+        
+        .dropdown { 
+            position:relative; 
+            display:inline-block; 
+        }
+        
+        .dropdown-menu { 
+            display:none; 
+            position:absolute; 
+            top:100%; 
+            left:0; 
+            background:#fff; 
+            box-shadow:0 2px 8px rgba(0,0,0,0.1); 
+            padding:20px; 
+            width:180px; 
+            z-index: 100;
+            border-radius: 4px;
+        }
+        
+        .dropdown:hover .dropdown-menu { 
+            display:block; 
+        }
+        
+        .nav-btn {
+            padding: 8px 18px;
+            border-radius: 0.1px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: var(--transition);
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .nav-btn.outline {
+            border: 1px solid #333;
+            color: #333;
+            background: transparent;
+        }
+        
+        .nav-btn.outline:hover {
+            background: #333;
+            color: white;
+        }
+        
+        .nav-btn.solid {
+            background: var(--green);
+            color: white;
+            border: none;
+        }
+        
+        .nav-btn.solid:hover {
+            background: #1f352b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--green);
+            z-index: 1001;
+            padding: 10px;
+        }
+        
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding-top: 100px;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        /* Hero Section */
+        .hero { 
+            background:var(--green); 
+            color:var(--gold); 
+            padding:120px 60px; 
+            font-size:50px; 
+            text-align:center; 
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .tabs { 
+            display:flex; 
+            justify-content:center; 
+            margin-top:-40px; 
+            flex-wrap: wrap;
+        }
+        
+        .tab { 
+            padding:15px 40px; 
+            background:var(--gold); 
+            margin:0 5px; 
+            color:#fff; 
+            font-weight:bold; 
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        
+        .tab:hover {
+            background: #9c7749;
+            transform: translateY(-2px);
+        }
+        
+        .tab.active { 
+            background:var(--gold); 
+            color:#fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .tab.inactive { 
+            background:#fff; 
+            color:#333; 
+            border:1px solid #ddd; 
+        }
+        
+        .tab.inactive:hover {
+            background: #f5f5f5;
+        }
+        
+        /* Section Styles */
+        .section { 
+            display:flex; 
+            padding:80px 60px; 
+            align-items:center; 
+            gap:40px; 
+            max-width:1200px; 
+            margin:0 auto; 
+            flex-wrap: wrap;
+        }
+        
+        .section-image { 
+            width:450px; 
+            border-radius:6px; 
+            max-width: 100%;
+            height: auto;
+            transition: var(--transition);
+        }
+        
+        .section-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .section h2 { 
+            font-size:40px; 
+            margin-bottom:20px; 
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .section ul { 
+            line-height:2; 
+            padding-left: 20px;
+            font-size: 18px;
+        }
+        
+        .btn-link { 
+            color:var(--gold); 
+            font-weight:bold; 
+            letter-spacing:1px; 
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: var(--transition);
+            font-size: 16px;
+            border: 2px solid var(--gold);
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+        
+        .btn-link:hover {
+            background: var(--gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(181, 139, 87, 0.3);
+        }
+        
+        /* Pricing Section */
+        .pricing-wrapper { 
+            display:flex; 
+            gap:20px; 
+            flex-wrap:wrap; 
+            justify-content:center; 
+            padding:80px 0; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .price-card { 
+            width:300px; 
+            border:1px solid #ddd; 
+            padding:40px; 
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .price-card h3 { 
+            letter-spacing:2px; 
+            text-align:center; 
+            color: var(--green);
+            font-size: 24px;
+        }
+        
+        .price-card button { 
+            width:100%; 
+            background:var(--green); 
+            color:white; 
+            padding:15px; 
+            margin-top:20px; 
+            border:none; 
+            font-size:16px; 
+            cursor:pointer;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: bold;
+        }
+        
+        .price-card button:hover {
+            background: #1f352b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Custom CTA */
+        .custom-cta {
+            border-top: 1px solid rgba(0,0,0,0.08);
+            padding: 80px 20px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            max-width: 1200px;
+            margin: 80px auto 0;
+            background: linear-gradient(135deg, #f9f7f4 0%, #f3eadf 100%);
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .custom-cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.5)"/></svg>');
+            background-size: cover;
+        }
+        
+        .custom-cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .custom-cta h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            margin: 0 0 16px;
+            color: var(--green);
+            font-weight: 700;
+        }
+        
+        .custom-cta p {
+            font-size: 18px;
+            margin: 0 0 30px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
+        .custom-cta a {
+            background: var(--gold);
+            border: 2px solid var(--gold);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(184,142,74,0.3);
+            text-decoration: none;
+        }
+        
+        .custom-cta a:hover {
+            background: #fff;
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(184,142,74,0.4);
+        }
+        
+        /* APPROACH SECTION - IMPROVED */
+        .approach-section {
+            background: #f9f7f4;
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .approach-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.5)"/></svg>');
+            background-size: cover;
+        }
+        
+        .approach-container {
+            width: 85%;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .approach-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        
+        .approach-title { 
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .approach-text { 
+            font-size: 17px; 
+            color: var(--muted); 
+            line-height: 1.7; 
+            margin-bottom: 0;
+        }
+        
+        .features { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 50px; 
+        }
+        
+        .feature { 
+            display: flex; 
+            gap: 25px; 
+            align-items: flex-start;
+            transition: var(--transition);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .feature:hover {
+            background: rgba(255,255,255,0.7);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        
+        .feature-icon { 
+            font-size: 24px; 
+            width: 70px;
+            height: 70px;
+            background: var(--gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        
+        .feature:hover .feature-icon {
+            transform: scale(1.1);
+            background: var(--green);
+        }
+        
+        .feature-content {
+            flex: 1;
+        }
+        
+        .feature-title { 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: var(--green); 
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .feature p { 
+            color: var(--muted); 
+            margin: 0; 
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        /* TESTIMONIALS SECTION - IMPROVED */
+        .testimonials {
+            background: linear-gradient(135deg, #f9f7f4 0%, #f3eadf 100%);
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .testimonials:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,0 L100,100 Z" fill="rgba(255,255,255,0.3)"/></svg>');
+            background-size: cover;
+        }
+        
+        .testimonials h3 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 60px;
+            color: var(--green);
+            font-size: 38px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: var(--max);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            font-size: 80px;
+            color: var(--sand);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            opacity: 0.7;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--muted);
+            flex-grow: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .author-info { 
+            flex: 1; 
+        }
+        
+        .author-name {
+            font-weight: 700;
+            color: var(--green);
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+        
+        .author-desc {
+            font-size: 14px;
+            color: var(--muted);
+        }
+        
+        /* FAQ SECTION - IMPROVED */
+        .faq {
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+        
+        .faq h3 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 60px;
+            color: var(--green);
+            font-size: 38px;
+            font-weight: 700;
+        }
+        
+        .faq-item {
+            border-top: 1px solid #eee;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .faq-item:hover {
+            background: var(--light);
+        }
+        
+        .q {
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--green);
+        }
+        
+        .q span {
+            color: var(--gold);
+            font-size: 24px;
+            transition: var(--transition);
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+        
+        .q.open {
+            background: var(--sand);
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .q.open span { 
+            transform: rotate(45deg); 
+        }
+        
+        .answer {
+            padding: 0 20px;
+            color: var(--muted);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .answer.active {
+            padding: 0 20px 25px;
+            max-height: 500px;
+            background: var(--sand);
+            border-radius: 0 0 8px 8px;
+        }
+        
+        /* FOOTER SECTION - IMPROVED */
+        footer {
+            background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
+            color: #fff;
+            padding: 80px 20px 30px;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--green), var(--gold));
+        }
+        
+        footer .inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+        }
+        
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: #fff;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+        }
+        
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        
+        .footer-contact p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .footer-contact i {
+            color: var(--gold);
+            width: 20px;
+            margin-top: 4px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .footer-social a:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            margin-top: 60px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--max);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-legal a {
+            color: rgba(255,255,255,0.6);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .footer-legal a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Services Page Styles */
+        .services-hero {
+            background: #375446;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-top: 80px;
+        }
+        
+        .services-hero h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .services-hero p {
+            margin-top: 10px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .services-tab-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .services-tab-btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            background: #eee;
+            transition: 0.3s;
+            font-family: 'Georgia', serif;
+        }
+        
+        .services-tab-btn.active {
+            background: #d7b47b;
+            color: #fff;
+        }
+        
+        .services-tab-btn:hover {
+            background: #cda56d;
+            color: white;
+        }
+        
+        .services-content {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+            display: none;
+            animation: fade 0.4s ease-in-out;
+        }
+        
+        .services-content.active {
+            display: block;
+        }
+        
+        @keyframes fade {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .services-flex {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .services-flex img {
+            width: 360px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .services-flex div {
+            flex: 1;
+            min-width: 260px;
+        }
+        
+        .services-subtitle {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .services-content h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Modal */
+        #bookModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-box {
+            background: white;
+            padding: 25px;
+            width: 90%;
+            max-width: 420px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .close-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: #375446;
+            color: white;
+            border-radius: 6px;
+        }
+        
+        .services-hero button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            background: #d7b47b;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        
+        .services-hero button:hover {
+            background: #caa067;
+        }
+        
+        /* NEW MEMBERSHIP PAGE STYLES */
+        .membership-hero-image {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: block;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
+        .membership-hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .membership-intro {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .membership-intro h2 {
+            font-size: 36px;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+        }
+        
+        .membership-intro p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .benefits-section {
+            background: #f9f7f4;
+            padding: 80px 0;
+        }
+        
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .benefits-section h2 {
+            text-align: center;
+            font-size: 36px;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 60px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .benefit-item.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .benefit-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .benefit-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .benefit-image img:hover {
+            transform: scale(1.02);
+        }
+        
+        .benefit-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .benefit-content h3 {
+            font-size: 28px;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-content p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 1024px) {
+            .approach-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .testimonial-cards {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .feature {
+                gap: 20px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+            
+            .footer-about {
+                grid-column: 1 / -1;
+            }
+            
+            .benefit-item, .benefit-item.reverse {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: row;
+                padding: 15px 20px;
+                gap: 15px;
+                justify-content: space-between;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 80px 30px 30px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                overflow-y: auto;
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav a {
+                margin: 12px 0;
+                font-size: 18px;
+                width: 100%;
+                padding: 8px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+                padding: 10px 0 10px 20px;
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 15px 0 0;
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+            
+            .hero, .services-hero {
+                padding: 80px 20px;
+                font-size: 32px;
+            }
+            
+            .tabs, .services-tab-container {
+                margin-top: 20px;
+                padding: 0 20px;
+            }
+            
+            .tab, .services-tab-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                margin: 5px;
+            }
+            
+            .section {
+                padding: 40px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section h2 {
+                font-size: 32px;
+            }
+            
+            .approach-section {
+                padding: 70px 0;
+            }
+            
+            .approach-title {
+                font-size: 32px;
+            }
+            
+            .testimonials {
+                padding: 70px 20px;
+            }
+            
+            .testimonials h3, .faq h3 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+            
+            .feature {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .feature-icon {
+                align-self: center;
+            }
+            
+            .q {
+                padding: 20px 15px;
+                font-size: 16px;
+            }
+            
+            .answer {
+                padding: 0 15px;
+            }
+            
+            .answer.active {
+                padding: 0 15px 20px;
+            }
+            
+            .custom-cta {
+                padding: 60px 20px;
+                margin: 60px 20px 0;
+                border-radius: 12px;
+            }
+            
+            .custom-cta h3 {
+                font-size: 28px;
+            }
+            
+            .custom-cta p {
+                font-size: 16px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-legal {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .services-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .services-flex img {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .membership-intro h2 {
+                font-size: 28px;
+            }
+            
+            .benefits-section h2 {
+                font-size: 28px;
+            }
+            
+            .benefit-content h3 {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero, .services-hero {
+                font-size: 24px;
+                padding: 60px 20px;
+            }
+            
+            .section h2 {
+                font-size: 24px;
+            }
+            
+            .approach-title, .testimonials h3, .faq h3 {
+                font-size: 26px;
+            }
+            
+            .price-card {
+                padding: 20px;
+            }
+            
+            .membership-intro h2 {
+                font-size: 24px;
+            }
+            
+            .benefits-section h2 {
+                font-size: 24px;
+            }
+            
+            .benefit-content h3 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Zenlife</div>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="main-nav">
+                <a href="index.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="memberships.html">Memberships</a>
+                <a href="locations.html">Locations</a>
+                <a href="shop.html">Shop</a>
+                <a href="articles.html">Articles</a>
+                <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
+                <a href="get-started.html" class="nav-btn solid">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Home Page -->
+    <div id="home-page" class="page-section active">
+        <!-- Membership Hero Image -->
+        <div class="membership-hero-image">
+            <img src="Membership-header-1.png" alt="Zenlife Membership">
+        </div>
+
+        <!-- Membership Intro -->
+        <div class="membership-intro">
+            <h2>Membership</h2>
+            <p>We welcome any hospital, health service, or organisation with an interest in Health Promotion to join the International HPH Network and become a part of a community with almost 600 health care institutions world-wide. Our network works to support all health care organisations in their efforts to be health-oriented and to ensure that prevention, treatment, and rehabilitation be viewed from a health perspective.</p>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="benefits-section">
+            <div class="benefits-container">
+                <h2>Member Benefits</h2>
+                
+                <div class="benefit-item">
+                    <div class="benefit-image">
+                        <img src="Patients_1.jpg" alt="Patient Care">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Personalized Health Approach</h3>
+                        <p>There are evidence-based arguments for health care institutions to invest in health promotion and to increase focus on health promotion and health policy on health care. Patient and patient organizations will benefit from HPH because we focus on the perceived needs of patients and relatives, creating better chances for self-determination and self-care.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item reverse">
+                    <div class="benefit-image">
+                        <img src="Patients_2.jpg" alt="Health Services">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Quality Service & Care</h3>
+                        <p>These aim to achieve a better quality of hospital service and quality of care, while improving the sustainability of health outcomes. Our comprehensive approach ensures that every aspect of your health journey is supported by expert guidance and evidence-based practices.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-image">
+                        <img src="Patients_3.jpg" alt="Community Support">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Community & Support Network</h3>
+                        <p>Join a community of health-focused individuals and organizations dedicated to promoting wellness. Our network provides ongoing support, resources, and connections to help you achieve your health goals while contributing to a broader movement of health promotion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRICING SECTION -->
+        <div class="pricing-wrapper">
+            <div class="price-card">
+                <h3>MEDICINE</h3>
+                <p style="text-align:center; font-size:28px; color:#b58b57;">$185<br><span style="font-size:14px;color:#777;">Per month</span></p>
+                <p style="text-align:center; font-size:22px; color:#b58b57;">$1,998<br><span style="font-size:14px;color:#777;">Per year (10% off)</span></p>
+                <hr>
+                <ul style="line-height:1.9;">
+                    <li>1 New Patient Visit</li>
+                    <li>4 Follow Up Visits</li>
+                    <li>Unlimited Dietitian Visits</li>
+                    <li>Unlimited Health Coaching</li>
+                    <li>Quarterly Body Composition Scans</li>
+                </ul>
+                <button>BUY NOW</button>
+            </div>
+
+            <div class="price-card">
+                <h3>MEDICINE + MOVEMENT</h3>
+                <p style="text-align:center; font-size:28px; color:#b58b57;">$295<br><span style="font-size:14px;color:#777;">Per month</span></p>
+                <p style="text-align:center; font-size:22px; color:#b58b57;">$3,186<br><span style="font-size:14px;color:#777;">Per year (10% off)</span></p>
+                <hr>
+                <ul style="line-height:1.9;">
+                    <li>Unlimited Group Fitness</li>
+                    <li>1 New Patient Visit</li>
+                    <li>4 Follow Up Visits</li>
+                    <li>Unlimited Dietitian Visits</li>
+                    <li>Unlimited Health Coaching</li>
+                </ul>
+                <button>BUY NOW*</button>
+            </div>
+
+            <div class="price-card">
+                <h3>MOVEMENT</h3>
+                <p style="text-align:center; font-size:28px; color:#b58b57;">$189/mo<br><span style="font-size:14px;color:#777;">3 Months</span></p>
+                <p style="text-align:center; font-size:22px; color:#b58b57;">$169/mo<br><span style="font-size:14px;color:#777;">6 Months (10% off)</span></p>
+                <p style="text-align:center; font-size:20px; color:#b58b57;">12 Months — $150/mo<br>Annually — $1,620</p>
+                <hr>
+                <ul style="line-height:1.9;">
+                    <li>Unlimited Group Fitness</li>
+                    <li>Quarterly Body Composition Scans</li>
+                    <li>Monthly Events</li>
+                </ul>
+                <button>BUY NOW*</button>
+            </div>
+        </div>
+        
+        <!-- custom-cta -->
+        <div class="custom-cta">
+            <div class="custom-cta-content">
+                <h3>Looking for something more tailored?</h3>
+                <p>Ask about our custom membership options designed specifically for your needs.</p>
+                <a href="#"><i class="fas fa-envelope"></i> EMAIL US HERE</a>
+            </div>
+        </div>      
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="inner">
+            <div class="footer-col footer-about">
+                <div class="footer-logo">Zenlife</div>
+                <p>Premium wellness experiences since 2015. We combine medical expertise with personalized fitness programming to help you achieve optimal health and performance.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Atlanta · Roswell · Peachtree City · Nashville · North Charleston</p>
+                <p><i class="fas fa-phone"></i> (404) 254-5905</p>
+                <p><i class="fas fa-envelope"></i> hello@statwellness.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 6am-8pm | Sat: 8am-4pm | Sun: 9am-2pm</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="index.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="memberships.html">Memberships</a>
+                <a href="locations.html">Locations</a>
+                <a href="shop.html">Shop</a>
+                <a href="articles.html">Articles</a>
+                    <a href="#" onclick="openModal()">Book A Visit</a>
+                    <a href="get-started.html">Get Started</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">© 2025 Zenlife. All rights reserved.</div>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="bookModal">
+        <div class="modal-box">
+            <h2>Book Your Free 15-Minute Consult</h2>
+            <p>We'll reach out shortly to confirm your appointment.</p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent event from bubbling up
+                    mainNav.classList.toggle('active');
+                    
+                    // Change icon based on menu state
+                    if (mainNav.classList.contains('active')) {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                    } else {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+                
+                // Close mobile menu when clicking on a link
+                const navLinks = mainNav.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNav = mainNav.contains(event.target);
+                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            }
+            
+            // Initialize page navigation
+            initializePageNavigation();
+        });
+
+        // Page Navigation
+        function initializePageNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link[data-page]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Hide all pages
+                    document.querySelectorAll('.page-section').forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    // Show target page
+                    document.getElementById(targetPage + '-page').classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+        }
+
+        // Tab content data
+        const tabContent = {
+            medicine: {
+                image: "https://placehold.co/600x400/2f4a3f/ffffff?text=Medicine+Program",
+                title: "Wellness Packages Designed for You",
+                listItems: [
+                    "A Functional Medicine approach",
+                    "Health coaching along the way",
+                    "Regular check-ins to provide accountability"
+                ],
+                linkText: "START YOUR JOURNEY >"
+            },
+            "medicine-movement": {
+                image: "https://placehold.co/600x400/2f4a3f/ffffff?text=Medicine+%2B+Movement+Program",
+                title: "Comprehensive Health & Fitness",
+                listItems: [
+                    "Integrated medicine and movement plans",
+                    "Personalized fitness programming",
+                    "Holistic approach to wellness"
+                ],
+                linkText: "EXPLORE THE PROGRAM >"
+            },
+            movement: {
+                image: "https://placehold.co/600x400/2f4a3f/ffffff?text=Movement+Program",
+                title: "Focused Fitness Solutions",
+                listItems: [
+                    "Customized movement plans",
+                    "Expert fitness guidance",
+                    "Community support and accountability"
+                ],
+                linkText: "GET MOVING >"
+            }
+        };
+
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Update tab styles
+                document.querySelectorAll('.tab').forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.add('inactive');
+                });
+                
+                tab.classList.remove('inactive');
+                tab.classList.add('active');
+                
+                // Update section content
+                const content = tabContent[tabId];
+                document.getElementById('section-image').src = content.image;
+                document.getElementById('section-image').alt = content.title;
+                document.getElementById('section-title').textContent = content.title;
+                
+                const listElement = document.getElementById('section-list');
+                listElement.innerHTML = '';
+                content.listItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    listElement.appendChild(li);
+                });
+                
+                document.getElementById('section-link').textContent = content.linkText;
+            });
+        });
+
+        // Services Tabs Logic
+        const servicesTabButtons = document.querySelectorAll(".services-tab-btn");
+        const servicesContents = document.querySelectorAll(".services-content");
+
+        servicesTabButtons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                document.querySelector(".services-tab-btn.active").classList.remove("active");
+                btn.classList.add("active");
+
+                servicesContents.forEach((c) => c.classList.remove("active"));
+                document.getElementById(btn.dataset.tab).classList.add("active");
+            });
+        });
+
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const q = item.querySelector('.q');
+            const answer = item.querySelector('.answer');
+            
+            q.addEventListener('click', () => {
+                const isOpen = answer.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item .answer').forEach(ans => {
+                    ans.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-item .q').forEach(question => {
+                    question.classList.remove('open');
+                });
+                
+                // Open clicked item if it wasn't already open
+                if (!isOpen) {
+                    answer.classList.add('active');
+                    q.classList.add('open');
+                }
+            });
+        });
+
+        // Modal Logic
+        function openModal() {
+            document.getElementById("bookModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("bookModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>

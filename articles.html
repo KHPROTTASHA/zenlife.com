@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenlife - Health & Wellness Articles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --green: #2f4a3f;
+            --gold: #b58b57;
+            --sand: #f9f7f4;
+            --light: #f9f7f4;
+            --muted: #777;
+            --transition: all 0.3s ease;
+            --max: 1200px;
+        }
+        
+        body { 
+            margin:0; 
+            font-family: 'Georgia', serif; 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        header { 
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        
+        .header-container {
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            padding: 15px 20px; 
+            max-width:1200px; 
+            margin:0 auto; 
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--green);
+            z-index: 1001;
+        }
+        
+        nav { 
+            display: flex; 
+            align-items: center; 
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+        
+        nav a { 
+            margin:0 10px; 
+            text-decoration:none; 
+            color:#333; 
+            font-size:15px; 
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--gold);
+        }
+        
+        .dropdown { 
+            position:relative; 
+            display:inline-block; 
+        }
+        
+        .dropdown-menu { 
+            display:none; 
+            position:absolute; 
+            top:100%; 
+            left:0; 
+            background:#fff; 
+            box-shadow:0 2px 8px rgba(0,0,0,0.1); 
+            padding:20px; 
+            width:180px; 
+            z-index: 100;
+            border-radius: 4px;
+        }
+        
+        .dropdown:hover .dropdown-menu { 
+            display:block; 
+        }
+        
+        .nav-btn {
+            padding: 8px 18px;
+            border-radius: 0.1px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: var(--transition);
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .nav-btn.outline {
+            border: 1px solid #333;
+            color: #333;
+            background: transparent;
+        }
+        
+        .nav-btn.outline:hover {
+            background: #333;
+            color: white;
+        }
+        
+        .nav-btn.solid {
+            background: var(--green);
+            color: white;
+            border: none;
+        }
+        
+        .nav-btn.solid:hover {
+            background: #1f352b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--green);
+            z-index: 1001;
+            padding: 10px;
+        }
+        
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding-top: 100px;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        /* Articles Hero Section */
+        .articles-hero {
+            background: linear-gradient(135deg, var(--green) 0%, #1f352b 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-top: 80px;
+        }
+        
+        .articles-hero h1 {
+            font-size: 46px;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .articles-hero p {
+            margin-top: 10px;
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Articles Container */
+        .articles-container {
+            max-width: var(--max);
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        
+        /* Articles Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .article-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
+        
+        .article-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .article-category {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .article-title {
+            font-size: 22px;
+            margin: 0 0 15px;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+        
+        .article-excerpt {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            font-size: 14px;
+            color: var(--muted);
+        }
+        
+        .article-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .read-more {
+            color: var(--gold);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            gap: 12px;
+            color: var(--green);
+        }
+        
+        /* Featured Article */
+        .featured-article {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: var(--sand);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .featured-image {
+            height: 100%;
+            min-height: 350px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-category {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            font-size: 12px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .featured-title {
+            font-size: 32px;
+            margin: 0 0 20px;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+        
+        .featured-excerpt {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        /* Sidebar */
+        .articles-sidebar {
+            background: var(--sand);
+            border-radius: 12px;
+            padding: 30px;
+            height: fit-content;
+        }
+        
+        .sidebar-title {
+            font-size: 22px;
+            color: var(--green);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .categories-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px;
+        }
+        
+        .categories-list li {
+            margin-bottom: 12px;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .categories-list a:hover {
+            color: var(--gold);
+        }
+        
+        .categories-list span {
+            background: var(--green);
+            color: white;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 12px;
+        }
+        
+        .popular-articles {
+            margin-bottom: 30px;
+        }
+        
+        .popular-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .popular-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .popular-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        .popular-content h4 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        
+        .popular-content a {
+            color: var(--green);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .popular-content a:hover {
+            color: var(--gold);
+        }
+        
+        .popular-date {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        
+        .newsletter-sidebar {
+            background: var(--green);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .newsletter-sidebar h3 {
+            font-size: 20px;
+            margin: 0 0 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .newsletter-sidebar p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .newsletter-form input {
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: none;
+            font-family: 'Georgia', serif;
+        }
+        
+        .newsletter-form button {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Georgia', serif;
+        }
+        
+        .newsletter-form button:hover {
+            background: #9c7749;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 60px 0 40px;
+        }
+        
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            border-radius: 50%;
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .pagination a.active, .pagination a:hover {
+            background: var(--gold);
+            color: white;
+        }
+        
+        /* Modal */
+        #bookModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-box {
+            background: white;
+            padding: 25px;
+            width: 90%;
+            max-width: 420px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .close-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: #375446;
+            color: white;
+            border-radius: 6px;
+        }
+        
+        /* FOOTER SECTION */
+        footer {
+            background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
+            color: #fff;
+            padding: 80px 20px 30px;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--green), var(--gold));
+        }
+        
+        footer .inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+        }
+        
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: #fff;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+        }
+        
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        
+        .footer-contact p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .footer-contact i {
+            color: var(--gold);
+            width: 20px;
+            margin-top: 4px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .footer-social a:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            margin-top: 60px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--max);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-legal a {
+            color: rgba(255,255,255,0.6);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .footer-legal a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .articles-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                min-height: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: row;
+                padding: 15px 20px;
+                gap: 15px;
+                justify-content: space-between;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 80px 30px 30px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                overflow-y: auto;
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav a {
+                margin: 12px 0;
+                font-size: 18px;
+                width: 100%;
+                padding: 8px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+                padding: 10px 0 10px 20px;
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 15px 0 0;
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+            
+            .articles-hero {
+                padding: 80px 20px;
+            }
+            
+            .articles-hero h1 {
+                font-size: 36px;
+            }
+            
+            .featured-title {
+                font-size: 26px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-legal {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .articles-hero h1 {
+                font-size: 28px;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Zenlife</div>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="main-nav">
+                <a href="index.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="memberships.html">Memberships</a>
+                <a href="locations.html">Locations</a>
+                <a href="shop.html">Shop</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="articles.html" class="active">Articles</a>
+                <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
+                <a href="get-started.html" class="nav-btn solid">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Articles Page -->
+    <div id="articles-page" class="page-section active">
+        <div class="articles-hero">
+            <h1>Health & Wellness Articles</h1>
+            <p>Explore our collection of expert-written articles on nutrition, fitness, mental health, and holistic wellness to support your journey to optimal health.</p>
+        </div>
+
+        <div class="articles-container">
+            <div class="articles-main">
+                <!-- Featured Article -->
+                <div class="featured-article">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mindfulness Meditation" class="featured-image">
+                    <div class="featured-content">
+                        <span class="featured-category">Mental Health</span>
+                        <h2 class="featured-title">The Science of Mindfulness: How Meditation Changes Your Brain</h2>
+                        <p class="featured-excerpt">Discover the neuroscience behind mindfulness meditation and how regular practice can reshape your brain structure, reduce stress, and improve emotional regulation.</p>
+                        <div class="article-meta">
+                            <div class="article-author">
+                                <div class="author-avatar">JD</div>
+                                <span>Dr. Jane Doe</span>
+                            </div>
+                            <span>May 15, 2023 • 8 min read</span>
+                        </div>
+                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Articles Grid -->
+                <div class="articles-grid">
+                    <!-- Article 1 -->
+                    <div class="article-card">
+                        <img src="https://images.unsplash.com/photo-1494390248081-4e521a5940db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Nutrition" class="article-image">
+                        <div class="article-content">
+                            <span class="article-category">Nutrition</span>
+                            <h3 class="article-title">The Mediterranean Diet: A Complete Guide to Heart-Healthy Eating</h3>
+                            <p class="article-excerpt">Explore the benefits of the Mediterranean diet, including meal plans, recipes, and scientific evidence supporting its role in promoting heart health and longevity.</p>
+                            <div class="article-meta">
+                                <div class="article-author">
+                                    <div class="author-avatar">MS</div>
+                                    <span>Michael Smith</span>
+                                </div>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 2 -->
+                    <div class="article-card">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fitness" class="article-image">
+                        <div class="article-content">
+                            <span class="article-category">Fitness</span>
+                            <h3 class="article-title">Functional Training: Building Strength for Everyday Life</h3>
+                            <p class="article-excerpt">Learn how functional training exercises can improve your daily movements, prevent injuries, and enhance overall physical performance beyond the gym.</p>
+                            <div class="article-meta">
+                                <div class="article-author">
+                                    <div class="author-avatar">RJ</div>
+                                    <span>Robert Johnson</span>
+                                </div>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 3 -->
+                    <div class="article-card">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sleep" class="article-image">
+                        <div class="article-content">
+                            <span class="article-category">Sleep Health</span>
+                            <h3 class="article-title">The Ultimate Guide to Better Sleep: Science-Backed Strategies</h3>
+                            <p class="article-excerpt">Discover evidence-based techniques to improve your sleep quality, from optimizing your sleep environment to establishing healthy bedtime routines.</p>
+                            <div class="article-meta">
+                                <div class="article-author">
+                                    <div class="author-avatar">EW</div>
+                                    <span>Emma Wilson</span>
+                                </div>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 4 -->
+                    <div class="article-card">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Yoga" class="article-image">
+                        <div class="article-content">
+                            <span class="article-category">Yoga & Mobility</span>
+                            <h3 class="article-title">Yoga for Stress Relief: Poses to Calm Your Nervous System</h3>
+                            <p class="article-excerpt">Explore specific yoga poses and sequences designed to activate the parasympathetic nervous system and promote deep relaxation and stress reduction.</p>
+                            <div class="article-meta">
+                                <div class="article-author">
+                                    <div class="author-avatar">SG</div>
+                                    <span>Sarah Green</span>
+                                </div>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 5 -->
+                    <div class="article-card">
+                        <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gut Health" class="article-image">
+                        <div class="article-content">
+                            <span class="article-category">Gut Health</span>
+                            <h3 class="article-title">The Gut-Brain Connection: How Your Digestive Health Affects Mental Wellbeing</h3>
+                            <p class="article-excerpt">Learn about the fascinating link between your gut microbiome and brain function, and discover dietary strategies to support both digestive and mental health.</p>
+                            <div class="article-meta">
+                                <div class="article-author">
+                                    <div class="author-avatar">TB</div>
+                                    <span>Thomas Brown</span>
+                                </div>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 6 -->
+                    <div class="article-card">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Recovery" class="article-image">
+                        <div class="article-content">
+                            <span class="article-category">Recovery</span>
+                            <h3 class="article-title">Optimizing Recovery: The Science Behind Muscle Repair and Growth</h3>
+                            <p class="article-excerpt">Understand the physiological processes of muscle recovery and learn evidence-based strategies to enhance recovery and maximize your training results.</p>
+                            <div class="article-meta">
+                                <div class="article-author">
+                                    <div class="author-avatar">LM</div>
+                                    <span>Lisa Miller</span>
+                                </div>
+                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="articles-sidebar">
+                <div class="categories">
+                    <h3 class="sidebar-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li><a href="#">Nutrition <span>12</span></a></li>
+                        <li><a href="#">Fitness <span>18</span></a></li>
+                        <li><a href="#">Mental Health <span>9</span></a></li>
+                        <li><a href="#">Sleep Health <span>7</span></a></li>
+                        <li><a href="#">Yoga & Mobility <span>11</span></a></li>
+                        <li><a href="#">Gut Health <span>6</span></a></li>
+                        <li><a href="#">Recovery <span>8</span></a></li>
+                        <li><a href="#">Holistic Wellness <span>14</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="popular-articles">
+                    <h3 class="sidebar-title">Popular Articles</h3>
+                    <div class="popular-item">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
+                        <div class="popular-content">
+                            <h4><a href="#">10 Morning Habits That Will Transform Your Day</a></h4>
+                            <div class="popular-date">April 22, 2023</div>
+                        </div>
+                    </div>
+                    <div class="popular-item">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
+                        <div class="popular-content">
+                            <h4><a href="#">The Science of Sleep: Why 8 Hours Isn't Enough for Everyone</a></h4>
+                            <div class="popular-date">March 15, 2023</div>
+                        </div>
+                    </div>
+                    <div class="popular-item">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
+                        <div class="popular-content">
+                            <h4><a href="#">The 5 Most Common Fitness Mistakes and How to Avoid Them</a></h4>
+                            <div class="popular-date">February 28, 2023</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="newsletter-sidebar">
+                    <h3>Join Our Newsletter</h3>
+                    <p>Get the latest health tips and exclusive content delivered to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="inner">
+            <div class="footer-col footer-about">
+                <div class="footer-logo">Zenlife</div>
+                <p>Premium wellness experiences since 2015. We combine medical expertise with personalized fitness programming to help you achieve optimal health and performance.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Atlanta · Roswell · Peachtree City · Nashville · North Charleston</p>
+                <p><i class="fas fa-phone"></i> (404) 254-5905</p>
+                <p><i class="fas fa-envelope"></i> hello@statwellness.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 6am-8pm | Sat: 8am-4pm | Sun: 9am-2pm</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="index.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="memberships.html">Memberships</a>
+                    <a href="locations.html">Locations</a>
+                    <a href="shop.html">Shop</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="#" onclick="openModal()">Book A Visit</a>
+                    <a href="get-started.html">Get Started</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">© 2025 Zenlife. All rights reserved.</div>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="bookModal">
+        <div class="modal-box">
+            <h2>Book Your Free 15-Minute Consult</h2>
+            <p>We'll reach out shortly to confirm your appointment.</p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent event from bubbling up
+                    mainNav.classList.toggle('active');
+                    
+                    // Change icon based on menu state
+                    if (mainNav.classList.contains('active')) {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                    } else {
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+                
+                // Close mobile menu when clicking on a link
+                const navLinks = mainNav.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNav = mainNav.contains(event.target);
+                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            }
+            
+            // Initialize page navigation
+            initializePageNavigation();
+        });
+
+        // Page Navigation
+        function initializePageNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link[data-page]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Hide all pages
+                    document.querySelectorAll('.page-section').forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    
+                    // Show target page
+                    document.getElementById(targetPage + '-page').classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+        }
+
+        // Modal Logic
+        function openModal() {
+            document.getElementById("bookModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("bookModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
