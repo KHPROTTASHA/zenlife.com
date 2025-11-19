@@ -16,6 +16,10 @@
             --max: 1200px;
         }
         
+        * {
+            box-sizing: border-box;
+        }
+        
         body { 
             margin:0; 
             font-family: 'Georgia', serif; 
@@ -71,28 +75,6 @@
         
         nav a:hover {
             color: var(--gold);
-        }
-        
-        .dropdown { 
-            position:relative; 
-            display:inline-block; 
-        }
-        
-        .dropdown-menu { 
-            display:none; 
-            position:absolute; 
-            top:100%; 
-            left:0; 
-            background:#fff; 
-            box-shadow:0 2px 8px rgba(0,0,0,0.1); 
-            padding:20px; 
-            width:180px; 
-            z-index: 100;
-            border-radius: 4px;
-        }
-        
-        .dropdown:hover .dropdown-menu { 
-            display:block; 
         }
         
         .nav-btn {
@@ -207,7 +189,7 @@
         }
 
         /* ===============================
-           TWO COLUMN SECTION 
+           TWO COLUMN SECTION - IMPROVED
         ================================ */
         .two-column-section {
             width: 100%;
@@ -629,6 +611,10 @@
                 width: 100%;
             }
             
+            .left-img, .right-img {
+                height: 400px;
+            }
+            
             .left-box, .right-box {
                 padding: 40px;
             }
@@ -678,18 +664,6 @@
                 border-bottom: 1px solid #f0f0f0;
             }
             
-            .dropdown-menu {
-                position: static;
-                box-shadow: none;
-                width: 100%;
-                padding: 10px 0 10px 20px;
-                display: none;
-            }
-            
-            .dropdown.active .dropdown-menu {
-                display: block;
-            }
-            
             .nav-btn {
                 margin: 15px 0 0;
                 width: 100%;
@@ -719,6 +693,8 @@
                 margin: 80px auto;
                 gap: 20px;
                 padding: 0 15px;
+                display: flex !important;
+                flex-direction: column;
             }
             
             .left-img, .right-img {
@@ -762,12 +738,14 @@
             .hero {
                 font-size: 28px;
                 padding: 60px 15px;
+                margin-top: 70px;
             }
             
             .tab {
                 padding: 10px 12px;
                 font-size: 12px;
                 min-width: 90px;
+                flex-basis: calc(50% - 10px);
             }
             
             .left-box, .right-box {
@@ -790,6 +768,14 @@
             .footer-legal {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .service-card {
+                margin-bottom: 20px;
             }
         }
 
@@ -1124,7 +1110,7 @@
                     const selectedSection = document.getElementById(tabType + '-section');
                     selectedSection.style.display = 'flex';
                     
-                    // Reorder sections on mobile for better visual flow
+                    // Apply mobile ordering if needed
                     if (window.innerWidth <= 768) {
                         const imgElement = selectedSection.querySelector('.left-img, .right-img');
                         const boxElement = selectedSection.querySelector('.left-box, .right-box');
