@@ -73,6 +73,28 @@
             color: var(--gold);
         }
         
+        .dropdown { 
+            position:relative; 
+            display:inline-block; 
+        }
+        
+        .dropdown-menu { 
+            display:none; 
+            position:absolute; 
+            top:100%; 
+            left:0; 
+            background:#fff; 
+            box-shadow:0 2px 8px rgba(0,0,0,0.1); 
+            padding:20px; 
+            width:180px; 
+            z-index: 100;
+            border-radius: 4px;
+        }
+        
+        .dropdown:hover .dropdown-menu { 
+            display:block; 
+        }
+        
         .nav-btn {
             padding: 8px 18px;
             border-radius: 0.1px;
@@ -118,6 +140,16 @@
             padding: 10px;
         }
         
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding-top: 100px;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
         /* Hero Section */
         .hero { 
             background:var(--green); 
@@ -126,21 +158,17 @@
             font-size:50px; 
             text-align:center; 
             font-family: 'Playfair Display', serif;
-            margin-top: 80px;
         }
         
-        /* Tab Container */
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            margin: -40px auto 0;
-            max-width: 1200px;
-            padding: 0 20px;
+        .tabs { 
+            display:flex; 
+            justify-content:center; 
+            margin-top:-40px; 
             flex-wrap: wrap;
         }
         
         .tab { 
-            padding:15px 20px; 
+            padding:15px 40px; 
             background:var(--gold); 
             margin:0 5px; 
             color:#fff; 
@@ -150,9 +178,6 @@
             border: none;
             font-size: 16px;
             border-radius: 4px;
-            flex: 1;
-            min-width: 150px;
-            margin-bottom: 10px;
         }
         
         .tab:hover {
@@ -176,81 +201,127 @@
             background: #f5f5f5;
         }
 
-        /* Content Container */
-        .content-container {
+        /* ===============================
+           TWO COLUMN SECTION 
+        ================================ */
+        .two-column-section {
+            width: 100%;
             max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 20px;
+            margin: 150px auto;
+            display: flex;
+            align-items: stretch;
+            gap: 60px;
         }
 
-        /* Service Cards */
-        .service-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .service-card {
-            background: #f9f9f9;
-            border-radius: 8px;
+        /* IMAGE DIV */
+        .left-img,
+        .right-img {
+            width: 50%;
+            height: 500px;
             overflow: hidden;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            position: relative;
+            transition: transform 0.4s ease;
         }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
-        .service-card-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .service-card-img img {
+
+        .left-img img,
+        .right-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
-        }
-        
-        .service-card:hover .service-card-img img {
-            transform: scale(1.05);
-        }
-        
-        .service-card-content {
-            padding: 25px;
-        }
-        
-        .service-card h3 {
-            margin-top: 0;
-            color: var(--green);
-            font-size: 22px;
-        }
-        
-        .service-card p {
-            color: var(--muted);
-            margin-bottom: 20px;
-        }
-        
-        .service-card-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--green);
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: var(--transition);
-            font-weight: 600;
-        }
-        
-        .service-card-btn:hover {
-            background: #1f352b;
+            transition: transform 0.5s ease;
         }
 
-        /* FOOTER SECTION */
+        /* HOVER ZOOM */
+        .left-img:hover,
+        .right-img:hover {
+            transform: scale(1.05);
+        }
+
+        .left-img:hover img,
+        .right-img:hover img {
+            transform: scale(1.12);
+        }
+
+        /* TEXT BOX */
+        .right-box,
+        .left-box {
+            width: 50%;
+            background: #f7f7f5;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .cat {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #8b8b6f;
+        }
+
+        .right-box h2,
+        .left-box h2 {
+            margin: 10px 0 20px;
+            font-size: 32px;
+            color: #2a2a2a;
+        }
+
+        .right-box p,
+        .left-box p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #6b6b6b;
+            margin-bottom: 35px;
+        }
+
+        /* LEARN MORE BUTTON */
+        .learn-btn {
+            width: 150px;
+            padding: 12px 0;
+            border: 1px solid #274a3f;
+            background: white;
+            color: #274a3f;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+            transition: 0.2s;
+        }
+
+        .learn-btn:hover {
+            background: #274a3f;
+            color: white;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding-top: 100px;
+        }
+
+        /* New Pages */
+        .page-hero {
+            background: var(--green);
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-top: 80px;
+        }
+
+        .page-hero h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .page-content {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* FOOTER SECTION - IMPROVED */
         footer {
             background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
             color: #fff;
@@ -401,6 +472,231 @@
             color: rgba(255,255,255,0.6);
         }
 
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .header-container {
+                padding: 20px 30px;
+            }
+            
+            .hero {
+                font-size: 40px;
+                padding: 100px 30px;
+                text-align: center;
+            }
+            
+            .tab {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+            
+            .two-column-section {
+                flex-direction: column;
+                margin: 100px auto;
+                gap: 30px;
+            }
+            
+            .left-img, .right-img, .left-box, .right-box {
+                width: 100%;
+            }
+            
+            .left-box, .right-box {
+                padding: 40px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                padding: 15px 20px;
+                gap: 15px;
+                justify-content: space-between;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 80px 30px 30px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                overflow-y: auto;
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav a {
+                margin: 12px 0;
+                font-size: 18px;
+                width: 100%;
+                padding: 8px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+                padding: 10px 0 10px 20px;
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 15px 0 0;
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+            
+            .hero, .services-hero, .page-hero, .get-started-hero {
+                padding: 80px 20px;
+                font-size: 32px;
+            }
+            
+            .tabs, .services-tab-container, .get-started-tab-container {
+                margin-top: 20px;
+                padding: 0 20px;
+            }
+            
+            .tab, .services-tab-btn, .get-started-tab-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                margin: 5px;
+            }
+            
+            .section {
+                padding: 40px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section h2 {
+                font-size: 32px;
+            }
+            
+            .approach-section {
+                padding: 70px 0;
+            }
+            
+            .approach-title {
+                font-size: 32px;
+            }
+            
+            .testimonials {
+                padding: 70px 20px;
+            }
+            
+            .testimonials h3, .faq h3 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+            
+            .feature {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .feature-icon {
+                align-self: center;
+            }
+            
+            .q {
+                padding: 20px 15px;
+                font-size: 16px;
+            }
+            
+            .answer {
+                padding: 0 15px;
+            }
+            
+            .answer.active {
+                padding: 0 15px 20px;
+            }
+            
+            .custom-cta {
+                padding: 60px 20px;
+                margin: 60px 20px 0;
+                border-radius: 12px;
+            }
+            
+            .custom-cta h3 {
+                font-size: 28px;
+            }
+            
+            .custom-cta p {
+                font-size: 16px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-legal {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .services-flex, .get-started-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .services-flex img, .get-started-flex img {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                font-size: 28px;
+                padding: 60px 15px;
+                text-align: center;
+            }
+            
+            .left-box, .right-box {
+                padding: 20px;
+            }
+            
+            .left-box h2, .right-box h2 {
+                font-size: 24px;
+            }
+            
+            .page-hero h1 {
+                font-size: 32px;
+            }
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -467,138 +763,60 @@
             background: #1f352b;
         }
 
-        /* Responsive Styles */
-        @media (max-width: 1024px) {
-            .header-container {
-                padding: 20px 30px;
-            }
-            
-            .hero {
-                font-size: 40px;
-                padding: 100px 30px;
-                text-align: center;
-            }
-            
-            .tab {
-                padding: 12px 25px;
-                font-size: 14px;
-            }
-            
-            footer .inner {
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
-            }
+        /* Added styles for demo content */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: row;
-                padding: 15px 20px;
-                gap: 15px;
-                justify-content: space-between;
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
-            nav {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background: white;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
-                padding: 80px 30px 30px;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-                z-index: 1000;
-                transition: right 0.3s ease;
-                overflow-y: auto;
-            }
-            
-            nav.active {
-                right: 0;
-            }
-            
-            nav a {
-                margin: 12px 0;
-                font-size: 18px;
-                width: 100%;
-                padding: 8px 0;
-                border-bottom: 1px solid #f0f0f0;
-            }
-            
-            .nav-btn {
-                margin: 15px 0 0;
-                width: 100%;
-                text-align: center;
-                padding: 12px;
-            }
-            
-            .hero {
-                padding: 80px 20px;
-                font-size: 32px;
-                margin-top: 70px;
-            }
-            
-            .tab-container {
-                margin-top: 20px;
-                padding: 0 20px;
-            }
-            
-            .tab {
-                padding: 12px 15px;
-                font-size: 14px;
-                margin: 5px;
-                min-width: 120px;
-            }
-            
-            .content-container {
-                margin: 40px auto;
-                padding: 0 20px;
-            }
-            
-            .service-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            footer .inner {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .footer-legal {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
+        
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
         }
-
-        @media (max-width: 480px) {
-            .hero {
-                font-size: 28px;
-                padding: 60px 15px;
-                text-align: center;
-            }
-            
-            .tab-container {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .tab {
-                width: 100%;
-                margin: 2px 0;
-            }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .service-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            margin-top: 0;
+            color: var(--green);
+        }
+        
+        .service-content p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
+        .service-features {
+            margin: 20px 0;
+        }
+        
+        .service-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .service-feature i {
+            color: var(--gold);
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -625,81 +843,160 @@
     <!-- Main Home Page Content -->
     <div class="hero">Services That Work for You</div>
 
-    <!-- Tab Container -->
-    <div class="tab-container">
-        <button class="tab active" data-tab="all">ALL SERVICES</button>
-        <button class="tab inactive" data-tab="medicine">MEDICINE</button>
+    <div class="tabs">
+        <button class="tab active" data-tab="medicine">MEDICINE</button>
         <button class="tab inactive" data-tab="physical_therapy">Physical Therapy</button>
         <button class="tab inactive" data-tab="fitness">Fitness</button>
         <button class="tab inactive" data-tab="biometrics">Biometrics</button>
         <button class="tab inactive" data-tab="treatments">Treatments</button>
     </div>
 
-    <!-- Content Container with All Services -->
-    <div class="content-container">
-        <div class="service-cards" id="services-container">
-            <!-- Medicine Service -->
-            <div class="service-card" data-category="medicine">
-                <div class="service-card-img">
-                    <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Medical Consultation">
-                </div>
-                <div class="service-card-content">
-                    <span class="cat">MEDICINE</span>
-                    <h3>Personalized Care</h3>
-                    <p>We believe that healthcare isn't just for the sick — it's for everyone. Our medical team provides comprehensive care tailored to your unique needs, from preventive screenings to chronic condition management.</p>
-                    <a href="#" class="service-card-btn" onclick="openModal()">LEARN MORE</a>
+    <!-- SECTION 1 - Medicine -->
+    <section class="two-column-section active-section" id="medicine-section">
+        <div class="left-img">
+            <img src="dr.4.avif">
+        </div>
+
+        <div class="right-box">
+            <span class="cat">MEDICINE</span>
+            <h2>Personalized Care</h2>
+            <p>
+                We believe that healthcare isn't just for the sick — it's for everyone. Our medical team provides comprehensive care tailored to your unique needs, from preventive screenings to chronic condition management.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+    </section>
+
+    <!-- SECTION 2 - Physical Therapy -->
+    <section class="two-column-section" id="physical_therapy-section" style="display:none;">
+        <div class="left-box">
+            <span class="cat">PHYSICAL THERAPY</span>
+            <h2>Physical Therapy Care</h2>
+            <p>
+                Our physical therapy services help you recover from injuries, improve mobility, and enhance performance. We combine evidence-based techniques with personalized attention to help you achieve your rehabilitation goals.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+
+        <div class="right-img">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Physical Therapy">
+        </div>
+    </section>
+
+    <!-- SECTION 3 - Fitness -->
+    <section class="two-column-section" id="fitness-section" style="display:none;">
+        <div class="left-img">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fitness Training">
+        </div>
+        <div class="right-box">
+            <span class="cat">FITNESS</span>
+            <h2>Fitness Training</h2>
+            <p>
+                Our certified trainers create personalized fitness programs to help you reach your goals, whether it's weight loss, strength building, or improving athletic performance. We offer one-on-one sessions and small group classes.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+    </section>
+
+    <!-- SECTION 4 - Biometrics -->
+    <section class="two-column-section" id="biometrics-section" style="display:none;">
+        <div class="left-box">
+            <span class="cat">BIOMETRICS</span>
+            <h2>Advanced Health Metrics</h2>
+            <p>
+                Our biometric screening services provide detailed insights into your health status. We use state-of-the-art technology to measure key health indicators and help you track progress toward your wellness goals.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+        <div class="right-img">
+            <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Biometric Screening">
+        </div>
+    </section>
+
+    <!-- SECTION 5 - Treatments -->
+    <section class="two-column-section" id="treatments-section" style="display:none;">
+        <div class="left-img">
+            <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Wellness Treatments">
+        </div>
+        <div class="right-box">
+            <span class="cat">TREATMENTS</span>
+            <h2>Specialized Wellness Treatments</h2>
+            <p>
+                From therapeutic massages to specialized wellness treatments, our holistic approach helps restore balance and promote healing. Our treatments are designed to complement your overall health and wellness journey.
+            </p>
+            <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
+        </div>
+    </section>
+
+    <!-- Additional Services Grid -->
+    <div class="page-content">
+        <div class="service-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Nutrition Counseling" class="service-img">
+                <div class="service-content">
+                    <h3>Nutrition Counseling</h3>
+                    <p>Personalized nutrition plans designed to support your health goals and lifestyle.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Custom meal planning</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Dietary analysis</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Supplement guidance</span>
+                        </div>
+                    </div>
+                    <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
                 </div>
             </div>
-
-            <!-- Physical Therapy Service -->
-            <div class="service-card" data-category="physical_therapy">
-                <div class="service-card-img">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Physical Therapy">
-                </div>
-                <div class="service-card-content">
-                    <span class="cat">PHYSICAL THERAPY</span>
-                    <h3>Physical Therapy Care</h3>
-                    <p>Our physical therapy services help you recover from injuries, improve mobility, and enhance performance. We combine evidence-based techniques with personalized attention to help you achieve your rehabilitation goals.</p>
-                    <a href="#" class="service-card-btn" onclick="openModal()">LEARN MORE</a>
-                </div>
-            </div>
-
-            <!-- Fitness Service -->
-            <div class="service-card" data-category="fitness">
-                <div class="service-card-img">
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fitness Training">
-                </div>
-                <div class="service-card-content">
-                    <span class="cat">FITNESS</span>
-                    <h3>Fitness Training</h3>
-                    <p>Our certified trainers create personalized fitness programs to help you reach your goals, whether it's weight loss, strength building, or improving athletic performance. We offer one-on-one sessions and small group classes.</p>
-                    <a href="#" class="service-card-btn" onclick="openModal()">LEARN MORE</a>
+            
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Mental Wellness" class="service-img">
+                <div class="service-content">
+                    <h3>Mental Wellness</h3>
+                    <p>Comprehensive mental health support including therapy, mindfulness, and stress management.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Therapy sessions</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Meditation guidance</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Stress reduction techniques</span>
+                        </div>
+                    </div>
+                    <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
                 </div>
             </div>
-
-            <!-- Biometrics Service -->
-            <div class="service-card" data-category="biometrics">
-                <div class="service-card-img">
-                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Biometrics">
-                </div>
-                <div class="service-card-content">
-                    <span class="cat">BIOMETRICS</span>
-                    <h3>Advanced Health Metrics</h3>
-                    <p>Our biometric screening services provide comprehensive health data to help you understand your body better. We measure key indicators like body composition, metabolic rate, and cardiovascular health to create personalized wellness plans.</p>
-                    <a href="#" class="service-card-btn" onclick="openModal()">LEARN MORE</a>
-                </div>
-            </div>
-
-            <!-- Treatments Service -->
-            <div class="service-card" data-category="treatments">
-                <div class="service-card-img">
-                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Treatments">
-                </div>
-                <div class="service-card-content">
-                    <span class="cat">TREATMENTS</span>
-                    <h3>Specialized Treatments</h3>
-                    <p>From acupuncture and massage therapy to cryotherapy and infrared sauna sessions, our specialized treatments help reduce stress, alleviate pain, and promote overall wellness. Experience our state-of-the-art facilities and expert practitioners.</p>
-                    <a href="#" class="service-card-btn" onclick="openModal()">LEARN MORE</a>
+            
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Corporate Wellness" class="service-img">
+                <div class="service-content">
+                    <h3>Corporate Wellness</h3>
+                    <p>Custom wellness programs designed to improve employee health and productivity.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>On-site health screenings</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Workshop series</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Team fitness challenges</span>
+                        </div>
+                    </div>
+                    <button class="learn-btn" onclick="openModal()">LEARN MORE</button>
                 </div>
             </div>
         </div>
@@ -817,49 +1114,76 @@
                 });
             }
             
-            // Initialize tab functionality
-            initializeTabNavigation();
+            // Initialize page navigation
+            initializePageNavigation();
+            
+            // Initialize get started tabs
+            initializeGetStartedTabs();
         });
 
-        // Tab Functionality
-        function initializeTabNavigation() {
-            const tabs = document.querySelectorAll('.tab');
-            const serviceCards = document.querySelectorAll('.service-card');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Update tab states
-                    tabs.forEach(t => {
-                        t.classList.remove('active');
-                        t.classList.add('inactive');
+        // Page Navigation
+        function initializePageNavigation() {
+            // Get all navigation elements with data-page attribute
+            const navElements = document.querySelectorAll('[data-page]');
+            
+            navElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Hide all pages
+                    document.querySelectorAll('.page-section').forEach(page => {
+                        page.classList.remove('active');
                     });
                     
-                    this.classList.remove('inactive');
-                    this.classList.add('active');
+                    // Show target page
+                    document.getElementById(targetPage + '-page').classList.add('active');
                     
-                    // Filter service cards based on selected tab
-                    const selectedCategory = this.getAttribute('data-tab');
+                    // Scroll to top
+                    window.scrollTo(0, 0);
                     
-                    serviceCards.forEach(card => {
-                        if (selectedCategory === 'all') {
-                            card.style.display = 'block';
-                        } else {
-                            if (card.getAttribute('data-category') === selectedCategory) {
-                                card.style.display = 'block';
-                            } else {
-                                card.style.display = 'none';
-                            }
-                        }
-                    });
-                    
-                    // Smooth scroll to the services container
-                    document.getElementById('services-container').scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
+                    // Close mobile menu if open
+                    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+                    const mainNav = document.getElementById('main-nav');
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
                 });
             });
         }
+
+        // Tab Functionality
+        const tabs = document.querySelectorAll('.tab');
+        const sections = document.querySelectorAll('.two-column-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Update tab states
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.add('inactive');
+                });
+                
+                this.classList.remove('inactive');
+                this.classList.add('active');
+                
+                // Hide all sections
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show the selected section
+                const tabType = this.getAttribute('data-tab');
+                document.getElementById(tabType + '-section').style.display = 'flex';
+                
+                // Smooth scroll to the section
+                document.getElementById(tabType + '-section').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
 
         // Modal Functions
         function openModal() {
