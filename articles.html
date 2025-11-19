@@ -16,6 +16,10 @@
             --max: 1200px;
         }
         
+        * {
+            box-sizing: border-box;
+        }
+        
         body { 
             margin:0; 
             font-family: 'Georgia', serif; 
@@ -23,6 +27,7 @@
             overflow-x: hidden;
         }
         
+        /* Header & Navigation */
         header { 
             position: fixed;
             top: 0;
@@ -38,7 +43,7 @@
             display:flex; 
             justify-content:space-between; 
             align-items:center; 
-            padding: 15px 20px; 
+            padding:15px 20px; 
             max-width:1200px; 
             margin:0 auto; 
             flex-wrap: wrap;
@@ -68,35 +73,13 @@
             transition: var(--transition);
         }
         
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: var(--gold);
-        }
-        
-        .dropdown { 
-            position:relative; 
-            display:inline-block; 
-        }
-        
-        .dropdown-menu { 
-            display:none; 
-            position:absolute; 
-            top:100%; 
-            left:0; 
-            background:#fff; 
-            box-shadow:0 2px 8px rgba(0,0,0,0.1); 
-            padding:20px; 
-            width:180px; 
-            z-index: 100;
-            border-radius: 4px;
-        }
-        
-        .dropdown:hover .dropdown-menu { 
-            display:block; 
         }
         
         .nav-btn {
             padding: 8px 18px;
-            border-radius: 0.1px;
+            border-radius: 4px;
             text-decoration: none;
             font-size: 15px;
             transition: var(--transition);
@@ -137,16 +120,6 @@
             color: var(--green);
             z-index: 1001;
             padding: 10px;
-        }
-        
-        /* Page Sections */
-        .page-section {
-            display: none;
-            padding-top: 100px;
-        }
-        
-        .page-section.active {
-            display: block;
         }
         
         /* Articles Hero Section */
@@ -522,33 +495,69 @@
         }
         
         /* Modal */
-        #bookModal {
+        .modal {
             display: none;
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
         }
         
-        .modal-box {
-            background: white;
-            padding: 25px;
-            width: 90%;
-            max-width: 420px;
+        .modal-content {
+            background-color: white;
+            padding: 40px;
             border-radius: 8px;
-            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
         }
         
-        .close-btn {
-            margin-top: 15px;
-            padding: 10px 20px;
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
             cursor: pointer;
-            border: none;
-            background: #375446;
+            color: var(--muted);
+        }
+        
+        .modal h2 {
+            margin-top: 0;
+            color: var(--green);
+        }
+        
+        .modal form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .modal input, .modal select, .modal textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .modal button {
+            background: var(--green);
             color: white;
-            border-radius: 6px;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .modal button:hover {
+            background: #1f352b;
         }
         
         /* FOOTER SECTION */
@@ -702,7 +711,9 @@
             color: rgba(255,255,255,0.6);
         }
         
-        /* Responsive Design */
+        /* ===============================
+           RESPONSIVE STYLES
+        ================================ */
         @media (max-width: 1024px) {
             .articles-container {
                 grid-template-columns: 1fr;
@@ -718,11 +729,8 @@
         }
         
         @media (max-width: 768px) {
-            header {
-                flex-direction: row;
+            .header-container {
                 padding: 15px 20px;
-                gap: 15px;
-                justify-content: space-between;
             }
             
             .mobile-menu-toggle {
@@ -759,18 +767,6 @@
                 border-bottom: 1px solid #f0f0f0;
             }
             
-            .dropdown-menu {
-                position: static;
-                box-shadow: none;
-                width: 100%;
-                padding: 10px 0 10px 20px;
-                display: none;
-            }
-            
-            .dropdown.active .dropdown-menu {
-                display: block;
-            }
-            
             .nav-btn {
                 margin: 15px 0 0;
                 width: 100%;
@@ -780,6 +776,7 @@
             
             .articles-hero {
                 padding: 80px 20px;
+                margin-top: 70px;
             }
             
             .articles-hero h1 {
@@ -788,6 +785,10 @@
             
             .featured-title {
                 font-size: 26px;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
             }
             
             footer .inner {
@@ -808,17 +809,38 @@
         }
         
         @media (max-width: 480px) {
+            .articles-hero {
+                padding: 60px 15px;
+            }
+            
             .articles-hero h1 {
                 font-size: 28px;
             }
             
-            .articles-grid {
-                grid-template-columns: 1fr;
+            .articles-hero p {
+                font-size: 16px;
             }
             
             .featured-title {
                 font-size: 22px;
             }
+            
+            .featured-content {
+                padding: 25px 20px;
+            }
+            
+            .articles-sidebar {
+                padding: 20px 15px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Fix for mobile menu scrolling */
+        body.menu-open {
+            overflow: hidden;
         }
     </style>
 </head>
@@ -843,197 +865,219 @@
     </header>
 
     <!-- Articles Page -->
-    <div id="articles-page" class="page-section active">
-        <div class="articles-hero">
-            <h1>Health & Wellness Articles</h1>
-            <p>Explore our collection of expert-written articles on nutrition, fitness, mental health, and holistic wellness to support your journey to optimal health.</p>
-        </div>
+    <div class="articles-hero">
+        <h1>Health & Wellness Articles</h1>
+        <p>Explore our collection of expert-written articles on nutrition, fitness, mental health, and holistic wellness to support your journey to optimal health.</p>
+    </div>
 
-        <div class="articles-container">
-            <div class="articles-main">
-                <!-- Featured Article -->
-                <div class="featured-article">
-                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mindfulness Meditation" class="featured-image">
-                    <div class="featured-content">
-                        <span class="featured-category">Mental Health</span>
-                        <h2 class="featured-title">The Science of Mindfulness: How Meditation Changes Your Brain</h2>
-                        <p class="featured-excerpt">Discover the neuroscience behind mindfulness meditation and how regular practice can reshape your brain structure, reduce stress, and improve emotional regulation.</p>
+    <div class="articles-container">
+        <div class="articles-main">
+            <!-- Featured Article -->
+            <div class="featured-article">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mindfulness Meditation" class="featured-image">
+                <div class="featured-content">
+                    <span class="featured-category">Mental Health</span>
+                    <h2 class="featured-title">The Science of Mindfulness: How Meditation Changes Your Brain</h2>
+                    <p class="featured-excerpt">Discover the neuroscience behind mindfulness meditation and how regular practice can reshape your brain structure, reduce stress, and improve emotional regulation.</p>
+                    <div class="article-meta">
+                        <div class="article-author">
+                            <div class="author-avatar">JD</div>
+                            <span>Dr. Jane Doe</span>
+                        </div>
+                        <span>May 15, 2023 • 8 min read</span>
+                    </div>
+                    <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Articles Grid -->
+            <div class="articles-grid">
+                <!-- Article 1 -->
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1494390248081-4e521a5940db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Nutrition" class="article-image">
+                    <div class="article-content">
+                        <span class="article-category">Nutrition</span>
+                        <h3 class="article-title">The Mediterranean Diet: A Complete Guide to Heart-Healthy Eating</h3>
+                        <p class="article-excerpt">Explore the benefits of the Mediterranean diet, including meal plans, recipes, and scientific evidence supporting its role in promoting heart health and longevity.</p>
                         <div class="article-meta">
                             <div class="article-author">
-                                <div class="author-avatar">JD</div>
-                                <span>Dr. Jane Doe</span>
+                                <div class="author-avatar">MS</div>
+                                <span>Michael Smith</span>
                             </div>
-                            <span>May 15, 2023 • 8 min read</span>
-                        </div>
-                        <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Articles Grid -->
-                <div class="articles-grid">
-                    <!-- Article 1 -->
-                    <div class="article-card">
-                        <img src="https://images.unsplash.com/photo-1494390248081-4e521a5940db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Nutrition" class="article-image">
-                        <div class="article-content">
-                            <span class="article-category">Nutrition</span>
-                            <h3 class="article-title">The Mediterranean Diet: A Complete Guide to Heart-Healthy Eating</h3>
-                            <p class="article-excerpt">Explore the benefits of the Mediterranean diet, including meal plans, recipes, and scientific evidence supporting its role in promoting heart health and longevity.</p>
-                            <div class="article-meta">
-                                <div class="article-author">
-                                    <div class="author-avatar">MS</div>
-                                    <span>Michael Smith</span>
-                                </div>
-                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 2 -->
-                    <div class="article-card">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fitness" class="article-image">
-                        <div class="article-content">
-                            <span class="article-category">Fitness</span>
-                            <h3 class="article-title">Functional Training: Building Strength for Everyday Life</h3>
-                            <p class="article-excerpt">Learn how functional training exercises can improve your daily movements, prevent injuries, and enhance overall physical performance beyond the gym.</p>
-                            <div class="article-meta">
-                                <div class="article-author">
-                                    <div class="author-avatar">RJ</div>
-                                    <span>Robert Johnson</span>
-                                </div>
-                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 3 -->
-                    <div class="article-card">
-                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sleep" class="article-image">
-                        <div class="article-content">
-                            <span class="article-category">Sleep Health</span>
-                            <h3 class="article-title">The Ultimate Guide to Better Sleep: Science-Backed Strategies</h3>
-                            <p class="article-excerpt">Discover evidence-based techniques to improve your sleep quality, from optimizing your sleep environment to establishing healthy bedtime routines.</p>
-                            <div class="article-meta">
-                                <div class="article-author">
-                                    <div class="author-avatar">EW</div>
-                                    <span>Emma Wilson</span>
-                                </div>
-                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 4 -->
-                    <div class="article-card">
-                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Yoga" class="article-image">
-                        <div class="article-content">
-                            <span class="article-category">Yoga & Mobility</span>
-                            <h3 class="article-title">Yoga for Stress Relief: Poses to Calm Your Nervous System</h3>
-                            <p class="article-excerpt">Explore specific yoga poses and sequences designed to activate the parasympathetic nervous system and promote deep relaxation and stress reduction.</p>
-                            <div class="article-meta">
-                                <div class="article-author">
-                                    <div class="author-avatar">SG</div>
-                                    <span>Sarah Green</span>
-                                </div>
-                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 5 -->
-                    <div class="article-card">
-                        <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gut Health" class="article-image">
-                        <div class="article-content">
-                            <span class="article-category">Gut Health</span>
-                            <h3 class="article-title">The Gut-Brain Connection: How Your Digestive Health Affects Mental Wellbeing</h3>
-                            <p class="article-excerpt">Learn about the fascinating link between your gut microbiome and brain function, and discover dietary strategies to support both digestive and mental health.</p>
-                            <div class="article-meta">
-                                <div class="article-author">
-                                    <div class="author-avatar">TB</div>
-                                    <span>Thomas Brown</span>
-                                </div>
-                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 6 -->
-                    <div class="article-card">
-                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Recovery" class="article-image">
-                        <div class="article-content">
-                            <span class="article-category">Recovery</span>
-                            <h3 class="article-title">Optimizing Recovery: The Science Behind Muscle Repair and Growth</h3>
-                            <p class="article-excerpt">Understand the physiological processes of muscle recovery and learn evidence-based strategies to enhance recovery and maximize your training results.</p>
-                            <div class="article-meta">
-                                <div class="article-author">
-                                    <div class="author-avatar">LM</div>
-                                    <span>Lisa Miller</span>
-                                </div>
-                                <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
-                            </div>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Pagination -->
-                <div class="pagination">
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                <!-- Article 2 -->
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fitness" class="article-image">
+                    <div class="article-content">
+                        <span class="article-category">Fitness</span>
+                        <h3 class="article-title">Functional Training: Building Strength for Everyday Life</h3>
+                        <p class="article-excerpt">Learn how functional training exercises can improve your daily movements, prevent injuries, and enhance overall physical performance beyond the gym.</p>
+                        <div class="article-meta">
+                            <div class="article-author">
+                                <div class="author-avatar">RJ</div>
+                                <span>Robert Johnson</span>
+                            </div>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sleep" class="article-image">
+                    <div class="article-content">
+                        <span class="article-category">Sleep Health</span>
+                        <h3 class="article-title">The Ultimate Guide to Better Sleep: Science-Backed Strategies</h3>
+                        <p class="article-excerpt">Discover evidence-based techniques to improve your sleep quality, from optimizing your sleep environment to establishing healthy bedtime routines.</p>
+                        <div class="article-meta">
+                            <div class="article-author">
+                                <div class="author-avatar">EW</div>
+                                <span>Emma Wilson</span>
+                            </div>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 4 -->
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Yoga" class="article-image">
+                    <div class="article-content">
+                        <span class="article-category">Yoga & Mobility</span>
+                        <h3 class="article-title">Yoga for Stress Relief: Poses to Calm Your Nervous System</h3>
+                        <p class="article-excerpt">Explore specific yoga poses and sequences designed to activate the parasympathetic nervous system and promote deep relaxation and stress reduction.</p>
+                        <div class="article-meta">
+                            <div class="article-author">
+                                <div class="author-avatar">SG</div>
+                                <span>Sarah Green</span>
+                            </div>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 5 -->
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gut Health" class="article-image">
+                    <div class="article-content">
+                        <span class="article-category">Gut Health</span>
+                        <h3 class="article-title">The Gut-Brain Connection: How Your Digestive Health Affects Mental Wellbeing</h3>
+                        <p class="article-excerpt">Learn about the fascinating link between your gut microbiome and brain function, and discover dietary strategies to support both digestive and mental health.</p>
+                        <div class="article-meta">
+                            <div class="article-author">
+                                <div class="author-avatar">TB</div>
+                                <span>Thomas Brown</span>
+                            </div>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 6 -->
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Recovery" class="article-image">
+                    <div class="article-content">
+                        <span class="article-category">Recovery</span>
+                        <h3 class="article-title">Optimizing Recovery: The Science Behind Muscle Repair and Growth</h3>
+                        <p class="article-excerpt">Understand the physiological processes of muscle recovery and learn evidence-based strategies to enhance recovery and maximize your training results.</p>
+                        <div class="article-meta">
+                            <div class="article-author">
+                                <div class="author-avatar">LM</div>
+                                <span>Lisa Miller</span>
+                            </div>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Sidebar -->
-            <div class="articles-sidebar">
-                <div class="categories">
-                    <h3 class="sidebar-title">Categories</h3>
-                    <ul class="categories-list">
-                        <li><a href="#">Nutrition <span>12</span></a></li>
-                        <li><a href="#">Fitness <span>18</span></a></li>
-                        <li><a href="#">Mental Health <span>9</span></a></li>
-                        <li><a href="#">Sleep Health <span>7</span></a></li>
-                        <li><a href="#">Yoga & Mobility <span>11</span></a></li>
-                        <li><a href="#">Gut Health <span>6</span></a></li>
-                        <li><a href="#">Recovery <span>8</span></a></li>
-                        <li><a href="#">Holistic Wellness <span>14</span></a></li>
-                    </ul>
-                </div>
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
 
-                <div class="popular-articles">
-                    <h3 class="sidebar-title">Popular Articles</h3>
-                    <div class="popular-item">
-                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
-                        <div class="popular-content">
-                            <h4><a href="#">10 Morning Habits That Will Transform Your Day</a></h4>
-                            <div class="popular-date">April 22, 2023</div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
-                        <div class="popular-content">
-                            <h4><a href="#">The Science of Sleep: Why 8 Hours Isn't Enough for Everyone</a></h4>
-                            <div class="popular-date">March 15, 2023</div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
-                        <div class="popular-content">
-                            <h4><a href="#">The 5 Most Common Fitness Mistakes and How to Avoid Them</a></h4>
-                            <div class="popular-date">February 28, 2023</div>
-                        </div>
+        <!-- Sidebar -->
+        <div class="articles-sidebar">
+            <div class="categories">
+                <h3 class="sidebar-title">Categories</h3>
+                <ul class="categories-list">
+                    <li><a href="#">Nutrition <span>12</span></a></li>
+                    <li><a href="#">Fitness <span>18</span></a></li>
+                    <li><a href="#">Mental Health <span>9</span></a></li>
+                    <li><a href="#">Sleep Health <span>7</span></a></li>
+                    <li><a href="#">Yoga & Mobility <span>11</span></a></li>
+                    <li><a href="#">Gut Health <span>6</span></a></li>
+                    <li><a href="#">Recovery <span>8</span></a></li>
+                    <li><a href="#">Holistic Wellness <span>14</span></a></li>
+                </ul>
+            </div>
+
+            <div class="popular-articles">
+                <h3 class="sidebar-title">Popular Articles</h3>
+                <div class="popular-item">
+                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
+                    <div class="popular-content">
+                        <h4><a href="#">10 Morning Habits That Will Transform Your Day</a></h4>
+                        <div class="popular-date">April 22, 2023</div>
                     </div>
                 </div>
-
-                <div class="newsletter-sidebar">
-                    <h3>Join Our Newsletter</h3>
-                    <p>Get the latest health tips and exclusive content delivered to your inbox.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your email address" required>
-                        <button type="submit">Subscribe</button>
-                    </form>
+                <div class="popular-item">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
+                    <div class="popular-content">
+                        <h4><a href="#">The Science of Sleep: Why 8 Hours Isn't Enough for Everyone</a></h4>
+                        <div class="popular-date">March 15, 2023</div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Popular Article" class="popular-image">
+                    <div class="popular-content">
+                        <h4><a href="#">The 5 Most Common Fitness Mistakes and How to Avoid Them</a></h4>
+                        <div class="popular-date">February 28, 2023</div>
+                    </div>
                 </div>
             </div>
+
+            <div class="newsletter-sidebar">
+                <h3>Join Our Newsletter</h3>
+                <p>Get the latest health tips and exclusive content delivered to your inbox.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Booking -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Book Your Visit</h2>
+            <p>Schedule an appointment with one of our wellness experts.</p>
+            <form id="booking-form">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="tel" placeholder="Phone Number">
+                <select required>
+                    <option value="">Select Service</option>
+                    <option value="medicine">Medical Consultation</option>
+                    <option value="therapy">Physical Therapy</option>
+                    <option value="fitness">Fitness Training</option>
+                    <option value="biometrics">Biometric Screening</option>
+                </select>
+                <input type="date" required>
+                <textarea placeholder="Additional Notes" rows="3"></textarea>
+                <button type="submit">Submit Booking Request</button>
+            </form>
         </div>
     </div>
 
@@ -1077,33 +1121,28 @@
         <div class="footer-bottom">
             <div class="copyright">© 2025 Zenlife. All rights reserved.</div>
             <div class="footer-legal">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookie Policy</a>
-                <a href="#">Accessibility</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="cookies.html">Cookie Policy</a>
+                <a href="accessibility.html">Accessibility</a>
             </div>
         </div>
     </footer>
-
-    <!-- Modal -->
-    <div id="bookModal">
-        <div class="modal-box">
-            <h2>Book Your Free 15-Minute Consult</h2>
-            <p>We'll reach out shortly to confirm your appointment.</p>
-            <button class="close-btn" onclick="closeModal()">Close</button>
-        </div>
-    </div>
 
     <script>
         // Enhanced Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
             const mainNav = document.getElementById('main-nav');
+            const body = document.body;
             
             if (mobileMenuToggle && mainNav) {
                 mobileMenuToggle.addEventListener('click', function(e) {
                     e.stopPropagation(); // Prevent event from bubbling up
                     mainNav.classList.toggle('active');
+                    
+                    // Toggle body scroll
+                    body.classList.toggle('menu-open');
                     
                     // Change icon based on menu state
                     if (mainNav.classList.contains('active')) {
@@ -1118,6 +1157,7 @@
                 navLinks.forEach(link => {
                     link.addEventListener('click', function() {
                         mainNav.classList.remove('active');
+                        body.classList.remove('menu-open');
                         mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                     });
                 });
@@ -1129,6 +1169,7 @@
                     
                     if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
                         mainNav.classList.remove('active');
+                        body.classList.remove('menu-open');
                         mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                     }
                 });
@@ -1138,37 +1179,29 @@
             initializePageNavigation();
         });
 
-        // Page Navigation
-        function initializePageNavigation() {
-            const navLinks = document.querySelectorAll('.nav-link[data-page]');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetPage = this.getAttribute('data-page');
-                    
-                    // Hide all pages
-                    document.querySelectorAll('.page-section').forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    
-                    // Show target page
-                    document.getElementById(targetPage + '-page').classList.add('active');
-                    
-                    // Scroll to top
-                    window.scrollTo(0, 0);
-                });
-            });
-        }
-
-        // Modal Logic
+        // Modal Functions
         function openModal() {
-            document.getElementById("bookModal").style.display = "flex";
+            document.getElementById('booking-modal').style.display = 'flex';
         }
 
         function closeModal() {
-            document.getElementById("bookModal").style.display = "none";
+            document.getElementById('booking-modal').style.display = 'none';
         }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('booking-modal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your booking request! We will contact you shortly to confirm your appointment.');
+            closeModal();
+        });
     </script>
 </body>
 </html>
