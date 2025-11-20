@@ -1424,7 +1424,7 @@
                 <p>Ask about our custom membership options designed specifically for your needs.</p>
                 <a href="#" 
                 style="display: inline-flex; align-items: center; gap: 10px; background: #b58b57; color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(181, 139, 87, 0.3); cursor: pointer; border: none;" 
-                class="get-started-btn" id="gmail-button" data-page="get_started" onmouseover="this.style.background='#9c7749'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(181, 139, 87, 0.4)'" onmouseout="this.style.background='#b58b57'; this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(181, 139, 87, 0.3)'"><i class="fas fa-envelope"></i> EMAIL US HERE</a>
+                id="gmail-button" onmouseover="this.style.background='#9c7749'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(181, 139, 87, 0.4)'" onmouseout="this.style.background='#b58b57'; this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(181, 139, 87, 0.3)'"><i class="fas fa-envelope"></i> EMAIL US HERE</a>
             </div>
         </div>      
         
@@ -1520,86 +1520,6 @@
                 <div class="answer">Yes, we offer a curated selection of high-quality supplements in-clinic and through our online dispensary, available exclusively to members. All supplements are third-party tested for purity and potency.</div>
             </div>
         </section>
-    </div>
-
-    <!-- Get Started Page -->
-    <div id="get_started-page" class="page-section">
-        <!-- Get Started Hero Section -->
-        <div class="get-started-hero">
-            <h1>Don't Know Where to Start?</h1>
-            <p>Book a free 15-minute consult</p>
-            <button onclick="openModal()">Book Now</button>
-        </div>
-
-        <!-- Get Started Tabs -->
-        <div class="get-started-tab-container">
-            <button class="get-started-tab-btn active" data-tab="hormones">Hormones</button>
-            <button class="get-started-tab-btn" data-tab="gut">Gut Health</button>
-            <button class="get-started-tab-btn" data-tab="sugar">Blood Sugar</button>
-            <button class="get-started-tab-btn" data-tab="inflammation">Inflammation</button>
-        </div>
-
-        <!-- Hormone Content -->
-        <div id="hormones" class="get-started-content active">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">IT MIGHT BE YOUR HORMONES</div>
-                    <h2>Tired, gaining weight, depressed?</h2>
-                    <p>
-                        At Zenlife, we take a deeper dive when it comes to hormone
-                        balance. We look at comprehensive thyroid markers to see how your
-                        brain is talking to your thyroid and how your body is converting T4
-                        into T3—AND if it's abnormal, we want to know why!
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600" alt="Doctor Exam" />
-            </div>
-        </div>
-
-        <!-- Gut Health Content -->
-        <div id="gut" class="get-started-content">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">HEAL FROM THE INSIDE OUT</div>
-                    <h2>Is your gut causing issues?</h2>
-                    <p>
-                        Your gut impacts everything—mood, energy, weight, skin, immunity.
-                        We help identify inflammation, microbiome imbalance, and sensitivities.
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1600959907703-125ba137f98c?w=600" alt="Gut Health" />
-            </div>
-        </div>
-
-        <!-- Blood Sugar Content -->
-        <div id="sugar" class="get-started-content">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">CONTROL YOUR ENERGY</div>
-                    <h2>Blood sugar swings?</h2>
-                    <p>
-                        Fatigue, cravings, and weight gain often start with unstable blood sugar.  
-                        We test deeper markers to understand what your body needs.
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1606166325683-1ed8df8addf1?w=600" />
-            </div>
-        </div>
-
-        <!-- Inflammation Content -->
-        <div id="inflammation" class="get-started-content">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">FIND THE ROOT CAUSE</div>
-                    <h2>Chronic inflammation symptoms?</h2>
-                    <p>
-                        Joint pain, fatigue, skin problems, brain fog—your body may be inflamed.  
-                        We investigate underlying triggers to restore balance.
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1601362847886-8c66c495d711?w=600" />
-            </div>
-        </div>
     </div>
 
     <!-- Footer -->
@@ -1744,9 +1664,6 @@ We are waiting for your message.</div>
             
             // Initialize page navigation
             initializePageNavigation();
-            
-            // Initialize get started tabs
-            initializeGetStartedTabs();
         });
 
         // Page Navigation
@@ -1777,30 +1694,6 @@ We are waiting for your message.</div>
                         mainNav.classList.remove('active');
                         mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                     }
-                });
-            });
-        }
-
-        // Get Started Tabs Logic
-        function initializeGetStartedTabs() {
-            const getStartedTabButtons = document.querySelectorAll(".get-started-tab-btn");
-            const getStartedContents = document.querySelectorAll(".get-started-content");
-
-            getStartedTabButtons.forEach((btn) => {
-                btn.addEventListener("click", () => {
-                    // Remove active class from all buttons
-                    document.querySelectorAll(".get-started-tab-btn.active").forEach(activeBtn => {
-                        activeBtn.classList.remove("active");
-                    });
-                    
-                    // Add active class to clicked button
-                    btn.classList.add("active");
-
-                    // Hide all content
-                    getStartedContents.forEach((c) => c.classList.remove("active"));
-                    
-                    // Show selected content
-                    document.getElementById(btn.dataset.tab).classList.add("active");
                 });
             });
         }
@@ -1867,7 +1760,7 @@ We are waiting for your message.</div>
                     listElement.appendChild(li);
                 });
                 
-                document.getElementById('section-link').textContent = content.linkText;
+                document.querySelector('.btn-link').textContent = content.linkText;
             });
         });
 
@@ -1904,8 +1797,7 @@ We are waiting for your message.</div>
             document.getElementById("bookModal").style.display = "none";
         }
 
-
-       
+        // Email Button Functionality
         document.addEventListener('DOMContentLoaded', function() {
             const gmailButton = document.getElementById('gmail-button');
             
@@ -1923,7 +1815,10 @@ We are waiting for your message.</div>
             }
             
             // Add click event to the button
-            gmailButton.addEventListener('click', openGmail);
+            gmailButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                openGmail();
+            });
             
             // Optional: Add animation to the CTA button
             setInterval(() => {
@@ -1934,9 +1829,8 @@ We are waiting for your message.</div>
             }, 3000);
         });
 
-
-        
-       document.addEventListener('DOMContentLoaded', function() {
+        // WhatsApp Button Functionality
+        document.addEventListener('DOMContentLoaded', function() {
            const whatsappButton = document.getElementById('whatsappButton');
            const tooltip = document.getElementById('whatsappTooltip');
            let isDragging = false;
@@ -2135,8 +2029,6 @@ We are waiting for your message.</div>
            // Initial adjustment
            adjustWhatsAppButton();
        });
-   
-    
     </script>
 </body>
 </html>
