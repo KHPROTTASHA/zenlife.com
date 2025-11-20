@@ -5,115 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenlife - Premium Health & Fitness</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --green: #2f4a3f;
-            --gold: #b58b57;
+            --green: #1a3329;
+            --gold: #c19a6b;
             --sand: #f9f7f4;
             --light: #f9f7f4;
             --muted: #777;
             --transition: all 0.3s ease;
             --max: 1200px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body { 
-            margin:0; 
-            font-family: 'Georgia', serif; 
+            font-family: 'Inter', sans-serif; 
             line-height: 1.6;
             overflow-x: hidden;
+            color: #333;
         }
         
-        /* Header & Navigation */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        /* Enhanced Header & Navigation */
         header { 
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
             width: 100%;
+            transition: var(--transition);
         }
         
         .header-container {
-            display:flex; 
-            justify-content:space-between; 
-            align-items:center; 
-            padding:20px 60px; 
-            max-width:1200px; 
-            margin:0 auto; 
-            flex-wrap: wrap;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 5%; 
+            max-width: 1400px; 
+            margin: 0 auto; 
         }
         
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: clamp(24px, 5vw, 32px);
             font-weight: 700;
             color: var(--green);
             z-index: 1001;
+            letter-spacing: -0.5px;
         }
         
         nav { 
             display: flex; 
             align-items: center; 
-            flex-wrap: wrap;
             transition: var(--transition);
         }
         
         nav a { 
-            margin:0 10px; 
-            text-decoration:none; 
-            color:#333; 
-            font-size:15px; 
+            margin: 0 15px; 
+            text-decoration: none; 
+            color: #444; 
+            font-size: 15px; 
+            font-weight: 500;
             white-space: nowrap;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold);
             transition: var(--transition);
         }
         
         nav a:hover {
-            color: var(--gold);
+            color: var(--green);
+        }
+        
+        nav a:hover:after {
+            width: 100%;
         }
         
         .dropdown { 
-            position:relative; 
-            display:inline-block; 
+            position: relative; 
+            display: inline-block; 
         }
         
         .dropdown-menu { 
-            display:none; 
-            position:absolute; 
-            top:100%; 
-            left:0; 
-            background:#fff; 
-            box-shadow:0 2px 8px rgba(0,0,0,0.1); 
-            padding:20px; 
-            width:180px; 
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            background: #fff; 
+            box-shadow: var(--shadow);
+            padding: 20px; 
+            width: 200px; 
             z-index: 100;
-            border-radius: 4px;
+            border-radius: 8px;
         }
         
         .dropdown:hover .dropdown-menu { 
-            display:block; 
+            display: block; 
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .nav-btn {
-            padding: 8px 18px;
-            border-radius: 4px;
+            padding: 10px 22px;
+            border-radius: 6px;
             text-decoration: none;
             font-size: 15px;
-            transition: var(--transition);
-            margin-left: 10px;
             font-weight: 600;
+            transition: var(--transition);
+            margin-left: 15px;
         }
         
         .nav-btn.outline {
-            border: 1px solid #333;
-            color: #333;
+            border: 1.5px solid var(--green);
+            color: var(--green);
             background: transparent;
         }
         
         .nav-btn.outline:hover {
-            background: #333;
+            background: var(--green);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 51, 41, 0.2);
         }
         
         .nav-btn.solid {
@@ -123,9 +169,9 @@
         }
         
         .nav-btn.solid:hover {
-            background: #1f352b;
+            background: #14261f;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(26, 51, 41, 0.3);
         }
         
         /* Mobile Navigation */
@@ -140,268 +186,420 @@
             padding: 10px;
         }
         
-        /* Page Sections */
-        .page-section {
-            display: none;
-            padding-top: 100px;
-        }
-        
-        .page-section.active {
-            display: block;
-        }
-        
-        /* Hero Section */
+        /* Enhanced Hero Section */
         .hero { 
-            background:var(--green); 
-            color:var(--gold); 
-            padding:120px 60px; 
-            font-size:50px; 
-            text-align:center; 
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .tabs { 
-            display:flex; 
-            justify-content:center; 
-            margin-top:-40px; 
-            flex-wrap: wrap;
-        }
-        
-        .tab { 
-            padding:15px 40px; 
-            background:var(--gold); 
-            margin:0 5px; 
-            color:#fff; 
-            font-weight:bold; 
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 16px;
-            border-radius: 4px;
-        }
-        
-        .tab:hover {
-            background: #9c7749;
-            transform: translateY(-2px);
-        }
-        
-        .tab.active { 
-            background:var(--gold); 
-            color:#fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        .tab.inactive { 
-            background:#fff; 
-            color:#333; 
-            border:1px solid #ddd; 
-        }
-        
-        .tab.inactive:hover {
-            background: #f5f5f5;
-        }
-        
-        /* Section Styles */
-        .section { 
-            display:flex; 
-            padding:80px 60px; 
-            align-items:center; 
-            gap:40px; 
-            max-width:1200px; 
-            margin:0 auto; 
-            flex-wrap: wrap;
-        }
-        
-        .section-image { 
-            width:450px; 
-            border-radius:6px; 
-            max-width: 100%;
-            height: auto;
-            transition: var(--transition);
-        }
-        
-        .section-content {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .section h2 { 
-            font-size:40px; 
-            margin-bottom:20px; 
-            color: var(--green);
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .section ul { 
-            line-height:2; 
-            padding-left: 20px;
-            font-size: 18px;
-        }
-        
-        .btn-link { 
-            color:var(--gold); 
-            font-weight:bold; 
-            letter-spacing:1px; 
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-            transition: var(--transition);
-            font-size: 16px;
-            border: 2px solid var(--gold);
-            padding: 10px 20px;
-            border-radius: 4px;
-        }
-        
-        .btn-link:hover {
-            background: var(--gold);
+            background: linear-gradient(135deg, var(--green) 0%, #2a4d3d 100%);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(181, 139, 87, 0.3);
-        }
-        
-        /* Pricing Section */
-        .pricing-wrapper { 
-            display:flex; 
-            gap:20px; 
-            flex-wrap:wrap; 
-            justify-content:center; 
-            padding:80px 0; 
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .price-card { 
-            width:300px; 
-            border:1px solid #ddd; 
-            padding:40px; 
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-        
-        .price-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .price-card h3 { 
-            letter-spacing:2px; 
-            text-align:center; 
-            color: var(--green);
-            font-size: 24px;
-        }
-        
-        .price-card button { 
-            width:100%; 
-            background:var(--green); 
-            color:white; 
-            padding:15px; 
-            margin-top:20px; 
-            border:none; 
-            font-size:16px; 
-            cursor:pointer;
-            border-radius: 4px;
-            transition: var(--transition);
-            font-weight: bold;
-        }
-        
-        .price-card button:hover {
-            background: #1f352b;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        /* Custom CTA */
-        .custom-cta {
-            border-top: 1px solid rgba(0,0,0,0.08);
-            padding: 80px 20px;
+            padding: clamp(120px, 20vw, 180px) 5% clamp(80px, 15vw, 120px);
             text-align: center;
-            margin-top: 20px;
-            margin-bottom: 40px;
-            max-width: 1200px;
-            margin: 80px auto 0;
-            background: linear-gradient(135deg, #f9f7f4 0%, #f3eadf 100%);
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
+            margin-top: 70px;
         }
         
-        .custom-cta:before {
+        .hero:before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.5)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
             background-size: cover;
         }
         
-        .custom-cta-content {
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
-            max-width: 700px;
-            margin: 0 auto;
         }
         
-        .custom-cta h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            margin: 0 0 16px;
-            color: var(--green);
+        .hero h1 {
+            font-size: clamp(36px, 8vw, 64px);
+            margin-bottom: 20px;
+            line-height: 1.1;
             font-weight: 700;
         }
         
-        .custom-cta p {
-            font-size: 18px;
-            margin: 0 0 30px;
+        .hero p {
+            font-size: clamp(16px, 3vw, 22px);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px;
+            justify-content: center;
+        }
+        
+        .hero-btn.primary {
+            background: var(--gold);
+            color: white;
+            border: none;
+        }
+        
+        .hero-btn.primary:hover {
+            background: #b0895d;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(193, 154, 107, 0.3);
+        }
+        
+        .hero-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .hero-btn.secondary:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        /* Enhanced Tabs */
+        .tabs { 
+            display: flex; 
+            justify-content: center; 
+            margin-top: -40px; 
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+            padding: 0 5%;
+        }
+        
+        .tab { 
+            padding: 18px clamp(20px, 4vw, 40px); 
+            background: white; 
+            margin: 5px; 
+            color: #333; 
+            font-weight: 600; 
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: clamp(14px, 2vw, 16px);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            font-family: 'Inter', sans-serif;
+            flex: 1;
+            min-width: 180px;
+            max-width: 300px;
+        }
+        
+        .tab:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .tab.active { 
+            background: var(--gold); 
+            color: #fff;
+        }
+        
+        .tab.inactive { 
+            background: #fff; 
+            color: #333; 
+        }
+        
+        /* Enhanced Section Styles */
+        .section { 
+            display: flex; 
+            padding: clamp(60px, 10vw, 120px) 5%; 
+            align-items: center; 
+            gap: clamp(30px, 5vw, 60px); 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            flex-wrap: wrap;
+        }
+        
+        .section-image { 
+            width: min(100%, 500px); 
+            border-radius: 12px; 
+            height: auto;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .section-content {
+            flex: 1;
+            min-width: min(100%, 300px);
+        }
+        
+        .section h2 { 
+            font-size: clamp(32px, 5vw, 48px); 
+            margin-bottom: 25px; 
+            color: var(--green);
+            line-height: 1.2;
+        }
+        
+        .section p {
+            font-size: clamp(16px, 2vw, 18px);
+            margin-bottom: 25px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .section ul { 
+            line-height: 2; 
+            padding-left: 20px;
+            font-size: clamp(16px, 2vw, 18px);
+            margin-bottom: 30px;
+        }
+        
+        .section li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .section li:before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+        
+        .btn-link { 
+            color: var(--gold); 
+            font-weight: 600; 
+            letter-spacing: 1px; 
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+            transition: var(--transition);
+            font-size: 16px;
+            border: 2px solid var(--gold);
+            padding: 12px 24px;
+            border-radius: 6px;
+            gap: 10px;
+        }
+        
+        .btn-link:hover {
+            background: var(--gold);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(193, 154, 107, 0.3);
+        }
+        
+        /* Enhanced Pricing Section */
+        .pricing-wrapper { 
+            display: flex; 
+            gap: 30px; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            padding: clamp(60px, 10vw, 120px) 5%; 
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--sand);
+            border-radius: 20px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .price-card { 
+            width: min(100%, 320px); 
+            border: none;
+            padding: 50px 30px; 
+            border-radius: 16px;
+            transition: var(--transition);
+            background: white;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--green), var(--gold));
+        }
+        
+        .price-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .price-card h3 { 
+            letter-spacing: 2px; 
+            text-align: center; 
+            color: var(--green);
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+        
+        .price-card .price {
+            text-align: center;
+            font-size: clamp(32px, 5vw, 42px);
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .price-card .price-desc {
+            text-align: center;
+            font-size: 14px;
             color: var(--muted);
+            margin-bottom: 30px;
+        }
+        
+        .price-card hr {
+            border: none;
+            height: 1px;
+            background: #eee;
+            margin: 25px 0;
+        }
+        
+        .price-card ul {
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .price-card li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .price-card li:before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: bold;
+            margin-right: 10px;
+            background: rgba(193, 154, 107, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .price-card button { 
+            width: 100%; 
+            background: var(--green); 
+            color: white; 
+            padding: 16px; 
+            margin-top: 10px; 
+            border: none; 
+            font-size: 16px; 
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .price-card button:hover {
+            background: #14261f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 51, 41, 0.3);
+        }
+        
+        /* Premium CTA */
+        .premium-cta {
+            background: linear-gradient(135deg, var(--green) 0%, #1a3329 100%);
+            color: white;
+            padding: clamp(60px, 10vw, 100px) 5%;
+            text-align: center;
+            border-radius: 20px;
+            margin: clamp(60px, 10vw, 100px) auto;
+            max-width: 1400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .premium-cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .premium-cta h3 {
+            font-size: clamp(28px, 5vw, 42px);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .premium-cta p {
+            font-size: clamp(16px, 3vw, 20px);
+            margin-bottom: 40px;
+            opacity: 0.9;
             line-height: 1.6;
         }
         
-        .custom-cta a {
+        .premium-cta .btn {
             background: var(--gold);
             border: 2px solid var(--gold);
             color: #fff;
-            padding: 16px 32px;
+            padding: 18px 36px;
             border-radius: 8px;
             font-weight: 700;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            font-size: 16px;
-            box-shadow: 0 4px 12px rgba(184,142,74,0.3);
+            font-size: 18px;
             text-decoration: none;
         }
         
-        .custom-cta a:hover {
-            background: #fff;
+        .premium-cta .btn:hover {
+            background: transparent;
             color: var(--gold);
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(184,142,74,0.4);
+            box-shadow: 0 10px 25px rgba(193, 154, 107, 0.3);
         }
         
-        /* APPROACH SECTION - IMPROVED */
+        /* Enhanced Approach Section */
         .approach-section {
             background: #f9f7f4;
-            padding: 100px 0;
+            padding: clamp(60px, 10vw, 120px) 0;
             position: relative;
         }
         
-        .approach-section:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.5)"/></svg>');
-            background-size: cover;
-        }
-        
         .approach-container {
-            width: 85%;
-            max-width: 1200px;
+            width: 90%;
+            max-width: 1400px;
             margin: auto;
             position: relative;
             z-index: 1;
@@ -410,21 +608,19 @@
         .approach-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: clamp(40px, 8vw, 100px);
             align-items: start;
         }
         
         .approach-title { 
-            font-size: 38px;
-            font-weight: 700;
+            font-size: clamp(32px, 5vw, 48px);
             color: var(--green);
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.2;
         }
         
         .approach-text { 
-            font-size: 17px; 
+            font-size: clamp(16px, 2vw, 18px); 
             color: var(--muted); 
             line-height: 1.7; 
             margin-bottom: 0;
@@ -433,7 +629,7 @@
         .features { 
             display: flex; 
             flex-direction: column; 
-            gap: 50px; 
+            gap: clamp(30px, 5vw, 50px); 
         }
         
         .feature { 
@@ -441,14 +637,14 @@
             gap: 25px; 
             align-items: flex-start;
             transition: var(--transition);
-            padding: 15px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 12px;
         }
         
         .feature:hover {
             background: rgba(255,255,255,0.7);
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow);
         }
         
         .feature-icon { 
@@ -466,7 +662,7 @@
         }
         
         .feature:hover .feature-icon {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
             background: var(--green);
         }
         
@@ -475,11 +671,10 @@
         }
         
         .feature-title { 
-            font-size: 22px; 
+            font-size: clamp(20px, 3vw, 24px); 
             font-weight: 700; 
             color: var(--green); 
-            margin-bottom: 12px;
-            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
         }
         
         .feature p { 
@@ -489,40 +684,27 @@
             font-size: 16px;
         }
         
-        /* TESTIMONIALS SECTION - IMPROVED */
+        /* Enhanced Testimonials */
         .testimonials {
             background: linear-gradient(135deg, #f9f7f4 0%, #f3eadf 100%);
-            padding: 100px 20px;
+            padding: clamp(60px, 10vw, 120px) 5%;
             position: relative;
-        }
-        
-        .testimonials:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,0 L100,100 Z" fill="rgba(255,255,255,0.3)"/></svg>');
-            background-size: cover;
         }
         
         .testimonials h3 {
             text-align: center;
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 60px;
+            margin-bottom: clamp(40px, 8vw, 80px);
             color: var(--green);
-            font-size: 38px;
-            font-weight: 700;
+            font-size: clamp(32px, 5vw, 48px);
             position: relative;
             z-index: 1;
         }
         
         .testimonial-cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            max-width: var(--max);
+            max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -531,8 +713,8 @@
         .testimonial-card {
             background: #fff;
             padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
             position: relative;
             transition: var(--transition);
             display: flex;
@@ -542,7 +724,7 @@
         
         .testimonial-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            box-shadow: var(--shadow-hover);
         }
         
         .testimonial-card:before {
@@ -552,7 +734,6 @@
             left: 30px;
             font-size: 80px;
             color: var(--sand);
-            font-family: 'Playfair Display', serif;
             line-height: 1;
             opacity: 0.7;
         }
@@ -576,8 +757,8 @@
         }
         
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: var(--sand);
             display: flex;
@@ -585,7 +766,7 @@
             justify-content: center;
             color: var(--gold);
             font-weight: bold;
-            font-size: 18px;
+            font-size: 20px;
             flex-shrink: 0;
         }
         
@@ -596,7 +777,7 @@
         .author-name {
             font-weight: 700;
             color: var(--green);
-            font-size: 17px;
+            font-size: 18px;
             margin-bottom: 4px;
         }
         
@@ -605,87 +786,12 @@
             color: var(--muted);
         }
         
-        /* FAQ SECTION - IMPROVED */
-        .faq {
-            max-width: 900px;
-            margin: 100px auto;
-            padding: 0 20px;
-        }
-        
-        .faq h3 {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 60px;
-            color: var(--green);
-            font-size: 38px;
-            font-weight: 700;
-        }
-        
-        .faq-item {
-            border-top: 1px solid #eee;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .faq-item:last-child {
-            border-bottom: 1px solid #eee;
-        }
-        
-        .faq-item:hover {
-            background: var(--light);
-        }
-        
-        .q {
-            padding: 25px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--green);
-        }
-        
-        .q span {
-            color: var(--gold);
-            font-size: 24px;
-            transition: var(--transition);
-            flex-shrink: 0;
-            margin-left: 15px;
-        }
-        
-        .q.open {
-            background: var(--sand);
-            border-radius: 8px 8px 0 0;
-        }
-        
-        .q.open span { 
-            transform: rotate(45deg); 
-        }
-        
-        .answer {
-            padding: 0 20px;
-            color: var(--muted);
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s ease;
-            line-height: 1.7;
-            font-size: 16px;
-        }
-        
-        .answer.active {
-            padding: 0 20px 25px;
-            max-height: 500px;
-            background: var(--sand);
-            border-radius: 0 0 8px 8px;
-        }
-        
-        /* FOOTER SECTION - IMPROVED */
+        /* Enhanced Footer */
         footer {
             background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
             color: #fff;
-            padding: 80px 20px 30px;
-            margin-top: 80px;
+            padding: clamp(60px, 10vw, 100px) 5% 40px;
+            margin-top: 100px;
             position: relative;
         }
         
@@ -700,7 +806,7 @@
         }
         
         footer .inner {
-            max-width: var(--max);
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
@@ -708,7 +814,6 @@
         }
         
         .footer-col h4 {
-            font-family: 'Playfair Display', serif;
             font-size: 20px;
             margin-bottom: 24px;
             color: #fff;
@@ -731,6 +836,7 @@
             color: rgba(255,255,255,0.7);
             line-height: 1.7;
             margin-bottom: 24px;
+            font-size: 16px;
         }
         
         .footer-contact p {
@@ -799,7 +905,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: var(--max);
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -807,7 +913,7 @@
         .footer-logo {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 24px;
+            font-size: 28px;
             color: #fff;
             margin-bottom: 16px;
         }
@@ -827,111 +933,72 @@
             color: var(--gold);
         }
         
-        .copyright {
-            color: rgba(255,255,255,0.6);
+        /* Premium Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
         
-        /* Services Page Styles */
-        .services-hero {
-            background: #375446;
-            color: white;
-            text-align: center;
-            padding: 120px 20px;
-            margin-top: 80px;
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(193, 154, 107, 0.05);
+            animation: float 20s infinite linear;
         }
         
-        .services-hero h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+            animation-duration: 25s;
         }
         
-        .services-hero p {
-            margin-top: 10px;
-            font-size: 18px;
-            opacity: 0.9;
+        .floating-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 30s;
         }
         
-        .services-tab-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            gap: 12px;
-            flex-wrap: wrap;
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 80%;
+            left: 10%;
+            animation-duration: 20s;
         }
         
-        .services-tab-btn {
-            padding: 12px 24px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            background: #eee;
-            transition: 0.3s;
-            font-family: 'Georgia', serif;
+        .floating-element:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            left: 70%;
+            animation-duration: 35s;
         }
         
-        .services-tab-btn.active {
-            background: #d7b47b;
-            color: #fff;
-        }
-        
-        .services-tab-btn:hover {
-            background: #cda56d;
-            color: white;
-        }
-        
-        .services-content {
-            max-width: 1100px;
-            margin: 50px auto;
-            padding: 20px;
-            display: none;
-            animation: fade 0.4s ease-in-out;
-        }
-        
-        .services-content.active {
-            display: block;
-        }
-        
-        @keyframes fade {
-            from {
-                opacity: 0;
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
             }
-            to {
-                opacity: 1;
+            25% {
+                transform: translate(20px, 30px) rotate(90deg);
             }
-        }
-        
-        .services-flex {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 30px;
-        }
-        
-        .services-flex img {
-            width: 360px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-        
-        .services-flex div {
-            flex: 1;
-            min-width: 260px;
-        }
-        
-        .services-subtitle {
-            color: #666;
-            font-size: 13px;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        
-        .services-content h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: var(--green);
-            font-family: 'Playfair Display', serif;
+            50% {
+                transform: translate(0, 60px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-20px, 30px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
         }
         
         /* Modal */
@@ -943,6 +1010,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 20px;
         }
         
         .modal-box {
@@ -959,190 +1027,66 @@
             padding: 10px 20px;
             cursor: pointer;
             border: none;
-            background: #375446;
-            color: white;
-            border-radius: 6px;
-        }
-        
-        .services-hero button {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 6px;
-            background: #d7b47b;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: 0.3s;
-        }
-        
-        .services-hero button:hover {
-            background: #caa067;
-        }
-        
-        /* New Pages */
-        .page-hero {
             background: var(--green);
             color: white;
-            text-align: center;
-            padding: 120px 20px;
-            margin-top: 80px;
-        }
-        
-        .page-hero h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .page-content {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-        
-        /* Get Started Page Styles */
-        .get-started-hero {
-            background: #375446;
-            color: white;
-            text-align: center;
-            padding: 120px 20px;
-            margin-top: 80px;
-        }
-        
-        .get-started-hero h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .get-started-hero p {
-            margin-top: 10px;
-            font-size: 18px;
-            opacity: 0.9;
-        }
-        
-        .get-started-tab-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .get-started-tab-btn {
-            padding: 12px 24px;
             border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            background: #eee;
-            transition: 0.3s;
-            font-family: 'Georgia', serif;
         }
         
-        .get-started-tab-btn.active {
-            background: #d7b47b;
-            color: #fff;
-        }
-        
-        .get-started-tab-btn:hover {
-            background: #cda56d;
-            color: white;
-        }
-        
-        .get-started-content {
-            max-width: 1100px;
-            margin: 50px auto;
-            padding: 20px;
-            display: none;
-            animation: fade 0.4s ease-in-out;
-        }
-        
-        .get-started-content.active {
-            display: block;
-        }
-        
-        .get-started-flex {
+        /* WhatsApp Button */
+        #whatsappButton {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+            background: #25D366;
+            border-radius: 50%;
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
-            gap: 30px;
-        }
-        
-        .get-started-flex img {
-            width: 360px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-        
-        .get-started-flex div {
-            flex: 1;
-            min-width: 260px;
-        }
-        
-        .get-started-subtitle {
-            color: #666;
-            font-size: 13px;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        
-        .get-started-content h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: var(--green);
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .get-started-hero button {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 6px;
-            background: #d7b47b;
-            color: #fff;
-            font-size: 16px;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
             cursor: pointer;
-            margin-top: 15px;
-            transition: 0.3s;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            user-select: none;
+            touch-action: none;
+            right: 30px;
+            bottom: 30px;
         }
         
-        .get-started-hero button:hover {
-            background: #caa067;
+        #whatsappButton i {
+            font-size: 36px;
+            color: white;
         }
         
-        /* Responsive improvements */
-        @media (max-width: 1024px) {
+        #whatsappTooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
             .approach-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            
-            .testimonial-cards {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .feature {
-                gap: 20px;
+                gap: 60px;
             }
             
             footer .inner {
-                grid-template-columns: 1fr 1fr;
                 gap: 40px;
-            }
-            
-            .footer-about {
-                grid-column: 1 / -1;
             }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .header-container {
-                flex-direction: row;
-                padding: 15px 20px;
-                gap: 15px;
-                justify-content: space-between;
+                padding: 15px 5%;
             }
             
             .mobile-menu-toggle {
@@ -1198,89 +1142,63 @@
                 padding: 12px;
             }
             
-            .hero, .services-hero, .page-hero, .get-started-hero {
-                padding: 80px 20px;
-                font-size: 32px;
-            }
-            
-            .tabs, .services-tab-container, .get-started-tab-container {
-                margin-top: 20px;
-                padding: 0 20px;
-            }
-            
-            .tab, .services-tab-btn, .get-started-tab-btn {
-                padding: 12px 20px;
-                font-size: 14px;
-                margin: 5px;
-            }
-            
-            .section {
-                padding: 40px 20px;
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .section h2 {
-                font-size: 32px;
-            }
-            
-            .approach-section {
-                padding: 70px 0;
-            }
-            
-            .approach-title {
-                font-size: 32px;
-            }
-            
-            .testimonials {
-                padding: 70px 20px;
-            }
-            
-            .testimonials h3, .faq h3 {
-                font-size: 32px;
-                margin-bottom: 40px;
+            .approach-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
             }
             
             .feature {
                 flex-direction: column;
                 text-align: center;
-                gap: 15px;
+                gap: 20px;
             }
             
             .feature-icon {
                 align-self: center;
             }
             
-            .q {
-                padding: 20px 15px;
-                font-size: 16px;
-            }
-            
-            .answer {
-                padding: 0 15px;
-            }
-            
-            .answer.active {
-                padding: 0 15px 20px;
-            }
-            
-            .custom-cta {
-                padding: 60px 20px;
-                margin: 60px 20px 0;
-                border-radius: 12px;
-            }
-            
-            .custom-cta h3 {
-                font-size: 28px;
-            }
-            
-            .custom-cta p {
-                font-size: 16px;
-            }
-            
             footer .inner {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
                 gap: 40px;
+            }
+            
+            .footer-about {
+                grid-column: 1 / -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section ul {
+                text-align: left;
+            }
+            
+            .testimonial-cards {
+                grid-template-columns: 1fr;
             }
             
             .footer-bottom {
@@ -1294,38 +1212,119 @@
                 flex-wrap: wrap;
             }
             
-            .services-flex, .get-started-flex {
-                flex-direction: column;
-                text-align: center;
+            #whatsappButton {
+                width: 60px;
+                height: 60px;
+                right: 20px;
+                bottom: 20px;
             }
             
-            .services-flex img, .get-started-flex img {
-                width: 100%;
-                max-width: 400px;
+            #whatsappButton i {
+                font-size: 30px;
             }
         }
         
-        @media (max-width: 480px) {
-            .hero, .services-hero, .page-hero, .get-started-hero {
-                font-size: 24px;
+        @media (max-width: 576px) {
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            .hero {
+                padding: 120px 20px 80px;
+            }
+            
+            .section {
                 padding: 60px 20px;
             }
             
-            .section h2 {
-                font-size: 24px;
-            }
-            
-            .approach-title, .testimonials h3, .faq h3 {
-                font-size: 26px;
+            .pricing-wrapper {
+                padding: 60px 20px;
+                border-radius: 16px;
             }
             
             .price-card {
+                padding: 30px 20px;
+            }
+            
+            .premium-cta {
+                padding: 60px 20px;
+                margin: 60px 20px;
+                border-radius: 16px;
+            }
+            
+            .approach-section {
+                padding: 60px 0;
+            }
+            
+            .approach-container {
+                width: 85%;
+            }
+            
+            .feature {
                 padding: 20px;
+            }
+            
+            .testimonials {
+                padding: 60px 20px;
+            }
+            
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+            
+            footer {
+                padding: 60px 20px 30px;
+            }
+            
+            footer .inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            #whatsappButton {
+                width: 50px;
+                height: 50px;
+                right: 15px;
+                bottom: 15px;
+            }
+            
+            #whatsappButton i {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .header-container {
+                padding: 15px 15px;
+            }
+            
+            .hero {
+                padding: 100px 15px 60px;
+            }
+            
+            .section {
+                padding: 50px 15px;
+            }
+            
+            .feature {
+                padding: 15px;
+            }
+            
+            .testimonial-card {
+                padding: 25px 15px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
     <header>
         <div class="header-container">
             <div class="logo">Zenlife</div>
@@ -1333,7 +1332,6 @@
                 <i class="fas fa-bars"></i>
             </button>
             <nav id="main-nav">
-                <!-- <a href="#" class="nav-link" data-page="home">About</a> -->
                 <a href="index.html">About</a>
                 <a href="services.html">Services</a>
                 <a href="memberships.html">Memberships</a>
@@ -1341,14 +1339,28 @@
                 <a href="shop.html">Shop</a>
                 <a href="articles.html">Articles</a>
                 <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
-                <a href="#" class="nav-btn solid get-started-btn" data-page="get_started">Get Started</a>
+                <a href="get-started.html" class="nav-btn solid get-started-btn" data-page="get_started">Get Started</a>
             </nav>
         </div>
     </header>
 
     <!-- Main Home Page -->
     <div id="home-page" class="page-section active">
-        <div class="hero"><b style="color: white;">WelCome dear </b> <br> "We Care For You like Family"</div>
+        <!-- Enhanced Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Transform Your Health, Elevate Your Life</h1>
+                <p>Experience premium wellness with our integrated approach to medicine, movement, and mindfulness.</p>
+                <div class="hero-btns">
+                    <a href="#" class="hero-btn primary get-started-btn" data-page="get_started">
+                        <i class="fas fa-play-circle"></i> Start Your Journey
+                    </a>
+                    <a href="#" class="hero-btn secondary" onclick="openModal()">
+                        <i class="fas fa-calendar-alt"></i> Book Consultation
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <div class="tabs">
             <button class="tab active" data-tab="medicine">MEDICINE</button>
@@ -1357,104 +1369,121 @@
         </div>
 
         <div class="section">
-            <img id="section-image" class="section-image" src="doctor-1.png" alt="Medicine program" />
+            <img id="section-image" class="section-image" src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Medicine program" />
             <div class="section-content">
                 <h2 id="section-title">Wellness Packages Designed for You</h2>
+                <p>Our holistic approach combines cutting-edge medical expertise with personalized wellness strategies to help you achieve optimal health.</p>
                 <ul id="section-list">
-                    <li>A Functional Medicine approach</li>
-                    <li>Health coaching along the way</li>
-                    <li>Regular check-ins to provide accountability</li>
+                    <li>A Functional Medicine approach tailored to your unique needs</li>
+                    <li>Dedicated health coaching to guide you every step of the way</li>
+                    <li>Regular check-ins providing accountability and support</li>
+                    <li>Comprehensive testing to identify root causes</li>
+                    <li>Personalized nutrition and lifestyle recommendations</li>
                 </ul>
-                <a href="#" class="btn-link get-started-btn" data-page="get_started">START YOUR JOURNEY ></a>
+                <a href="#" class="btn-link get-started-btn" data-page="get_started">
+                    START YOUR JOURNEY <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
         
-        <!-- PRICING SECTION -->
+        <!-- Enhanced PRICING SECTION -->
         <div class="pricing-wrapper">
             <div class="price-card">
                 <h3>MEDICINE</h3>
-                <p style="text-align:center; font-size:28px; color:#b58b57;">$185<br><span style="font-size:14px;color:#777;">Per month</span></p>
-                <p style="text-align:center; font-size:22px; color:#b58b57;">$1,998<br><span style="font-size:14px;color:#777;">Per year (10% off)</span></p>
+                <div class="price">$185</div>
+                <div class="price-desc">Per month</div>
+                <div class="price">$1,998</div>
+                <div class="price-desc">Per year (10% off)</div>
                 <hr>
-                <ul style="line-height:1.9;">
+                <ul>
                     <li>1 New Patient Visit</li>
                     <li>4 Follow Up Visits</li>
                     <li>Unlimited Dietitian Visits</li>
                     <li>Unlimited Health Coaching</li>
                     <li>Quarterly Body Composition Scans</li>
+                    <li>Comprehensive Lab Testing</li>
                 </ul>
-                <button>BUY NOW</button>
+                <button>SELECT PLAN</button>
             </div>
 
             <div class="price-card">
                 <h3>MEDICINE + MOVEMENT</h3>
-                <p style="text-align:center; font-size:28px; color:#b58b57;">$295<br><span style="font-size:14px;color:#777;">Per month</span></p>
-                <p style="text-align:center; font-size:22px; color:#b58b57;">$3,186<br><span style="font-size:14px;color:#777;">Per year (10% off)</span></p>
+                <div class="price">$295</div>
+                <div class="price-desc">Per month</div>
+                <div class="price">$3,186</div>
+                <div class="price-desc">Per year (10% off)</div>
                 <hr>
-                <ul style="line-height:1.9;">
-                    <li>Unlimited Group Fitness</li>
+                <ul>
+                    <li>Unlimited Group Fitness Classes</li>
                     <li>1 New Patient Visit</li>
                     <li>4 Follow Up Visits</li>
                     <li>Unlimited Dietitian Visits</li>
                     <li>Unlimited Health Coaching</li>
+                    <li>Personalized Movement Plans</li>
                 </ul>
-                <button>BUY NOW*</button>
+                <button>SELECT PLAN</button>
             </div>
 
             <div class="price-card">
                 <h3>MOVEMENT</h3>
-                <p style="text-align:center; font-size:28px; color:#b58b57;">$189/mo<br><span style="font-size:14px;color:#777;">3 Months</span></p>
-                <p style="text-align:center; font-size:22px; color:#b58b57;">$169/mo<br><span style="font-size:14px;color:#777;">6 Months (10% off)</span></p>
-                <p style="text-align:center; font-size:20px; color:#b58b57;">12 Months — $150/mo<br>Annually — $1,620</p>
+                <div class="price">$189/mo</div>
+                <div class="price-desc">3 Month Commitment</div>
+                <div class="price">$169/mo</div>
+                <div class="price-desc">6 Months (Save 10%)</div>
                 <hr>
-                <ul style="line-height:1.9;">
-                    <li>Unlimited Group Fitness</li>
+                <ul>
+                    <li>Unlimited Group Fitness Classes</li>
                     <li>Quarterly Body Composition Scans</li>
-                    <li>Monthly Events</li>
+                    <li>Monthly Wellness Events</li>
+                    <li>Access to Recovery Facilities</li>
+                    <li>Personalized Fitness Assessments</li>
+                    <li>Nutrition Guidance</li>
                 </ul>
-                <button>BUY NOW*</button>
+                <button>SELECT PLAN</button>
             </div>
         </div>
         
-        <!-- custom-cta -->
-        <div class="custom-cta">
-            <div class="custom-cta-content">
+        <!-- Premium CTA -->
+        <div class="premium-cta">
+            <div class="premium-cta-content">
                 <h3>Looking for something more tailored?</h3>
-                <p>Ask about our custom membership options designed specifically for your needs.</p>
-                <a href="#" class="get-started-btn" data-page="get_started"><i class="fas fa-envelope"></i> EMAIL US HERE</a>
+                <p>Our wellness experts can create a completely customized membership designed specifically for your unique health goals and lifestyle.</p>
+                <a href="#" class="btn" onclick="openModal()">
+                    <i class="fas fa-envelope"></i> SCHEDULE A CONSULTATION
+                </a>
             </div>
         </div>      
         
-        <!-- APPROACH SECTION -->
+        <!-- Enhanced APPROACH SECTION -->
         <section class="approach-section">
             <div class="approach-container">
                 <div class="approach-grid">
                     <div>
-                        <h2 class="approach-title">Our Approach</h2>
+                        <h2 class="approach-title">Our Holistic Approach</h2>
                         <p class="approach-text">
-                            At Zenlife, we approach health and fitness in a dynamic, unique, and transformative way. Our integrated methodology combines medical expertise with personalized fitness programming to deliver exceptional results.
+                            At Zenlife, we've reimagined health and wellness by integrating medical expertise with personalized fitness programming. Our unique methodology delivers transformative results through a comprehensive, data-driven approach that addresses the whole person—body, mind, and spirit.
                         </p>
                     </div>
                     <div class="features">
                         <div class="feature">
                             <div class="feature-icon"><i class="fas fa-heartbeat"></i></div>
                             <div class="feature-content">
-                                <div class="feature-title">FUNCTIONAL</div>
-                                <p>We believe in focusing on wellness rather than illness through science-driven fitness and coaching.</p>
+                                <div class="feature-title">FUNCTIONAL MEDICINE</div>
+                                <p>We focus on identifying and addressing root causes of health issues through comprehensive testing and personalized treatment plans that promote lasting wellness.</p>
                             </div>
                         </div>
                         <div class="feature">
                             <div class="feature-icon"><i class="fas fa-users"></i></div>
                             <div class="feature-content">
-                                <div class="feature-title">COMMUNITY</div>
-                                <p>We build accountability through a strong wellness-based community.</p>
+                                <div class="feature-title">COMMUNITY SUPPORT</div>
+                                <p>We cultivate a powerful wellness community that provides accountability, inspiration, and connection—proven to enhance long-term success.</p>
                             </div>
                         </div>
                         <div class="feature">
                             <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
                             <div class="feature-content">
-                                <div class="feature-title">PURPOSEFUL</div>
-                                <p>Our data-driven programs track improvements and set you up for long-term success.</p>
+                                <div class="feature-title">DATA-DRIVEN RESULTS</div>
+                                <p>Our precision approach utilizes advanced diagnostics and regular progress tracking to ensure measurable improvements and sustainable outcomes.</p>
                             </div>
                         </div>
                     </div>
@@ -1463,10 +1492,10 @@
         </section>
 
         <section class="testimonials">
-            <h3>Member Success Stories</h3>
+            <h3>Transformative Member Stories</h3>
             <div class="testimonial-cards">
                 <div class="testimonial-card">
-                    <div class="testimonial-text">Zenlife transformed my approach to health. The personalized care and attention to detail is unmatched. I've seen incredible improvements in my energy levels and overall wellbeing.</div>
+                    <div class="testimonial-text">Zenlife completely transformed my approach to health. The personalized care and attention to detail is unmatched. I've seen incredible improvements in my energy levels, mental clarity, and overall wellbeing that I never thought possible.</div>
                     <div class="testimonial-author">
                         <div class="author-avatar">SR</div>
                         <div class="author-info">
@@ -1476,7 +1505,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <div class="testimonial-text">The combination of medical expertise and fitness guidance helped me achieve results I never thought possible. I've lost 25 pounds and gained so much confidence.</div>
+                    <div class="testimonial-text">The seamless integration of medical expertise and fitness guidance helped me achieve results I never thought possible. I've lost 25 pounds, reversed my prediabetes, and gained confidence that permeates every aspect of my life.</div>
                     <div class="testimonial-author">
                         <div class="author-avatar">MJ</div>
                         <div class="author-info">
@@ -1486,7 +1515,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <div class="testimonial-text">The community at STAT is incredible. I've found both accountability and friendship on my wellness journey. The coaches truly care about your progress.</div>
+                    <div class="testimonial-text">The community at Zenlife is truly special. I've found both accountability and genuine friendship on my wellness journey. The coaches don't just guide your workouts—they invest in your entire wellbeing and celebrate every milestone with you.</div>
                     <div class="testimonial-author">
                         <div class="author-avatar">EC</div>
                         <div class="author-info">
@@ -1497,106 +1526,6 @@
                 </div>
             </div>
         </section>
-
-        <section class="faq">
-            <h3>Frequently Asked Questions</h3>
-            <div class="faq-item">
-                <div class="q">What is functional or personalized medicine?<span>+</span></div>
-                <div class="answer">Functional/personalized medicine focuses on identifying and addressing the root causes of health issues through comprehensive testing and tailored treatment plans. It's a patient-centered approach that considers your unique genetics, environment, and lifestyle.</div>
-            </div>
-            <div class="faq-item">
-                <div class="q">Do you take insurance?<span>+</span></div>
-                <div class="answer">We are primarily out-of-network but provide detailed superbills for you to submit to your insurance for potential reimbursement. We also accept HSA/FSA payments for eligible services.</div>
-            </div>
-            <div class="faq-item">
-                <div class="q">What's included in the membership?<span>+</span></div>
-                <div class="answer">Memberships typically include provider visits, health coaching, body composition scans, access to educational events, and discounts on additional services and retail products. Specific inclusions vary by membership tier.</div>
-            </div>
-            <div class="faq-item">
-                <div class="q">Do you sell supplements?<span>+</span></div>
-                <div class="answer">Yes, we offer a curated selection of high-quality supplements in-clinic and through our online dispensary, available exclusively to members. All supplements are third-party tested for purity and potency.</div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Get Started Page -->
-    <div id="get_started-page" class="page-section">
-        <!-- Get Started Hero Section -->
-        <div class="get-started-hero">
-            <h1>Don't Know Where to Start?</h1>
-            <p>Book a free 15-minute consult</p>
-            <button onclick="openModal()">Book Now</button>
-        </div>
-
-        <!-- Get Started Tabs -->
-        <div class="get-started-tab-container">
-            <button class="get-started-tab-btn active" data-tab="hormones">Hormones</button>
-            <button class="get-started-tab-btn" data-tab="gut">Gut Health</button>
-            <button class="get-started-tab-btn" data-tab="sugar">Blood Sugar</button>
-            <button class="get-started-tab-btn" data-tab="inflammation">Inflammation</button>
-        </div>
-
-        <!-- Hormone Content -->
-        <div id="hormones" class="get-started-content active">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">IT MIGHT BE YOUR HORMONES</div>
-                    <h2>Tired, gaining weight, depressed?</h2>
-                    <p>
-                        At Zenlife, we take a deeper dive when it comes to hormone
-                        balance. We look at comprehensive thyroid markers to see how your
-                        brain is talking to your thyroid and how your body is converting T4
-                        into T3—AND if it's abnormal, we want to know why!
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600" alt="Doctor Exam" />
-            </div>
-        </div>
-
-        <!-- Gut Health Content -->
-        <div id="gut" class="get-started-content">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">HEAL FROM THE INSIDE OUT</div>
-                    <h2>Is your gut causing issues?</h2>
-                    <p>
-                        Your gut impacts everything—mood, energy, weight, skin, immunity.
-                        We help identify inflammation, microbiome imbalance, and sensitivities.
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1600959907703-125ba137f98c?w=600" alt="Gut Health" />
-            </div>
-        </div>
-
-        <!-- Blood Sugar Content -->
-        <div id="sugar" class="get-started-content">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">CONTROL YOUR ENERGY</div>
-                    <h2>Blood sugar swings?</h2>
-                    <p>
-                        Fatigue, cravings, and weight gain often start with unstable blood sugar.  
-                        We test deeper markers to understand what your body needs.
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1606166325683-1ed8df8addf1?w=600" />
-            </div>
-        </div>
-
-        <!-- Inflammation Content -->
-        <div id="inflammation" class="get-started-content">
-            <div class="get-started-flex">
-                <div>
-                    <div class="get-started-subtitle">FIND THE ROOT CAUSE</div>
-                    <h2>Chronic inflammation symptoms?</h2>
-                    <p>
-                        Joint pain, fatigue, skin problems, brain fog—your body may be inflamed.  
-                        We investigate underlying triggers to restore balance.
-                    </p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1601362847886-8c66c495d711?w=600" />
-            </div>
-        </div>
     </div>
 
     <!-- Footer -->
@@ -1604,7 +1533,7 @@
         <div class="inner">
             <div class="footer-col footer-about">
                 <div class="footer-logo">Zenlife</div>
-                <p>Premium wellness experiences since 2015. We combine medical expertise with personalized fitness programming to help you achieve optimal health and performance.</p>
+                <p>Premium wellness experiences since 2015. We combine medical expertise with personalized fitness programming to help you achieve optimal health and performance through our integrated, holistic approach.</p>
                 <div class="footer-social">
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1625,13 +1554,13 @@
                 <h4>Quick Links</h4>
                 <div class="footer-links">
                     <a href="index.html">About</a>
-                <a href="services.html">Services</a>
-                <a href="memberships.html">Memberships</a>
-                <a href="locations.html">Locations</a>
-                <a href="shop.html">Shop</a>
-                <a href="articles.html">Articles</a>
-                <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
-                <a href="#" class="nav-btn solid get-started-btn" data-page="get_started">Get Started</a>
+                    <a href="services.html">Services</a>
+                    <a href="memberships.html">Memberships</a>
+                    <a href="locations.html">Locations</a>
+                    <a href="shop.html">Shop</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="#" onclick="openModal()">Book A Visit</a>
+                    <a href="get-started.html" class="get-started-btn" data-page="get_started">Get Started</a>
                 </div>
             </div>
         </div>
@@ -1654,6 +1583,12 @@
             <p>We'll reach out shortly to confirm your appointment.</p>
             <button class="close-btn" onclick="closeModal()">Close</button>
         </div>
+    </div>
+
+    <!-- Draggable WhatsApp Button -->
+    <div id="whatsappButton">
+        <i class="fab fa-whatsapp"></i>
+        <div id="whatsappTooltip">We are waiting for your message.</div>
     </div>
 
     <script>
@@ -1699,8 +1634,89 @@
             // Initialize page navigation
             initializePageNavigation();
             
-            // Initialize get started tabs
-            initializeGetStartedTabs();
+            // Tab content data
+            const tabContent = {
+                medicine: {
+                    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    title: "Wellness Packages Designed for You",
+                    listItems: [
+                        "A Functional Medicine approach tailored to your unique needs",
+                        "Dedicated health coaching to guide you every step of the way",
+                        "Regular check-ins providing accountability and support",
+                        "Comprehensive testing to identify root causes",
+                        "Personalized nutrition and lifestyle recommendations"
+                    ],
+                    linkText: "START YOUR JOURNEY"
+                },
+                "medicine-movement": {
+                    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    title: "Comprehensive Health & Fitness",
+                    listItems: [
+                        "Integrated medicine and movement plans",
+                        "Personalized fitness programming based on health data",
+                        "Holistic approach addressing body and mind",
+                        "Regular progress tracking and adjustments",
+                        "Community support for lasting results"
+                    ],
+                    linkText: "EXPLORE THE PROGRAM"
+                },
+                movement: {
+                    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    title: "Focused Fitness Solutions",
+                    listItems: [
+                        "Customized movement plans for all fitness levels",
+                        "Expert fitness guidance from certified professionals",
+                        "Community support and accountability",
+                        "Regular assessments to track progress",
+                        "Flexible scheduling to fit your lifestyle"
+                    ],
+                    linkText: "GET MOVING"
+                }
+            };
+
+            // Tab switching functionality
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Update tab styles
+                    document.querySelectorAll('.tab').forEach(t => {
+                        t.classList.remove('active');
+                        t.classList.add('inactive');
+                    });
+                    
+                    tab.classList.remove('inactive');
+                    tab.classList.add('active');
+                    
+                    // Update section content
+                    const content = tabContent[tabId];
+                    document.getElementById('section-image').src = content.image;
+                    document.getElementById('section-image').alt = content.title;
+                    document.getElementById('section-title').textContent = content.title;
+                    
+                    const listElement = document.getElementById('section-list');
+                    listElement.innerHTML = '';
+                    content.listItems.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        listElement.appendChild(li);
+                    });
+                    
+                    document.querySelector('.btn-link').innerHTML = `${content.linkText} <i class="fas fa-arrow-right"></i>`;
+                });
+            });
+
+            // Add scroll effect to header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 5px 25px rgba(0,0,0,0.1)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+                }
+            });
         });
 
         // Page Navigation
@@ -1735,120 +1751,6 @@
             });
         }
 
-        // Get Started Tabs Logic
-        function initializeGetStartedTabs() {
-            const getStartedTabButtons = document.querySelectorAll(".get-started-tab-btn");
-            const getStartedContents = document.querySelectorAll(".get-started-content");
-
-            getStartedTabButtons.forEach((btn) => {
-                btn.addEventListener("click", () => {
-                    // Remove active class from all buttons
-                    document.querySelectorAll(".get-started-tab-btn.active").forEach(activeBtn => {
-                        activeBtn.classList.remove("active");
-                    });
-                    
-                    // Add active class to clicked button
-                    btn.classList.add("active");
-
-                    // Hide all content
-                    getStartedContents.forEach((c) => c.classList.remove("active"));
-                    
-                    // Show selected content
-                    document.getElementById(btn.dataset.tab).classList.add("active");
-                });
-            });
-        }
-
-        // Tab content data
-        const tabContent = {
-            medicine: {
-                image: "doctor-1.png",
-                title: "Wellness Packages Designed for You",
-                listItems: [
-                    "A Functional Medicine approach",
-                    "Health coaching along the way",
-                    "Regular check-ins to provide accountability"
-                ],
-                linkText: "START YOUR JOURNEY >"
-            },
-            "medicine-movement": {
-                image: "doctor-2.png",
-                title: "Comprehensive Health & Fitness",
-                listItems: [
-                    "Integrated medicine and movement plans",
-                    "Personalized fitness programming",
-                    "Holistic approach to wellness"
-                ],
-                linkText: "EXPLORE THE PROGRAM >"
-            },
-            movement: {
-                image: "doctor-1.png",
-                title: "Focused Fitness Solutions",
-                listItems: [
-                    "Customized movement plans",
-                    "Expert fitness guidance",
-                    "Community support and accountability"
-                ],
-                linkText: "GET MOVING >"
-            }
-        };
-
-        // Tab switching functionality
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabId = tab.getAttribute('data-tab');
-                
-                // Update tab styles
-                document.querySelectorAll('.tab').forEach(t => {
-                    t.classList.remove('active');
-                    t.classList.add('inactive');
-                });
-                
-                tab.classList.remove('inactive');
-                tab.classList.add('active');
-                
-                // Update section content
-                const content = tabContent[tabId];
-                document.getElementById('section-image').src = content.image;
-                document.getElementById('section-image').alt = content.title;
-                document.getElementById('section-title').textContent = content.title;
-                
-                const listElement = document.getElementById('section-list');
-                listElement.innerHTML = '';
-                content.listItems.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    listElement.appendChild(li);
-                });
-                
-                document.getElementById('section-link').textContent = content.linkText;
-            });
-        });
-
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-item').forEach(item => {
-            const q = item.querySelector('.q');
-            const answer = item.querySelector('.answer');
-            
-            q.addEventListener('click', () => {
-                const isOpen = answer.classList.contains('active');
-                
-                // Close all FAQ items
-                document.querySelectorAll('.faq-item .answer').forEach(ans => {
-                    ans.classList.remove('active');
-                });
-                document.querySelectorAll('.faq-item .q').forEach(question => {
-                    question.classList.remove('open');
-                });
-                
-                // Open clicked item if it wasn't already open
-                if (!isOpen) {
-                    answer.classList.add('active');
-                    q.classList.add('open');
-                }
-            });
-        });
-
         // Modal Logic
         function openModal() {
             document.getElementById("bookModal").style.display = "flex";
@@ -1857,6 +1759,177 @@
         function closeModal() {
             document.getElementById("bookModal").style.display = "none";
         }
+
+        // WhatsApp Button Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const whatsappButton = document.getElementById('whatsappButton');
+            const tooltip = document.getElementById('whatsappTooltip');
+            let isDragging = false;
+            let startX, startY, initialX, initialY;
+            
+            // WhatsApp number and message
+            const phoneNumber = "1234567890"; // Replace with your actual WhatsApp number
+            const message = "Hello, I'm interested in learning more about Zenlife services.";
+            
+            // Load saved position or set default
+            const savedPosition = JSON.parse(localStorage.getItem('whatsappButtonPosition'));
+            if (savedPosition) {
+                whatsappButton.style.left = savedPosition.x + 'px';
+                whatsappButton.style.top = savedPosition.y + 'px';
+                whatsappButton.style.right = 'auto';
+                whatsappButton.style.bottom = 'auto';
+            }
+            
+            // Show tooltip on hover
+            whatsappButton.addEventListener('mouseenter', function() {
+                if (!isDragging) {
+                    tooltip.style.opacity = '1';
+                    whatsappButton.style.transform = 'scale(1.1)';
+                    whatsappButton.style.boxShadow = '0 6px 25px rgba(37, 211, 102, 0.7)';
+                }
+            });
+            
+            whatsappButton.addEventListener('mouseleave', function() {
+                if (!isDragging) {
+                    tooltip.style.opacity = '0';
+                    whatsappButton.style.transform = '';
+                    whatsappButton.style.boxShadow = '0 4px 20px rgba(37, 211, 102, 0.5)';
+                }
+            });
+            
+            // Make button draggable
+            whatsappButton.addEventListener('mousedown', startDrag);
+            whatsappButton.addEventListener('touchstart', startDrag, { passive: false });
+            
+            function startDrag(e) {
+                isDragging = true;
+                
+                // Get initial position
+                const rect = whatsappButton.getBoundingClientRect();
+                initialX = rect.left;
+                initialY = rect.top;
+                
+                if (e.type === "touchstart") {
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                } else {
+                    startX = e.clientX;
+                    startY = e.clientY;
+                }
+                
+                // Switch to absolute positioning for dragging
+                whatsappButton.style.right = 'auto';
+                whatsappButton.style.bottom = 'auto';
+                whatsappButton.style.left = initialX + 'px';
+                whatsappButton.style.top = initialY + 'px';
+                
+                // Add visual feedback
+                whatsappButton.style.opacity = '0.8';
+                tooltip.style.opacity = '0';
+                
+                // Add event listeners
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag, { passive: false });
+                document.addEventListener('mouseup', endDrag);
+                document.addEventListener('touchend', endDrag);
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                
+                e.preventDefault();
+                
+                let currentX, currentY;
+                if (e.type === "touchmove") {
+                    currentX = e.touches[0].clientX;
+                    currentY = e.touches[0].clientY;
+                } else {
+                    currentX = e.clientX;
+                    currentY = e.clientY;
+                }
+                
+                // Calculate new position
+                const deltaX = currentX - startX;
+                const deltaY = currentY - startY;
+                const newX = initialX + deltaX;
+                const newY = initialY + deltaY;
+                
+                // Keep within viewport
+                const maxX = window.innerWidth - whatsappButton.offsetWidth;
+                const maxY = window.innerHeight - whatsappButton.offsetHeight;
+                
+                const boundedX = Math.max(0, Math.min(newX, maxX));
+                const boundedY = Math.max(0, Math.min(newY, maxY));
+                
+                // Update position
+                whatsappButton.style.left = boundedX + 'px';
+                whatsappButton.style.top = boundedY + 'px';
+            }
+            
+            function endDrag() {
+                isDragging = false;
+                
+                // Remove visual feedback
+                whatsappButton.style.opacity = '1';
+                
+                // Save position
+                const rect = whatsappButton.getBoundingClientRect();
+                const position = {
+                    x: rect.left,
+                    y: rect.top
+                };
+                localStorage.setItem('whatsappButtonPosition', JSON.stringify(position));
+                
+                // Remove event listeners
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('mouseup', endDrag);
+                document.removeEventListener('touchend', endDrag);
+            }
+            
+            // Open WhatsApp when clicked
+            whatsappButton.addEventListener('click', function(e) {
+                if (!isDragging) {
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                    window.open(whatsappURL, '_blank');
+                }
+            });
+            
+            // Responsive adjustments for WhatsApp button
+            function adjustWhatsAppButton() {
+                const width = window.innerWidth;
+                
+                if (width <= 576) {
+                    whatsappButton.style.width = '50px';
+                    whatsappButton.style.height = '50px';
+                    whatsappButton.querySelector('i').style.fontSize = '24px';
+                    tooltip.style.fontSize = '12px';
+                    tooltip.style.padding = '6px 10px';
+                    tooltip.style.top = '-40px';
+                } else if (width <= 768) {
+                    whatsappButton.style.width = '60px';
+                    whatsappButton.style.height = '60px';
+                    whatsappButton.querySelector('i').style.fontSize = '30px';
+                    tooltip.style.fontSize = '12px';
+                    tooltip.style.padding = '6px 10px';
+                    tooltip.style.top = '-40px';
+                } else {
+                    whatsappButton.style.width = '70px';
+                    whatsappButton.style.height = '70px';
+                    whatsappButton.querySelector('i').style.fontSize = '36px';
+                    tooltip.style.fontSize = '14px';
+                    tooltip.style.padding = '8px 12px';
+                    tooltip.style.top = '-45px';
+                }
+            }
+            
+            // Initial adjustment
+            adjustWhatsAppButton();
+            
+            // Adjust on resize
+            window.addEventListener('resize', adjustWhatsAppButton);
+        });
     </script>
 </body>
 </html>
