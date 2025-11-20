@@ -989,12 +989,6 @@
             margin-top: 80px;
         }
         
-        .page-hero h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-        }
-        
         .page-content {
             max-width: 1200px;
             margin: 50px auto;
@@ -1341,7 +1335,7 @@
                 <a href="shop.html">Shop</a>
                 <a href="articles.html">Articles</a>
                 <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
-                <a href="get-started.html" class="nav-btn solid get-started-btn" data-page="get_started">Get Started</a>
+                <a href="get-started.html" class="nav-btn solid">Get Started</a>
             </nav>
         </div>
     </header>
@@ -1365,7 +1359,7 @@
                     <li>Health coaching along the way</li>
                     <li>Regular check-ins to provide accountability</li>
                 </ul>
-                <a href="#" class="btn-link get-started-btn" data-page="get_started">START YOUR JOURNEY ></a>
+                <a href="get-started.html" class="btn-link">START YOUR JOURNEY ></a>
             </div>
         </div>
         
@@ -1547,14 +1541,14 @@
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <div class="footer-links">
-                    <a href="index.html">About</a>
+                <a href="index.html">About</a>
                 <a href="services.html">Services</a>
                 <a href="memberships.html">Memberships</a>
                 <a href="locations.html">Locations</a>
                 <a href="shop.html">Shop</a>
                 <a href="articles.html">Articles</a>
                 <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
-                <a href="get-started.html" class="nav-btn solid get-started-btn" data-page="get_started">Get Started</a>
+                <a href="get-started.html" class="nav-btn solid">Get Started</a>
                 </div>
             </div>
         </div>
@@ -1662,11 +1656,11 @@ We are waiting for your message.</div>
                 });
             }
             
-            // Initialize page navigation
+            // Initialize page navigation (for pages within the same HTML file)
             initializePageNavigation();
         });
 
-        // Page Navigation
+        // Page Navigation for pages within the same HTML file
         function initializePageNavigation() {
             // Get all navigation elements with data-page attribute
             const navElements = document.querySelectorAll('[data-page]');
@@ -1681,18 +1675,21 @@ We are waiting for your message.</div>
                         page.classList.remove('active');
                     });
                     
-                    // Show target page
-                    document.getElementById(targetPage + '-page').classList.add('active');
-                    
-                    // Scroll to top
-                    window.scrollTo(0, 0);
-                    
-                    // Close mobile menu if open
-                    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-                    const mainNav = document.getElementById('main-nav');
-                    if (mainNav.classList.contains('active')) {
-                        mainNav.classList.remove('active');
-                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    // Show target page (only if it exists in this HTML file)
+                    const targetElement = document.getElementById(targetPage + '-page');
+                    if (targetElement) {
+                        targetElement.classList.add('active');
+                        
+                        // Scroll to top
+                        window.scrollTo(0, 0);
+                        
+                        // Close mobile menu if open
+                        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+                        const mainNav = document.getElementById('main-nav');
+                        if (mainNav.classList.contains('active')) {
+                            mainNav.classList.remove('active');
+                            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
                     }
                 });
             });
