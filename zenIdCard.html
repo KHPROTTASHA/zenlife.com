@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PVC Member ID Card – Premium Collection</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- QR Code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+  <!-- html2canvas for image download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --green: #2f4a3f;
+      --gold: #b58b57;
+      --sand: #f9f7f4;
+      --light: #f9f7f4;
+      --muted: #777;
+      --transition: all 0.3s ease;
+      --max: 1200px;
+    }
+    
+    body { 
+      margin:0; 
+      font-family: 'Georgia', serif; 
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-color: #cccccc;
+      scroll-behavior: smooth;
+    }
+    
+    /* Header & Navigation */
+    header { 
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+    
+    .header-container {
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      padding:20px 60px; 
+      max-width:1200px; 
+      margin:0 auto; 
+      flex-wrap: wrap;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+      z-index: 1001;
+    }
+    
+    nav { 
+      display: flex; 
+      align-items: center; 
+      flex-wrap: wrap;
+      transition: var(--transition);
+    }
+    
+    nav a { 
+      margin:0 10px; 
+      text-decoration:none; 
+      color:#333; 
+      font-size:15px; 
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    
+    nav a:hover {
+      color: var(--gold);
+    }
+    
+    .dropdown { 
+      position:relative; 
+      display:inline-block; 
+    }
+    
+    .dropdown-menu { 
+      display:none; 
+      position:absolute; 
+      top:100%; 
+      left:0; 
+      background:#fff; 
+      box-shadow:0 2px 8px rgba(0,0,0,0.1); 
+      padding:20px; 
+      width:180px; 
+      z-index: 100;
+      border-radius: 4px;
+    }
+    
+    .dropdown:hover .dropdown-menu { 
+      display:block; 
+    }
+    
+    .nav-btn {
+      padding: 8px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: var(--transition);
+      margin-left: 10px;
+      font-weight: 600;
+    }
+    
+    .nav-btn.outline {
+      border: 1px solid #333;
+      color: #333;
+      background: transparent;
+    }
+    
+    .nav-btn.outline:hover {
+      background: #333;
+      color: white;
+    }
+    
+    .nav-btn.solid {
+      background: var(--green);
+      color: white;
+      border: none;
+    }
+    
+    .nav-btn.solid:hover {
+      background: #1f352b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Mobile Navigation */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--green);
+      z-index: 1001;
+      padding: 10px;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Science+Gothic&family=Bebas+Neue&family=EB+Garamond:wght@400;500;600;700;800&display=swap');
+    
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .science-gothic {
+      font-family: 'Science Gothic', sans-serif;
+    }
+    
+    .bebas-neue {
+      font-family: 'Bebas Neue', sans-serif;
+    }
+    
+    .eb-garamond {
+      font-family: 'EB Garamond', serif;
+    }
+    
+    .eb-garamond-extra-bold {
+      font-family: 'EB Garamond', serif;
+      font-weight: 800;
+    }
+    
+    .card {
+      width: 350px;
+      height: 220px;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    /* Updated Premium Color Schemes */
+    .diamond {
+      background: linear-gradient(135deg, #1a1a1a 0%, #333 50%, #1a1a1a 100%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .emerald {
+      background: linear-gradient(135deg, #333333 0%, #555 50%, #333333 100%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .ruby {
+      background: linear-gradient(135deg, #595959 0%, #777 50%, #595959 100%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .sapphire {
+      background: linear-gradient(135deg, #999999 0%, #bbb 50%, #999999 100%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .seal {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      opacity: 0.15;
+      pointer-events: none;
+      filter: brightness(1.2);
+    }
+
+    .hologram {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+      background-size: 400% 400%;
+      animation: hologram 4s ease infinite;
+      opacity: 0.9;
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    @keyframes hologram {
+      0% { background-position: 0% 50%; transform: rotate(0deg); }
+      50% { background-position: 100% 50%; transform: rotate(180deg); }
+      100% { background-position: 0% 50%; transform: rotate(360deg); }
+    }
+
+    .chip {
+      width: 35px;
+      height: 28px;
+      background: linear-gradient(135deg, #3498db, #8e44ad);
+      border-radius: 5px;
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    }
+
+    .chip::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      background: linear-gradient(135deg, #0f3460, #533483);
+      border-radius: 3px;
+    }
+
+    .contactless {
+      position: absolute;
+      bottom: 15px;
+      left: 60px;
+      width: 28px;
+      height: 28px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contactless::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+
+    .contactless::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+
+    .premium-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .validity {
+      position: absolute;
+      bottom: 10px;
+      left: 100px;
+      font-size: 9px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 3px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .text-glow {
+      text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    }
+
+    .photo-frame {
+      border: 3px solid rgba(255,255,255,0.8);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .logo-container {
+      background: rgba(255,255,255,0.2);
+      padding: 5px 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Cards container for download */
+    #cardsContainer {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Company logo and name styling for back of card */
+    .company-back {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    /* Image upload styling */
+    .image-upload-container {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .image-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      border: 2px dashed #cbd5e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0 auto 1rem;
+      background-color: #f7fafc;
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upload-placeholder {
+      text-align: center;
+      color: #a0aec0;
+    }
+
+    .upload-placeholder i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .file-input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    /* Page Title with Green Background */
+    .page-title {
+      background-color: var(--green);
+      color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    /* FOOTER SECTION - UPDATED GRADIENT */
+    footer {
+      background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
+      color: #fff;
+      padding: 80px 20px 30px;
+      margin-top: 80px;
+      position: relative;
+    }
+    
+    footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--green), var(--gold));
+    }
+    
+    footer .inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+    }
+    
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 24px;
+      color: #fff;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-col h4:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+    }
+    
+    .footer-about p {
+      color: rgba(255,255,255,0.9);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    
+    .footer-contact p {
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .footer-contact i {
+      color: var(--gold);
+      width: 20px;
+      margin-top: 4px;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.9);
+      transition: var(--transition);
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      color: var(--gold);
+      transform: translateX(5px);
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: #fff;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    
+    .footer-social a:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 30px;
+      margin-top: 60px;
+      text-align: center;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-legal a {
+      color: rgba(255,255,255,0.8);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    
+    .footer-legal a:hover {
+      color: var(--gold);
+    }
+    
+    /* Payment Modal */
+    .payment-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .payment-content {
+      background: white;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .payment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+    
+    .payment-option {
+      border: 2px solid #eee;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .payment-option:hover {
+      border-color: var(--green);
+    }
+    
+    .payment-option.selected {
+      border-color: var(--green);
+      background: rgba(47, 74, 63, 0.05);
+    }
+    
+    .payment-details {
+      display: none;
+      margin-top: 20px;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .header-container {
+        padding: 15px 30px;
+      }
+      
+      .card {
+        width: 320px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 15px 20px;
+      }
+      
+      .mobile-menu-toggle {
+        display: block;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 30px 30px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+      }
+      
+      nav.active {
+        right: 0;
+      }
+      
+      nav a {
+        margin: 12px 0;
+        font-size: 18px;
+        width: 100%;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+        padding: 10px 0 10px 20px;
+        display: none;
+      }
+      
+      .dropdown.active .dropdown-menu {
+        display: block;
+      }
+      
+      .nav-btn {
+        margin: 15px 0 0;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+      }
+      
+      .hero, .services-hero, .page-hero, .get-started-hero {
+        padding: 80px 20px;
+        font-size: 32px;
+      }
+      
+      .tabs, .services-tab-container, .get-started-tab-container {
+        margin-top: 20px;
+        padding: 0 20px;
+      }
+      
+      .tab, .services-tab-btn, .get-started-tab-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        margin: 5px;
+      }
+      
+      .section {
+        padding: 40px 20px;
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .section h2 {
+        font-size: 32px;
+      }
+      
+      .approach-section {
+        padding: 70px 0;
+      }
+      
+      .approach-title {
+        font-size: 32px;
+      }
+      
+      .testimonials {
+        padding: 70px 20px;
+      }
+      
+      .testimonials h3, .faq h3 {
+        font-size: 32px;
+        margin-bottom: 40px;
+      }
+      
+      .feature {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      
+      .feature-icon {
+        align-self: center;
+      }
+      
+      .q {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+      
+      .answer {
+        padding: 0 15px;
+      }
+      
+      .answer.active {
+        padding: 0 15px 20px;
+      }
+      
+      .custom-cta {
+        padding: 60px 20px;
+        margin: 60px 20px 0;
+        border-radius: 12px;
+      }
+      
+      .custom-cta h3 {
+        font-size: 28px;
+      }
+      
+      .custom-cta p {
+        font-size: 16px;
+      }
+      
+      footer .inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .footer-legal {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .services-flex, .get-started-flex {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .services-flex img, .get-started-flex img {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero, .services-hero, .page-hero, .get-started-hero {
+        font-size: 24px;
+        padding: 60px 20px;
+      }
+      
+      .section h2 {
+        font-size: 24px;
+      }
+      
+      .approach-title, .testimonials h3, .faq h3 {
+        font-size: 26px;
+      }
+      
+      .price-card {
+        padding: 20px;
+      }
+    }
+    
+    @media print {
+      #formArea, #buttons, header, footer, .payment-modal { display:none; }
+      body{ margin:0; background:#fff; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">Zenlife</div>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav id="main-nav">
+        <a href="index.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="locations.html">Locations</a>
+        <a href="shop.html">Shop</a>
+        <a href="articles.html">Articles</a>
+        <a href="#" class="nav-btn outline">Book A Visit</a>
+        <a href="get-started.html" class="nav-btn solid">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="min-h-screen p-6 pt-24">
+    <!-- PAGE TITLE -->
+    <div class="page-title">
+      <h2 class="text-center font-bold text-3xl mb-2 text-white eb-garamond-extra-bold">Premium PVC ID Card Collection</h2>
+      <p class="text-center text-white opacity-90 eb-garamond">Create your premium hospital ID card with our easy-to-use generator</p>
+    </div>
+
+    <!-- CARD PREVIEW AREA (Initially hidden) -->
+    <div id="cardView" class="hidden">
+      
+      <!-- Cards Container for Download -->
+      <div id="cardsContainer">
+        <!-- FRONT -->
+        <div id="frontCard" class="card diamond p-5">
+          <div class="flex items-center gap-3 mb-4 logo-container">
+            <img src="ZLOGO.JPG" class="w-12" />
+            <div>
+              <h3 class="font-bold text-xl tracking-wide text-glow eb-garamond-extra-bold">Zenlife - Health & Fitness</h3>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <img id="photo" src="ZLOGO.JPG"
+                 class="w-20 h-20 rounded-lg photo-frame" />
+
+            <div class="text-sm leading-tight font-medium eb-garamond">
+              <p class="font-semibold">Name: <span id="nameShow" class="eb-garamond">---</span></p>
+              <p>ID: <span id="idShow" class="eb-garamond">---</span></p>
+              <p>NID: <span id="nidShow" class="eb-garamond">---</span></p>
+              <p>Tier: <span id="tierShow" class="eb-garamond">Diamond</span></p>
+            </div>
+          </div>
+
+          <canvas id="qrCanvas" class="absolute bottom-5 right-5"></canvas>
+          <img src="https://i.ibb.co/LNZVgdN/seal.png" width="130" class="seal" />
+          
+          <!-- Premium Features -->
+          <div class="hologram"></div>
+          <div class="chip"></div>
+          <div class="contactless"></div>
+          <div class="premium-badge eb-garamond" id="badgeText">DIAMOND</div>
+          <div class="validity eb-garamond">VALID: 12/2025</div>
+        </div>
+
+        <!-- BACK -->
+        <div id="backCard" class="card diamond p-5">
+          <!-- Company Logo and Name Only -->
+          <div class="company-back">
+            <div class="flex flex-col items-center justify-center">
+              <img src="ZLOGO.JPG" class="w-16 mb-4" />
+              <h3 class="font-bold text-2xl tracking-wide text-glow eb-garamond-extra-bold">Zenlife - Health & Fitness</h3>
+              <p class="text-lg opacity-80 mt-2 eb-garamond-extra-bold">Premium Healthcare Services</p>
+            </div>
+          </div>
+
+          <img src="ZLOGO.JPG" width="130" class="seal" />
+          
+          <!-- Premium Features -->
+          <div class="hologram"></div>
+          <div class="premium-badge eb-garamond" id="badgeTextBack"></div>
+        </div>
+      </div>
+
+      <!-- PRINT + DOWNLOAD BUTTONS -->
+      <div id="buttons" class="text-center mt-8">
+        <button onclick="openPaymentModal('print')"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition eb-garamond">
+          Print Card
+        </button>
+
+        <button onclick="openPaymentModal('download')"
+                class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition ml-4 eb-garamond">
+          Download Card
+        </button>
+      </div>
+
+    </div>
+
+    <!-- FORM AREA -->
+    <div id="formArea"
+         class="max-w-lg mx-auto bg-white p-6 rounded-xl mt-6 shadow-lg">
+
+      <h3 class="font-bold text-xl mb-4 text-gray-800 border-b pb-2 bebas-neue">Member Information</h3>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2 eb-garamond">Member Photo</label>
+          <div class="image-upload-container">
+            <div class="image-preview" id="imagePreview">
+              <div class="upload-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p class="text-xs eb-garamond">Click to upload photo</p>
+              </div>
+            </div>
+            <input type="file" id="photoUpload" class="file-input" accept="image/*" />
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Member Name</label>
+          <input id="name" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 eb-garamond" placeholder="নাম" />
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">NID No.</label>
+          <input id="nid" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 eb-garamond" placeholder="NID No." />
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Member ID</label>
+          <div class="flex gap-2">
+            <input id="mid" class="flex-1 border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 eb-garamond" placeholder="Member ID" readonly />
+            <button type="button" onclick="generateMemberID()" class="bg-blue-500 text-white px-4 rounded-lg hover:bg-blue-600 transition eb-garamond">
+              Generate ID
+            </button>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Address</label>
+          <input id="addr" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 eb-garamond" placeholder="Address" />
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Emergency Phone</label>
+          <input id="emgPhone" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 eb-garamond" placeholder="Emergency Phone" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Blood Group</label>
+          <select id="blood" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 eb-garamond">
+            <option value="">Select Blood Group</option>
+            <option>A+</option><option>A-</option>
+            <option>B+</option><option>B-</option>
+            <option>O+</option><option>O-</option>
+            <option>AB+</option><option>AB-</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Membership Tier</label>
+          <select id="tier" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 eb-garamond">
+            <option value="diamond">Diamond</option>
+            <option value="emerald">Emerald</option>
+            <option value="ruby">Ruby</option>
+            <option value="sapphire">Sapphire</option>
+          </select>
+        </div>
+
+        <!-- Generate Card Button moved to the bottom -->
+        <button onclick="generateCard()"
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white p-3 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition shadow-lg eb-garamond mt-4">
+          Generate Card
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="payment-modal">
+    <div class="payment-content">
+      <div class="payment-header">
+        <h3 class="font-bold text-xl eb-garamond">Complete Payment</h3>
+        <button onclick="closePaymentModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="mb-4">
+        <p class="text-gray-600 eb-garamond">Please select a payment method to proceed with your <span id="paymentAction">download</span>.</p>
+      </div>
+      
+      <div class="payment-option" onclick="selectPaymentOption(this, 'card')">
+        <div class="flex items-center">
+          <i class="fas fa-credit-card text-blue-500 mr-3"></i>
+          <div>
+            <h4 class="font-semibold eb-garamond">Credit/Debit Card</h4>
+            <p class="text-sm text-gray-500 eb-garamond">Pay securely with your card</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="payment-option" onclick="selectPaymentOption(this, 'bkash')">
+        <div class="flex items-center">
+          <i class="fas fa-mobile-alt text-pink-500 mr-3"></i>
+          <div>
+            <h4 class="font-semibold eb-garamond">bKash</h4>
+            <p class="text-sm text-gray-500 eb-garamond">Pay with your bKash account</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="payment-option" onclick="selectPaymentOption(this, 'nagad')">
+        <div class="flex items-center">
+          <i class="fas fa-wallet text-green-500 mr-3"></i>
+          <div>
+            <h4 class="font-semibold eb-garamond">Nagad</h4>
+            <p class="text-sm text-gray-500 eb-garamond">Pay with your Nagad account</p>
+          </div>
+        </div>
+      </div>
+      
+      <div id="cardDetails" class="payment-details">
+        <div class="space-y-4 mt-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Card Number</label>
+            <input type="text" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 eb-garamond" placeholder="1234 5678 9012 3456" />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Expiry Date</label>
+              <input type="text" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 eb-garamond" placeholder="MM/YY" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">CVV</label>
+              <input type="text" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 eb-garamond" placeholder="123" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="mobilePaymentDetails" class="payment-details">
+        <div class="space-y-4 mt-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Mobile Number</label>
+            <input type="text" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 eb-garamond" placeholder="01XXXXXXXXX" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1 eb-garamond">Transaction ID</label>
+            <input type="text" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 eb-garamond" placeholder="Enter transaction ID" />
+          </div>
+        </div>
+      </div>
+      
+      <button id="payButton" onclick="processPayment()" class="w-full bg-green-600 text-white p-3 rounded-lg font-medium hover:bg-green-700 transition mt-6 eb-garamond" disabled>
+        Complete Payment - ৳50
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="inner">
+      <div class="footer-col footer-about">
+        <div class="footer-logo">Zenlife</div>
+        <p>Premium wellness experiences since 2015. We combine medical expertise with personalized fitness programming to help you achieve optimal health and performance.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fas fa-map-marker-alt"></i> NewTown,Kolkata</p>
+        <p><i class="fas fa-phone"></i> +91 987654321</p>
+        <p><i class="fas fa-envelope"></i> hello@Zenlife.com</p>
+        <p><i class="fas fa-clock"></i> Mon-Fri: 6am-8pm | Sat: 8am-4pm | Sun: 9am-2pm</p>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="index.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="memberships.html">Memberships</a>
+          <a href="locations.html">Locations</a>
+          <a href="shop.html">Shop</a>
+          <a href="articles.html">Articles</a>
+          <a href="#" class="nav-btn outline">Book A Visit</a>
+          <a href="get-started.html" class="nav-btn solid">Get Started</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="copyright">© 2025 Zenlife. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Auto generate member ID on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      generateMemberID();
+      
+      // Setup image upload functionality
+      const photoUpload = document.getElementById('photoUpload');
+      const imagePreview = document.getElementById('imagePreview');
+      
+      photoUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          
+          reader.addEventListener('load', function() {
+            // Clear previous content
+            imagePreview.innerHTML = '';
+            
+            // Create and add the image
+            const img = document.createElement('img');
+            img.src = reader.result;
+            img.alt = 'Member Photo';
+            imagePreview.appendChild(img);
+            
+            // Store the image data for later use
+            imagePreview.dataset.imageData = reader.result;
+          });
+          
+          reader.readAsDataURL(file);
+        }
+      });
+      
+      // Mobile navigation toggle
+      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mainNav = document.getElementById('main-nav');
+      
+      if (mobileMenuToggle && mainNav) {
+        mobileMenuToggle.addEventListener('click', function(e) {
+          e.stopPropagation(); // Prevent event from bubbling up
+          mainNav.classList.toggle('active');
+          
+          // Change icon based on menu state
+          if (mainNav.classList.contains('active')) {
+            mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+          } else {
+            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mainNav.classList.remove('active');
+            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+          const isClickInsideNav = mainNav.contains(event.target);
+          const isClickOnToggle = mobileMenuToggle.contains(event.target);
+          
+          if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
+            mainNav.classList.remove('active');
+            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+      }
+    });
+
+    let currentAction = '';
+    let selectedPaymentMethod = '';
+
+    function generateMemberID() {
+      // Generate a unique 8-digit ID with prefix based on current year
+      const year = new Date().getFullYear().toString().slice(-2);
+      const random = Math.floor(100000 + Math.random() * 900000);
+      const memberId = `CC${year}${random}`;
+      
+      document.getElementById('mid').value = memberId;
+    }
+
+    function generateCard() {
+      const name = document.getElementById("name").value;
+      const nid = document.getElementById("nid").value;
+      const mid = document.getElementById("mid").value;
+      const imagePreview = document.getElementById('imagePreview');
+      const photoData = imagePreview.dataset.imageData || "https://i.ibb.co/VL2hySn/avatar.png";
+      const addr = document.getElementById("addr").value;
+      const emg = document.getElementById("emgPhone").value;
+      const blood = document.getElementById("blood").value;
+      const tier = document.getElementById("tier").value;
+
+      // Validation
+      if (!name || !nid || !blood) {
+        alert("Please fill in all required fields: Name, NID, and Blood Group");
+        return;
+      }
+
+      document.getElementById("nameShow").innerText = name;
+      document.getElementById("nidShow").innerText = nid;
+      document.getElementById("idShow").innerText = mid;
+      document.getElementById("tierShow").innerText = tier.charAt(0).toUpperCase() + tier.slice(1);
+      document.getElementById("photo").src = photoData;
+
+      const front = document.getElementById("frontCard");
+      const back = document.getElementById("backCard");
+
+      // Update card colors based on tier
+      front.className = `card p-5 ${tier}`;
+      back.className = `card p-5 ${tier}`;
+
+      // Update chip color based on tier
+      updateChipColor(tier);
+
+      // Update badge text
+      document.getElementById("badgeText").innerText = tier.toUpperCase();
+      document.getElementById("badgeTextBack").innerText = tier.toUpperCase();
+
+      // Generate QR Code with member information
+      new QRious({
+        element: document.getElementById("qrCanvas"),
+        value: `Zenlife - Health & Fitness\nName: ${name}\nID: ${mid}\nBlood: ${blood}\nTier: ${tier}`,
+        size: 75,
+        foreground: '#ffffff',
+        background: 'transparent'
+      });
+
+      document.getElementById("cardView").classList.remove("hidden");
+      
+      // Scroll to the generated card with smooth animation
+      const cardView = document.getElementById("cardView");
+      cardView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function updateChipColor(tier) {
+      const chip = document.querySelector('.chip');
+      
+      switch(tier) {
+        case 'emerald':
+          chip.style.background = 'linear-gradient(135deg, #00b300, #008000)';
+          break;
+        case 'ruby':
+          chip.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
+          break;
+        case 'sapphire':
+          chip.style.background = 'linear-gradient(135deg, #0000ff, #0000cc)';
+          break;
+        default: // diamond
+          chip.style.background = 'linear-gradient(135deg, #3498db, #8e44ad)';
+      }
+    }
+
+    function openPaymentModal(action) {
+      currentAction = action;
+      document.getElementById('paymentAction').textContent = action;
+      document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').style.display = 'none';
+      resetPaymentForm();
+    }
+
+    function selectPaymentOption(element, method) {
+      // Remove selected class from all options
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked option
+      element.classList.add('selected');
+      selectedPaymentMethod = method;
+      
+      // Show appropriate payment details
+      document.getElementById('cardDetails').style.display = 'none';
+      document.getElementById('mobilePaymentDetails').style.display = 'none';
+      
+      if (method === 'card') {
+        document.getElementById('cardDetails').style.display = 'block';
+      } else {
+        document.getElementById('mobilePaymentDetails').style.display = 'block';
+      }
+      
+      // Enable pay button
+      document.getElementById('payButton').disabled = false;
+    }
+
+    function resetPaymentForm() {
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      document.getElementById('cardDetails').style.display = 'none';
+      document.getElementById('mobilePaymentDetails').style.display = 'none';
+      
+      document.getElementById('payButton').disabled = true;
+      selectedPaymentMethod = '';
+    }
+
+    function processPayment() {
+      if (!selectedPaymentMethod) {
+        alert('Please select a payment method');
+        return;
+      }
+      
+      // Show loading state
+      const payButton = document.getElementById('payButton');
+      payButton.disabled = true;
+      payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      
+      // Simulate payment processing
+      setTimeout(() => {
+        // Close modal
+        closePaymentModal();
+        
+        // Reset button
+        payButton.innerHTML = 'Complete Payment - ৳50';
+        payButton.disabled = false;
+        
+        // Show success message
+        alert('Payment successful! Your card will now be ' + (currentAction === 'print' ? 'printed' : 'downloaded'));
+        
+        // Perform the actual action
+        if (currentAction === 'print') {
+          window.print();
+        } else {
+          downloadCard();
+        }
+      }, 2000);
+    }
+
+    function downloadCard() {
+      // Capture only the cards container, not the entire page
+      const cardsContainer = document.getElementById("cardsContainer");
+      
+      html2canvas(cardsContainer, {
+        backgroundColor: null,
+        scale: 2, // Higher resolution
+        useCORS: true
+      }).then((canvas) => {
+        const link = document.createElement("a");
+        const memberId = document.getElementById("mid").value;
+        const tier = document.getElementById("tier").value;
+        link.download = `${tier}-card-${memberId}.jpg`;
+        link.href = canvas.toDataURL("image/jpg", 0.9);
+        link.click();
+      });
+    }
+  </script>
+
+</body>
+</html>
