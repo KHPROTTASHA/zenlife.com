@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenlife - Premium Healthcare Services</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --green: #2f4a3f;
+      --gold: #b58b57;
+      --sand: #f9f7f4;
+      --light: #f9f7f4;
+      --muted: #777;
+      --transition: all 0.3s ease;
+      --max: 1200px;
+    }
+    
+    body { 
+      margin:0; 
+      font-family: 'Georgia', serif; 
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-color: #f5f5f5;
+      scroll-behavior: smooth;
+    }
+    
+    /* Header & Navigation */
+    header { 
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+    
+    .header-container {
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      padding:20px 60px; 
+      max-width:1200px; 
+      margin:0 auto; 
+      flex-wrap: wrap;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+      z-index: 1001;
+    }
+    
+    nav { 
+      display: flex; 
+      align-items: center; 
+      flex-wrap: wrap;
+      transition: var(--transition);
+    }
+    
+    nav a { 
+      margin:0 10px; 
+      text-decoration:none; 
+      color:#333; 
+      font-size:15px; 
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    
+    nav a:hover {
+      color: var(--gold);
+    }
+    
+    .dropdown { 
+      position:relative; 
+      display:inline-block; 
+    }
+    
+    .dropdown-menu { 
+      display:none; 
+      position:absolute; 
+      top:100%; 
+      left:0; 
+      background:#fff; 
+      box-shadow:0 2px 8px rgba(0,0,0,0.1); 
+      padding:20px; 
+      width:180px; 
+      z-index: 100;
+      border-radius: 4px;
+    }
+    
+    .dropdown:hover .dropdown-menu { 
+      display:block; 
+    }
+    
+    .nav-btn {
+      padding: 8px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: var(--transition);
+      margin-left: 10px;
+      font-weight: 600;
+    }
+    
+    .nav-btn.outline {
+      border: 1px solid #333;
+      color: #333;
+      background: transparent;
+    }
+    
+    .nav-btn.outline:hover {
+      background: #333;
+      color: white;
+    }
+    
+    .nav-btn.solid {
+      background: var(--green);
+      color: white;
+      border: none;
+    }
+    
+    .nav-btn.solid:hover {
+      background: #1f352b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Language Selector */
+    .language-selector {
+      position: relative;
+      display: inline-block;
+      margin-left: 15px;
+    }
+    
+    .language-btn {
+      background: transparent;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+    }
+    
+    .language-options {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      min-width: 120px;
+    }
+    
+    .language-options.active {
+      display: block;
+    }
+    
+    .language-option {
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .language-option:hover {
+      background: #f5f5f5;
+    }
+    
+    /* Mobile Navigation */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--green);
+      z-index: 1001;
+      padding: 10px;
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--green) 0%, #1f352b 100%);
+      color: white;
+      padding: 150px 0 80px;
+      text-align: center;
+      margin-top: 70px;
+    }
+    
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: var(--gold);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .btn:hover {
+      background-color: #a07a4c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    /* Premium Features Section */
+    .premium-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #f9f7f4 0%, #f0ece5 100%);
+      text-align: center;
+    }
+    
+    .premium-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold), #d4af37);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(181, 139, 87, 0.3);
+    }
+    
+    .premium-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .premium-feature {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .premium-feature:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--green));
+    }
+    
+    .premium-feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .premium-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--green), var(--gold));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 28px;
+    }
+    
+    .premium-feature h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: var(--green);
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Appointment Section */
+    .appointment-section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      font-size: 36px;
+      color: var(--green);
+      margin-bottom: 15px;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .section-title p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .appointment-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .appointment-form {
+      padding: 40px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--green);
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      transition: var(--transition);
+      background-color: #f9f9f9;
+    }
+    
+    .form-control:focus {
+      border-color: var(--gold);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(181, 139, 87, 0.2);
+      background-color: white;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .appointment-info {
+      background: linear-gradient(135deg, var(--green), #1f352b);
+      color: white;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .info-item i {
+      font-size: 24px;
+      margin-right: 15px;
+      color: var(--gold);
+    }
+    
+    .info-item h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Features Section */
+    .features-section {
+      padding: 80px 0;
+      background-color: var(--light);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: var(--transition);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--green), var(--gold));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 28px;
+    }
+    
+    .feature-card h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: var(--green);
+      font-family: 'Playfair Display', serif;
+    }
+    
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Science+Gothic&family=Bebas+Neue&family=EB+Garamond:wght@400;500;600;700;800&display=swap');
+    
+    /* Confirmation Section */
+    .confirmation-section {
+      padding: 80px 0;
+      display: none;
+    }
+    
+    .confirmation-card {
+      background-color: white;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .confirmation-icon {
+      width: 80px;
+      height: 80px;
+      background-color: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 36px;
+    }
+    
+    .confirmation-card h2 {
+      color: var(--green);
+      margin-bottom: 15px;
+      font-family: 'EB Garamond', serif;
+      font-weight: 800;
+      
+    }
+    
+    .confirmation-id {
+      background-color: var(--light);
+      padding: 10px 20px;
+      border-radius: 50px;
+      display: inline-block;
+      margin: 20px 0;
+      font-weight: 600;
+      color: var(--green);
+       font-family: 'EB Garamond', serif;
+      font-weight: 800;
+    }
+    
+    .confirmation-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    /* Cancellation Section */
+    .cancellation-section {
+      padding: 80px 0;
+      display: none;
+    }
+    
+    .cancellation-card {
+      background-color: white;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .cancellation-icon {
+      width: 80px;
+      height: 80px;
+      background-color: #d9534f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 36px;
+    }
+    
+    .cancellation-card h2 {
+      color: #d9534f;
+      margin-bottom: 15px;
+      font-family: 'EB Garamond', serif;
+      font-weight: 800;
+    }
+    
+    .cancellation-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    /* Cancel Appointment Modal */
+    .cancel-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cancel-modal-content {
+      background: white;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .cancel-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #0a0f0b 0%, #111 100%);
+      color: #fff;
+      padding: 80px 20px 30px;
+      margin-top: 80px;
+      position: relative;
+    }
+    
+    footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--green), var(--gold));
+    }
+    
+    footer .inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+    }
+    
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 24px;
+      color: #fff;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-col h4:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+    }
+    
+    .footer-about p {
+      color: rgba(255,255,255,0.9);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    
+    .footer-contact p {
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .footer-contact i {
+      color: var(--gold);
+      width: 20px;
+      margin-top: 4px;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.9);
+      transition: var(--transition);
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      color: var(--gold);
+      transform: translateX(5px);
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: #fff;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    
+    .footer-social a:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 30px;
+      margin-top: 60px;
+      text-align: center;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-legal a {
+      color: rgba(255,255,255,0.8);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    
+    .footer-legal a:hover {
+      color: var(--gold);
+    }
+    
+    /* Draggable WhatsApp Button */
+    #whatsappButton {
+      position: fixed;
+      width: 70px;
+      height: 70px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      user-select: none;
+      touch-action: none;
+      right: 30px;
+      bottom: 30px;
+    }
+    
+    #whatsappButton i {
+      font-size: 36px;
+      color: white;
+    }
+    
+    #whatsappTooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      white-space: nowrap;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    #whatsappButton:hover #whatsappTooltip {
+      opacity: 1;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .header-container {
+        padding: 15px 30px;
+      }
+      
+      .appointment-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .appointment-info {
+        order: -1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 15px 20px;
+      }
+      
+      .mobile-menu-toggle {
+        display: block;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 30px 30px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+      }
+      
+      nav.active {
+        right: 0;
+      }
+      
+      nav a {
+        margin: 12px 0;
+        font-size: 18px;
+        width: 100%;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+        padding: 10px 0 10px 20px;
+        display: none;
+      }
+      
+      .dropdown.active .dropdown-menu {
+        display: block;
+      }
+      
+      .nav-btn {
+        margin: 15px 0 0;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+      }
+      
+      .language-selector {
+        margin: 15px 0 0;
+        width: 100%;
+      }
+      
+      .language-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .language-options {
+        width: 100%;
+        right: auto;
+        left: 0;
+      }
+      
+      .hero {
+        padding: 120px 20px 60px;
+      }
+      
+      .hero h2 {
+        font-size: 32px;
+      }
+      
+      .section-title h2 {
+        font-size: 28px;
+      }
+      
+      .appointment-container {
+        grid-template-columns: 1fr;
+        margin: 0 20px;
+      }
+      
+      .appointment-form {
+        padding: 30px 20px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .features-grid, .premium-features {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+      }
+      
+      .confirmation-actions, .cancellation-actions {
+        flex-direction: column;
+      }
+      
+      footer .inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .footer-legal {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero h2 {
+        font-size: 28px;
+      }
+      
+      .hero p {
+        font-size: 16px;
+      }
+      
+      .section-title h2 {
+        font-size: 24px;
+      }
+    }
+    
+    @media print {
+      #formArea, #buttons, header, footer, .payment-modal { display:none; }
+      body{ margin:0; background:#fff; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">Zenlife</div>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav id="main-nav">
+        <a href="index.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="locations.html">Locations</a>
+        <a href="shop.html">Shop</a>
+        <a href="articles.html">Articles</a>
+        
+        <!-- Language Selector -->
+        <div class="language-selector">
+          <button class="language-btn" id="languageBtn">
+            <i class="fas fa-globe"></i>
+            <span id="currentLanguage">English</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="language-options" id="languageOptions">
+            <div class="language-option" data-lang="en">
+              <i class="fas fa-check" style="display: none;"></i>
+              <span>English</span>
+            </div>
+            <div class="language-option" data-lang="bn">
+              <i class="fas fa-check" style="display: none;"></i>
+              <span>বাংলা</span>
+            </div>
+            <div class="language-option" data-lang="hi">
+              <i class="fas fa-check" style="display: none;"></i>
+              <span>हिंदी</span>
+            </div>
+          </div>
+        </div>
+        
+        <a href="#appointment" class="nav-btn outline">Book A Visit</a>
+        <a href="get-started.html" class="nav-btn solid">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h2 data-translate="hero_title">Premium Healthcare at Your Convenience</h2>
+      <p data-translate="hero_description">Experience world-class medical care with our premium healthcare services. Book appointments with top specialists, get confirmed instantly, and receive personalized attention.</p>
+      <a href="#appointment" class="btn" data-translate="hero_button">Book Appointment Now</a>
+    </div>
+  </section>
+
+  <!-- Premium Features Section -->
+  <section class="premium-section">
+    <div class="container">
+      <div class="premium-badge" data-translate="premium_badge">PREMIUM HEALTHCARE</div>
+      <div class="section-title">
+        <h2 data-translate="premium_title">Why Choose Our Premium Services?</h2>
+        <p data-translate="premium_description">Experience healthcare redefined with our exclusive premium features designed for your comfort and well-being.</p>
+      </div>
+      <div class="premium-features">
+        <div class="premium-feature">
+          <div class="premium-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+          <h3 data-translate="premium_feature1_title">VIP Treatment</h3>
+          <p data-translate="premium_feature1_desc">Priority access to specialists, personalized care plans, and dedicated health concierge services.</p>
+        </div>
+        <div class="premium-feature">
+          <div class="premium-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3 data-translate="premium_feature2_title">Zero Waiting Time</h3>
+          <p data-translate="premium_feature2_desc">Minimal waiting periods with scheduled appointments and dedicated time slots for premium patients.</p>
+        </div>
+        <div class="premium-feature">
+          <div class="premium-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3 data-translate="premium_feature3_title">Home Healthcare</h3>
+          <p data-translate="premium_feature3_desc">Premium at-home medical services, sample collection, and specialist consultations in the comfort of your home.</p>
+        </div>
+        <div class="premium-feature">
+          <div class="premium-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h3 data-translate="premium_feature4_title">Elite Specialists</h3>
+          <p data-translate="premium_feature4_desc">Access to our panel of internationally trained specialists with decades of experience in their respective fields.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointment Section -->
+  <section class="appointment-section" id="appointment">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-translate="appointment_title">Book Your Appointment</h2>
+        <p data-translate="appointment_description">Fill out the form below to schedule your appointment with our specialist doctors.</p>
+      </div>
+      <div class="appointment-container">
+        <div class="appointment-form">
+          <form id="appointmentForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName" data-translate="first_name">First Name</label>
+                <input type="text" id="firstName" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName" data-translate="last_name">Last Name</label>
+                <input type="text" id="lastName" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone" data-translate="phone">Phone Number</label>
+                <input type="tel" id="phone" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="email" data-translate="email">Email Address</label>
+                <input type="email" id="email" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="doctor" data-translate="select_doctor">Select Doctor</label>
+              <select id="doctor" class="form-control" required>
+                <option value="" data-translate="choose_doctor">Choose a doctor</option>
+                <option value="dr_smith">Dr. Sarah Smith - Cardiology</option>
+                <option value="dr_johnson">Dr. Michael Johnson - Neurology</option>
+                <option value="dr_williams">Dr. Emily Williams - Pediatrics</option>
+                <option value="dr_brown">Dr. James Brown - Orthopedics</option>
+                <option value="dr_davis">Dr. Jennifer Davis - Dermatology</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="date" data-translate="appointment_date">Appointment Date</label>
+                <input type="date" id="date" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="time" data-translate="preferred_time">Preferred Time</label>
+                <select id="time" class="form-control" required>
+                  <option value="" data-translate="select_time">Select time</option>
+                  <option value="09:00">09:00 AM</option>
+                  <option value="10:00">10:00 AM</option>
+                  <option value="11:00">11:00 AM</option>
+                  <option value="12:00">12:00 PM</option>
+                  <option value="14:00">02:00 PM</option>
+                  <option value="15:00">03:00 PM</option>
+                  <option value="16:00">04:00 PM</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="notes" data-translate="additional_notes">Additional Notes (Optional)</label>
+              <textarea id="notes" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn" style="width: 100%; background-color: var(--green);" data-translate="confirm_appointment">Confirm Appointment</button>
+          </form>
+        </div>
+        <div class="appointment-info">
+          <div class="info-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h3 data-translate="availability_title">24/7 Availability</h3>
+              <p data-translate="availability_desc">Book appointments anytime, anywhere</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-calendar-check"></i>
+            <div>
+              <h3 data-translate="confirmation_title">Instant Confirmation</h3>
+              <p data-translate="confirmation_desc">Get immediate confirmation via WhatsApp, SMS or Email</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-file-pdf"></i>
+            <div>
+              <h3 data-translate="digital_title">Digital Appointment Letter</h3>
+              <p data-translate="digital_desc">Receive a professional PDF confirmation letter</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-undo"></i>
+            <div>
+              <h3 data-translate="cancellation_title">Easy Cancellation</h3>
+              <p data-translate="cancellation_desc">Cancel your appointment within 6 hours of booking</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-translate="features_title">Why Choose Zenlife?</h2>
+        <p data-translate="features_description">We provide premium healthcare services with cutting-edge technology and experienced medical professionals.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h3 data-translate="expert_doctors">Expert Doctors</h3>
+          <p data-translate="expert_doctors_desc">Our team consists of highly qualified and experienced medical professionals from various specialties.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-laptop-medical"></i>
+          </div>
+          <h3 data-translate="digital_records">Digital Health Records</h3>
+          <p data-translate="digital_records_desc">Access your medical records and appointment history through our secure patient portal.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-ambulance"></i>
+          </div>
+          <h3 data-translate="emergency_care">Emergency Care</h3>
+          <p data-translate="emergency_care_desc">24/7 emergency services with quick response time and advanced life support facilities.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-pills"></i>
+          </div>
+          <h3 data-translate="pharmacy_services">Pharmacy Services</h3>
+          <p data-translate="pharmacy_services_desc">In-house pharmacy with genuine medicines and professional guidance for your medications.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Confirmation Section -->
+  <section class="confirmation-section" id="confirmation">
+    <div class="container">
+      <div class="confirmation-card">
+        <div class="confirmation-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h2 data-translate="confirmation_success">Appointment Confirmed!</h2>
+        <p data-translate="confirmation_message">Your appointment has been successfully booked. You will receive a confirmation shortly.</p>
+        <div class="confirmation-id">Confirmation ID: <span id="confirmId">MC-584739</span></div>
+        <p data-translate="confirmation_note">Please save this ID for future reference or cancellation.</p>
+        <div class="confirmation-actions">
+          <button class="btn" id="whatsappBtn" style="background-color: var(--green);">
+            <i class="fab fa-whatsapp"></i> <span data-translate="send_whatsapp">Send via WhatsApp</span>
+          </button>
+          <button class="btn" id="pdfBtn" style="background-color: var(--gold);">
+            <i class="fas fa-file-pdf"></i> <span data-translate="download_pdf">Download PDF</span>
+          </button>
+          <button class="btn" id="cancelBtn" style="background-color: #d9534f;">
+            <i class="fas fa-times"></i> <span data-translate="cancel_appointment">Cancel Appointment</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cancellation Section -->
+  <section class="cancellation-section" id="cancellation">
+    <div class="container">
+      <div class="cancellation-card">
+        <div class="cancellation-icon">
+          <i class="fas fa-times"></i>
+        </div>
+        <h2 data-translate="cancellation_success">Appointment Cancelled!</h2>
+        <p data-translate="cancellation_message">Your appointment has been successfully cancelled. You will receive a confirmation shortly.</p>
+        <div class="confirmation-id">Cancellation ID: <span id="cancelId">CN-584739</span></div>
+        <p data-translate="cancellation_note">Please save this ID for your records.</p>
+        <div class="cancellation-actions">
+          <button class="btn" id="cancellationWhatsappBtn" style="background-color: var(--green);">
+            <i class="fab fa-whatsapp"></i> <span data-translate="send_cancellation_whatsapp">Send Cancellation via WhatsApp</span>
+          </button>
+          <button class="btn" id="cancellationPdfBtn" style="background-color: var(--gold);">
+            <i class="fas fa-file-pdf"></i> <span data-translate="download_cancellation_pdf">Download Cancellation PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cancel Appointment Modal -->
+  <div class="cancel-modal" id="cancelModal">
+    <div class="cancel-modal-content">
+      <div class="cancel-modal-header">
+        <h3 data-translate="cancel_appointment_modal_title">Cancel Appointment</h3>
+        <button class="close-btn" id="closeCancelModal">&times;</button>
+      </div>
+      <form id="cancelAppointmentForm">
+        <div class="form-group">
+          <label for="cancelConfirmId" data-translate="confirmation_id">Confirmation ID</label>
+          <input type="text" id="cancelConfirmId" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="cancelPhone" data-translate="phone">Phone Number</label>
+          <input type="tel" id="cancelPhone" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="cancelReason" data-translate="cancellation_reason">Reason for Cancellation (Optional)</label>
+          <textarea id="cancelReason" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn" style="width: 100%; background-color: #d9534f;" data-translate="confirm_cancellation">Confirm Cancellation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="inner">
+        <div class="footer-col footer-about">
+            <div class="footer-logo">Zenlife</div>
+            <p data-translate="footer_about">Premium healthcare experiences since 2010. We combine medical expertise with personalized care to help you achieve optimal health and wellness.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-col footer-contact">
+            <h4 data-translate="contact_us">Contact Us</h4>
+            <p><i class="fas fa-map-marker-alt"></i> <span data-translate="location">NewTown, Kolkata</span></p>
+            <p><i class="fas fa-phone"></i> +91 987654321</p>
+            <p><i class="fas fa-envelope"></i> hello@zenlife.com</p>
+            <p><i class="fas fa-clock"></i> <span data-translate="working_hours">Mon-Fri: 6am-8pm | Sat: 8am-4pm | Sun: 9am-2pm</span></p>
+        </div>
+        
+        <div class="footer-col">
+            <h4 data-translate="quick_links">Quick Links</h4>
+            <div class="footer-links">
+            <a href="index.html" data-translate="about">About</a>
+            <a href="services.html" data-translate="services">Services</a>
+            <a href="memberships.html" data-translate="memberships">Memberships</a>
+            <a href="locations.html" data-translate="locations">Locations</a>
+            <a href="shop.html" data-translate="shop">Shop</a>
+            <a href="articles.html" data-translate="articles">Articles</a>
+            <a href="#appointment" class="nav-btn outline" data-translate="book_visit">Book A Visit</a>
+            <a href="get-started.html" class="nav-btn solid" data-translate="get_started">Get Started</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="copyright">© 2025 Zenlife. All rights reserved.</div>
+        <div class="footer-legal">
+            <a href="#" data-translate="privacy_policy">Privacy Policy</a>
+            <a href="#" data-translate="terms_service">Terms of Service</a>
+            <a href="#" data-translate="cookie_policy">Cookie Policy</a>
+            <a href="#" data-translate="accessibility">Accessibility</a>
+        </div>
+    </div>
+  </footer>
+
+  <!-- Draggable WhatsApp Button -->
+  <div id="whatsappButton">
+    <i class="fab fa-whatsapp"></i>
+    <div id="whatsappTooltip" data-translate="whatsapp_tooltip">
+      We are waiting for your message.
+    </div>
+  </div>
+
+  <script>
+    // Language translation data
+    const translations = {
+      en: {
+        hero_title: "Premium Healthcare at Your Convenience",
+        hero_description: "Experience world-class medical care with our premium healthcare services. Book appointments with top specialists, get confirmed instantly, and receive personalized attention.",
+        hero_button: "Book Appointment Now",
+        premium_badge: "PREMIUM HEALTHCARE",
+        premium_title: "Why Choose Our Premium Services?",
+        premium_description: "Experience healthcare redefined with our exclusive premium features designed for your comfort and well-being.",
+        premium_feature1_title: "VIP Treatment",
+        premium_feature1_desc: "Priority access to specialists, personalized care plans, and dedicated health concierge services.",
+        premium_feature2_title: "Zero Waiting Time",
+        premium_feature2_desc: "Minimal waiting periods with scheduled appointments and dedicated time slots for premium patients.",
+        premium_feature3_title: "Home Healthcare",
+        premium_feature3_desc: "Premium at-home medical services, sample collection, and specialist consultations in the comfort of your home.",
+        premium_feature4_title: "Elite Specialists",
+        premium_feature4_desc: "Access to our panel of internationally trained specialists with decades of experience in their respective fields.",
+        appointment_title: "Book Your Appointment",
+        appointment_description: "Fill out the form below to schedule your appointment with our specialist doctors.",
+        first_name: "First Name",
+        last_name: "Last Name",
+        phone: "Phone Number",
+        email: "Email Address",
+        select_doctor: "Select Doctor",
+        choose_doctor: "Choose a doctor",
+        appointment_date: "Appointment Date",
+        preferred_time: "Preferred Time",
+        select_time: "Select time",
+        additional_notes: "Additional Notes (Optional)",
+        confirm_appointment: "Confirm Appointment",
+        availability_title: "24/7 Availability",
+        availability_desc: "Book appointments anytime, anywhere",
+        confirmation_title: "Instant Confirmation",
+        confirmation_desc: "Get immediate confirmation via WhatsApp, SMS or Email",
+        digital_title: "Digital Appointment Letter",
+        digital_desc: "Receive a professional PDF confirmation letter",
+        cancellation_title: "Easy Cancellation",
+        cancellation_desc: "Cancel your appointment within 6 hours of booking",
+        features_title: "Why Choose Zenlife?",
+        features_description: "We provide premium healthcare services with cutting-edge technology and experienced medical professionals.",
+        expert_doctors: "Expert Doctors",
+        expert_doctors_desc: "Our team consists of highly qualified and experienced medical professionals from various specialties.",
+        digital_records: "Digital Health Records",
+        digital_records_desc: "Access your medical records and appointment history through our secure patient portal.",
+        emergency_care: "Emergency Care",
+        emergency_care_desc: "24/7 emergency services with quick response time and advanced life support facilities.",
+        pharmacy_services: "Pharmacy Services",
+        pharmacy_services_desc: "In-house pharmacy with genuine medicines and professional guidance for your medications.",
+        confirmation_success: "Appointment Confirmed!",
+        confirmation_message: "Your appointment has been successfully booked. You will receive a confirmation shortly.",
+        confirmation_note: "Please save this ID for future reference or cancellation.",
+        send_whatsapp: "Send via WhatsApp",
+        download_pdf: "Download PDF",
+        cancel_appointment: "Cancel Appointment",
+        cancellation_success: "Appointment Cancelled!",
+        cancellation_message: "Your appointment has been successfully cancelled. You will receive a confirmation shortly.",
+        cancellation_note: "Please save this ID for your records.",
+        send_cancellation_whatsapp: "Send Cancellation via WhatsApp",
+        download_cancellation_pdf: "Download Cancellation PDF",
+        cancel_appointment_modal_title: "Cancel Appointment",
+        confirmation_id: "Confirmation ID",
+        cancellation_reason: "Reason for Cancellation (Optional)",
+        confirm_cancellation: "Confirm Cancellation",
+        footer_about: "Premium healthcare experiences since 2010. We combine medical expertise with personalized care to help you achieve optimal health and wellness.",
+        contact_us: "Contact Us",
+        location: "NewTown, Kolkata",
+        working_hours: "Mon-Fri: 6am-8pm | Sat: 8am-4pm | Sun: 9am-2pm",
+        quick_links: "Quick Links",
+        about: "About",
+        services: "Services",
+        memberships: "Memberships",
+        locations: "Locations",
+        shop: "Shop",
+        articles: "Articles",
+        book_visit: "Book A Visit",
+        get_started: "Get Started",
+        privacy_policy: "Privacy Policy",
+        terms_service: "Terms of Service",
+        cookie_policy: "Cookie Policy",
+        accessibility: "Accessibility",
+        whatsapp_tooltip: "We are waiting for your message."
+      },
+      bn: {
+        hero_title: "আপনার সুবিধামত প্রিমিয়াম হেলথকেয়ার",
+        hero_description: "আমাদের প্রিমিয়াম হেলথকেয়ার পরিষেবার সাথে বিশ্বমানের চিকিৎসা সেবা উপভোগ করুন। শীর্ষ বিশেষজ্ঞদের সাথে অ্যাপয়েন্টমেন্ট বুক করুন, তাৎক্ষণিকভাবে নিশ্চিত হন এবং ব্যক্তিগত মনোযোগ পান।",
+        hero_button: "এখনই অ্যাপয়েন্টমেন্ট বুক করুন",
+        premium_badge: "প্রিমিয়াম হেলথকেয়ার",
+        premium_title: "কেন আমাদের প্রিমিয়াম পরিষেবা বেছে নেবেন?",
+        premium_description: "আপনার আরাম এবং সুস্থতার জন্য ডিজাইন করা আমাদের এক্সক্লুসিভ প্রিমিয়াম বৈশিষ্ট্যগুলির সাথে স্বাস্থ্যসেবা পুনরায় আবিষ্কার করুন।",
+        premium_feature1_title: "ভিআইপি চিকিৎসা",
+        premium_feature1_desc: "বিশেষজ্ঞদের অগ্রাধিকার অ্যাক্সেস, ব্যক্তিগতকৃত যত্ন পরিকল্পনা এবং উত্সর্গীকৃত স্বাস্থ্য কনসিয়ার্জ পরিষেবা।",
+        premium_feature2_title: "শূন্য অপেক্ষার সময়",
+        premium_feature2_desc: "প্রিমিয়াম রোগীদের জন্য নির্ধারিত অ্যাপয়েন্টমেন্ট এবং উত্সর্গীকৃত সময় স্লট সহ ন্যূনতম অপেক্ষার সময়।",
+        premium_feature3_title: "বাড়িতে স্বাস্থ্যসেবা",
+        premium_feature3_desc: "আপনার বাড়ির আরামে প্রিমিয়াম অ্যাট-হোম মেডিকেল পরিষেবা, নমুনা সংগ্রহ এবং বিশেষজ্ঞ পরামর্শ।",
+        premium_feature4_title: "এলিট বিশেষজ্ঞ",
+        premium_feature4_desc: "আন্তর্জাতিকভাবে প্রশিক্ষিত বিশেষজ্ঞদের প্যানেলে অ্যাক্সেস যাদের নিজ নিজ ক্ষেত্রে দশকের অভিজ্ঞতা রয়েছে।",
+        appointment_title: "আপনার অ্যাপয়েন্টমেন্ট বুক করুন",
+        appointment_description: "আমাদের বিশেষজ্ঞ ডাক্তারদের সাথে আপনার অ্যাপয়েন্টমেন্ট নির্ধারণ করতে নীচের ফর্মটি পূরণ করুন।",
+        first_name: "নামের প্রথম অংশ",
+        last_name: "নামের শেষ অংশ",
+        phone: "ফোন নম্বর",
+        email: "ইমেল ঠিকানা",
+        select_doctor: "ডাক্তার নির্বাচন করুন",
+        choose_doctor: "একজন ডাক্তার নির্বাচন করুন",
+        appointment_date: "অ্যাপয়েন্টমেন্ট তারিখ",
+        preferred_time: "পছন্দের সময়",
+        select_time: "সময় নির্বাচন করুন",
+        additional_notes: "অতিরিক্ত নোট (ঐচ্ছিক)",
+        confirm_appointment: "অ্যাপয়েন্টমেন্ট নিশ্চিত করুন",
+        availability_title: "২৪/৭ উপলব্ধতা",
+        availability_desc: "যেকোনো সময়, যেকোনো জায়গায় অ্যাপয়েন্টমেন্ট বুক করুন",
+        confirmation_title: "তাৎক্ষণিক নিশ্চিতকরণ",
+        confirmation_desc: "হোয়াটসঅ্যাপ, এসএমএস বা ইমেলের মাধ্যমে তাৎক্ষণিক নিশ্চিতকরণ পান",
+        digital_title: "ডিজিটাল অ্যাপয়েন্টমেন্ট লেটার",
+        digital_desc: "একটি পেশাদার পিডিএফ নিশ্চিতকরণ লেটার পান",
+        cancellation_title: "সহজ বাতিলকরণ",
+        cancellation_desc: "বুকিংয়ের ৬ ঘন্টার মধ্যে আপনার অ্যাপয়েন্টমেন্ট বাতিল করুন",
+        features_title: "কেন জেনলাইফ বেছে নেবেন?",
+        features_description: "আমরা অত্যাধুনিক প্রযুক্তি এবং অভিজ্ঞ মেডিকেল পেশাদারদের সাথে প্রিমিয়াম হেলথকেয়ার পরিষেবা প্রদান করি।",
+        expert_doctors: "বিশেষজ্ঞ ডাক্তার",
+        expert_doctors_desc: "আমাদের দলটি বিভিন্ন বিশেষত্বের অত্যন্ত квалиified এবং অভিজ্ঞ মেডিকেল পেশাদারদের নিয়ে গঠিত।",
+        digital_records: "ডিজিটাল স্বাস্থ্য রেকর্ড",
+        digital_records_desc: "আমাদের সুরক্ষিত রোগী পোর্টালের মাধ্যমে আপনার মেডিকেল রেকর্ড এবং অ্যাপয়েন্টমেন্ট ইতিহাস অ্যাক্সেস করুন।",
+        emergency_care: "জরুরী যত্ন",
+        emergency_care_desc: "দ্রুত প্রতিক্রিয়া সময় এবং উন্নত জীবন সমর্থন সুবিধা সহ 24/7 জরুরী পরিষেবা।",
+        pharmacy_services: "ফার্মেসি পরিষেবা",
+        pharmacy_services_desc: "আসল ওষুধ এবং আপনার ওষুধের জন্য পেশাদার নির্দেশনা সহ ইন-হাউস ফার্মেসি।",
+        confirmation_success: "অ্যাপয়েন্টমেন্ট নিশ্চিত হয়েছে!",
+        confirmation_message: "আপনার অ্যাপয়েন্টমেন্ট সফলভাবে বুক করা হয়েছে। আপনি শীঘ্রই একটি নিশ্চিতকরণ পাবেন।",
+        confirmation_note: "ভবিষ্যতের রেফারেন্স বা বাতিলকরণের জন্য এই আইডিটি সংরক্ষণ করুন।",
+        send_whatsapp: "হোয়াটসঅ্যাপের মাধ্যমে পাঠান",
+        download_pdf: "পিডিএফ ডাউনলোড করুন",
+        cancel_appointment: "অ্যাপয়েন্টমেন্ট বাতিল করুন",
+        cancellation_success: "অ্যাপয়েন্টমেন্ট বাতিল হয়েছে!",
+        cancellation_message: "আপনার অ্যাপয়েন্টমেন্ট সফলভাবে বাতিল করা হয়েছে। আপনি শীঘ্রই একটি নিশ্চিতকরণ পাবেন।",
+        cancellation_note: "আপনার রেকর্ডের জন্য এই আইডিটি সংরক্ষণ করুন।",
+        send_cancellation_whatsapp: "বাতিলকরণ হোয়াটসঅ্যাপের মাধ্যমে পাঠান",
+        download_cancellation_pdf: "বাতিলকরণ পিডিএফ ডাউনলোড করুন",
+        cancel_appointment_modal_title: "অ্যাপয়েন্টমেন্ট বাতিল করুন",
+        confirmation_id: "নিশ্চিতকরণ আইডি",
+        cancellation_reason: "বাতিলকরণের কারণ (ঐচ্ছিক)",
+        confirm_cancellation: "বাতিলকরণ নিশ্চিত করুন",
+        footer_about: "২০১০ সাল থেকে প্রিমিয়াম হেলথকেয়ার অভিজ্ঞতা। আমরা মেডিকেল দক্ষতা এবং ব্যক্তিগতকৃত যত্নকে একত্রিত করে আপনাকে সর্বোত্তম স্বাস্থ্য এবং সুস্থতা অর্জনে সহায়তা করি।",
+        contact_us: "যোগাযোগ করুন",
+        location: "নিউটাউন, কলকাতা",
+        working_hours: "সোম-শুক্র: সকাল ৬টা-রাত ৮টা | শনি: সকাল ৮টা-বিকাল ৪টা | রবি: সকাল ৯টা-বিকাল ২টা",
+        quick_links: "দ্রুত লিংক",
+        about: "সম্পর্কে",
+        services: "সেবাসমূহ",
+        memberships: "সদস্যতা",
+        locations: "অবস্থান",
+        shop: "দোকান",
+        articles: "নিবন্ধ",
+        book_visit: "একটি ভিজিট বুক করুন",
+        get_started: "শুরু করুন",
+        privacy_policy: "গোপনীয়তা নীতি",
+        terms_service: "সেবার শর্তাবলী",
+        cookie_policy: "কুকি নীতি",
+        accessibility: "অ্যাক্সেসযোগ্যতা",
+        whatsapp_tooltip: "আমরা আপনার বার্তার জন্য অপেক্ষা করছি।"
+      },
+      hi: {
+        hero_title: "आपकी सुविधा पर प्रीमियम हेल्थकेयर",
+        hero_description: "हमारी प्रीमियम हेल्थकेयर सेवाओं के साथ विश्व स्तरीय चिकित्सा देखभाल का अनुभव करें। शीर्ष विशेषज्ञों के साथ अपॉइंटमेंट बुक करें, तुरंत पुष्टि प्राप्त करें और व्यक्तिगत ध्यान प्राप्त करें।",
+        hero_button: "अभी अपॉइंटमेंट बुक करें",
+        premium_badge: "प्रीमियम हेल्थकेयर",
+        premium_title: "हमारी प्रीमियम सेवाएं क्यों चुनें?",
+        premium_description: "आपकी सुविधा और कल्याण के लिए डिज़ाइन की गई हमारी विशेष प्रीमियम सुविधाओं के साथ स्वास्थ्य सेवा को फिर से परिभाषित करें।",
+        premium_feature1_title: "वीआईपी उपचार",
+        premium_feature1_desc: "विशेषज्ञों को प्राथमिकता पहुंच, व्यक्तिगत देखभाल योजनाएं और समर्पित स्वास्थ्य कॉन्सिएर्ज सेवाएं।",
+        premium_feature2_title: "शून्य प्रतीक्षा समय",
+        premium_feature2_desc: "प्रीमियम रोगियों के लिए निर्धारित अपॉइंटमेंट और समर्पित समय स्लॉट के साथ न्यूनतम प्रतीक्षा अवधि।",
+        premium_feature3_title: "घर पर स्वास्थ्य सेवा",
+        premium_feature3_desc: "प्रीमियम घर पर चिकित्सा सेवाएं, नमूना संग्रह और आपके घर के आराम में विशेषज्ञ परामर्श।",
+        premium_feature4_title: "एलीट विशेषज्ञ",
+        premium_feature4_desc: "अंतरराष्ट्रीय स्तर पर प्रशिक्षित विशेषज्ञों के हमारे पैनल तक पहुंच जिनके पास अपने संबंधित क्षेत्रों में दशकों का अनुभव है।",
+        appointment_title: "अपनी अपॉइंटमेंट बुक करें",
+        appointment_description: "हमारे विशेषज्ञ डॉक्टरों के साथ अपनी अपॉइंटमेंट शेड्यूल करने के लिए नीचे दिए गए फॉर्म को भरें।",
+        first_name: "पहला नाम",
+        last_name: "अंतिम नाम",
+        phone: "फोन नंबर",
+        email: "ईमेल पता",
+        select_doctor: "डॉक्टर चुनें",
+        choose_doctor: "एक डॉक्टर चुनें",
+        appointment_date: "अपॉइंटमेंट तारीख",
+        preferred_time: "पसंदीदा समय",
+        select_time: "समय चुनें",
+        additional_notes: "अतिरिक्त नोट्स (वैकल्पिक)",
+        confirm_appointment: "अपॉइंटमेंट की पुष्टि करें",
+        availability_title: "24/7 उपलब्धता",
+        availability_desc: "कभी भी, कहीं भी अपॉइंटमेंट बुक करें",
+        confirmation_title: "तत्काल पुष्टि",
+        confirmation_desc: "व्हाट्सएप, एसएमएस या ईमेल के माध्यम से तत्काल पुष्टि प्राप्त करें",
+        digital_title: "डिजिटल अपॉइंटमेंट लेटर",
+        digital_desc: "एक पेशेवर पीडीएफ पुष्टि पत्र प्राप्त करें",
+        cancellation_title: "आसान रद्दीकरण",
+        cancellation_desc: "बुकिंग के 6 घंटे के भीतर अपनी अपॉइंटमेंट रद्द करें",
+        features_title: "ज़ेनलाइफ क्यों चुनें?",
+        features_description: "हम अत्याधुनिक तकनीक और अनुभवी चिकित्सा पेशेवरों के साथ प्रीमियम हेल्थकेयर सेवाएं प्रदान करते हैं।",
+        expert_doctors: "विशेषज्ञ डॉक्टर",
+        expert_doctors_desc: "हमारी टीम में विभिन्न विशेषताओं के अत्यधिक योग्य और अनुभवी चिकित्सा पेशेवर शामिल हैं।",
+        digital_records: "डिजिटल स्वास्थ्य रिकॉर्ड",
+        digital_records_desc: "हमारे सुरक्षित मरीज पोर्टल के माध्यम से अपने चिकित्सा रिकॉर्ड और अपॉइंटमेंट इतिहास तक पहुंचें।",
+        emergency_care: "आपातकालीन देखभाल",
+        emergency_care_desc: "त्वरित प्रतिक्रिया समय और उन्नत जीवन समर्थन सुविधाओं के साथ 24/7 आपातकालीन सेवाएं।",
+        pharmacy_services: "फार्मेसी सेवाएं",
+        pharmacy_services_desc: "असली दवाओं और आपकी दवाओं के लिए पेशेवर मार्गदर्शन के साथ इन-हाउस फार्मेसी।",
+        confirmation_success: "अपॉइंटमेंट की पुष्टि हुई!",
+        confirmation_message: "आपकी अपॉइंटमेंट सफलतापूर्वक बुक हो गई है। आपको जल्द ही एक पुष्टिकरण प्राप्त होगा।",
+        confirmation_note: "भविष्य के संदर्भ या रद्दीकरण के लिए इस आईडी को सहेजें।",
+        send_whatsapp: "व्हाट्सएप के माध्यम से भेजें",
+        download_pdf: "पीडीएफ डाउनलोड करें",
+        cancel_appointment: "अपॉइंटमेंट रद्द करें",
+        cancellation_success: "अपॉइंटमेंट रद्द हो गया!",
+        cancellation_message: "आपकी अपॉइंटमेंट सफलतापूर्वक रद्द हो गई है। आपको जल्द ही एक पुष्टिकरण प्राप्त होगा।",
+        cancellation_note: "अपने रिकॉर्ड के लिए इस आईडी को सहेजें।",
+        send_cancellation_whatsapp: "रद्दीकरण व्हाट्सएप के माध्यम से भेजें",
+        download_cancellation_pdf: "रद्दीकरण पीडीएफ डाउनलोड करें",
+        cancel_appointment_modal_title: "अपॉइंटमेंट रद्द करें",
+        confirmation_id: "पुष्टिकरण आईडी",
+        cancellation_reason: "रद्दीकरण का कारण (वैकल्पिक)",
+        confirm_cancellation: "रद्दीकरण की पुष्टि करें",
+        footer_about: "2010 से प्रीमियम हेल्थकेयर अनुभव। हम चिकित्सा विशेषज्ञता को व्यक्तिगत देखभाल के साथ जोड़ते हैं ताकि आपको इष्टतम स्वास्थ्य और कल्याण प्राप्त करने में मदद मिल सके।",
+        contact_us: "हमसे संपर्क करें",
+        location: "न्यूटाउन, कोलकाता",
+        working_hours: "सोम-शुक्र: सुबह 6 बजे - रात 8 बजे | शनि: सुबह 8 बजे - शाम 4 बजे | रवि: सुबह 9 बजे - दोपहर 2 बजे",
+        quick_links: "त्वरित लिंक",
+        about: "के बारे में",
+        services: "सेवाएं",
+        memberships: "सदस्यता",
+        locations: "स्थान",
+        shop: "दुकान",
+        articles: "लेख",
+        book_visit: "एक विजिट बुक करें",
+        get_started: "शुरू करें",
+        privacy_policy: "गोपनीयता नीति",
+        terms_service: "सेवा की शर्तें",
+        cookie_policy: "कुकी नीति",
+        accessibility: "पहुंच योग्यता",
+        whatsapp_tooltip: "हम आपके संदेश की प्रतीक्षा कर रहे हैं।"
+      }
+    };
+
+    // Current language
+    let currentLanguage = 'en';
+
+    // Enhanced Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+        
+        // Set today's date as min date for appointment
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+        
+        if (mobileMenuToggle && mainNav) {
+            mobileMenuToggle.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event from bubbling up
+                mainNav.classList.toggle('active');
+                
+                // Change icon based on menu state
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = mainNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mainNav.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = mainNav.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+        
+        // Language selector functionality
+        const languageBtn = document.getElementById('languageBtn');
+        const languageOptions = document.getElementById('languageOptions');
+        const currentLanguageElement = document.getElementById('currentLanguage');
+        
+        // Initialize checkmarks for language options
+        updateLanguageCheckmarks();
+        
+        if (languageBtn && languageOptions) {
+            languageBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                languageOptions.classList.toggle('active');
+            });
+            
+            // Close language options when clicking outside
+            document.addEventListener('click', function() {
+                languageOptions.classList.remove('active');
+            });
+            
+            // Language selection
+            const languageOptionElements = languageOptions.querySelectorAll('.language-option');
+            languageOptionElements.forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    changeLanguage(lang);
+                    languageOptions.classList.remove('active');
+                });
+            });
+        }
+        
+        // Appointment form submission
+        const appointmentForm = document.getElementById('appointmentForm');
+        if (appointmentForm) {
+            appointmentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic form validation
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Generate random confirmation ID
+                const confirmId = 'MC-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('confirmId').textContent = confirmId;
+                
+                // Show confirmation section
+                document.getElementById('confirmation').style.display = 'block';
+                
+                // Scroll to confirmation
+                document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // WhatsApp button
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('click', function() {
+                const confirmId = document.getElementById('confirmId').textContent;
+                const message = `Hello! Your appointment with Zenlife Hospital has been confirmed. Your confirmation ID is: ${confirmId}. Thank you for choosing us!`;
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/91987654321?text=${encodedMessage}`, '_blank');
+            });
+        }
+
+        // PDF download button
+        const pdfBtn = document.getElementById('pdfBtn');
+        if (pdfBtn) {
+            pdfBtn.addEventListener('click', function() {
+                generatePDF();
+            });
+        }
+
+        // Cancel appointment button
+        const cancelBtn = document.getElementById('cancelBtn');
+        const cancelModal = document.getElementById('cancelModal');
+        const closeCancelModal = document.getElementById('closeCancelModal');
+        
+        if (cancelBtn && cancelModal && closeCancelModal) {
+            cancelBtn.addEventListener('click', function() {
+                cancelModal.style.display = 'flex';
+            });
+            
+            closeCancelModal.addEventListener('click', function() {
+                cancelModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === cancelModal) {
+                    cancelModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Cancel appointment form
+        const cancelAppointmentForm = document.getElementById('cancelAppointmentForm');
+        if (cancelAppointmentForm) {
+            cancelAppointmentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Generate random cancellation ID
+                const cancelId = 'CN-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('cancelId').textContent = cancelId;
+                
+                // Hide confirmation and show cancellation
+                document.getElementById('confirmation').style.display = 'none';
+                document.getElementById('cancellation').style.display = 'block';
+                
+                // Close modal
+                cancelModal.style.display = 'none';
+                
+                // Scroll to cancellation
+                document.getElementById('cancellation').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Cancellation WhatsApp button
+        const cancellationWhatsappBtn = document.getElementById('cancellationWhatsappBtn');
+        if (cancellationWhatsappBtn) {
+            cancellationWhatsappBtn.addEventListener('click', function() {
+                const cancelId = document.getElementById('cancelId').textContent;
+                const message = `Hello! I would like to inform you that my appointment with Zenlife Hospital has been cancelled. My cancellation ID is: ${cancelId}.`;
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/91987654321?text=${encodedMessage}`, '_blank');
+            });
+        }
+
+        // Cancellation PDF download button
+        const cancellationPdfBtn = document.getElementById('cancellationPdfBtn');
+        if (cancellationPdfBtn) {
+            cancellationPdfBtn.addEventListener('click', function() {
+                generateCancellationPDF();
+            });
+        }
+
+        // Make "Book A Visit" buttons scroll to appointment section
+        const bookVisitButtons = document.querySelectorAll('.nav-btn.outline');
+        bookVisitButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('appointment').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            });
+        });
+
+        // Initialize draggable WhatsApp button
+        initDraggableWhatsApp();
+    });
+
+    // Function to update language checkmarks
+    function updateLanguageCheckmarks() {
+        const languageOptionElements = document.querySelectorAll('.language-option');
+        languageOptionElements.forEach(option => {
+            const check = option.querySelector('i');
+            const lang = option.getAttribute('data-lang');
+            if (lang === currentLanguage) {
+                check.style.display = 'inline-block';
+            } else {
+                check.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to change language
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+        document.getElementById('currentLanguage').textContent = 
+            lang === 'en' ? 'English' : 
+            lang === 'bn' ? 'বাংলা' : 'हिंदी';
+        
+        // Update checkmarks
+        updateLanguageCheckmarks();
+        
+        // Update all elements with data-translate attribute
+        const translatableElements = document.querySelectorAll('[data-translate]');
+        translatableElements.forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translations[lang] && translations[lang][key]) {
+                element.textContent = translations[lang][key];
+            }
+        });
+    }
+
+    // Function to validate form
+    function validateForm() {
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const doctor = document.getElementById('doctor').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        
+        // Check if required fields are filled
+        if (!firstName || !lastName || !phone || !email || !doctor || !date || !time) {
+            alert('Please fill in all required fields.');
+            return false;
+        }
+        
+        // Check if date is in the future
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+            alert('Please select a future date for your appointment.');
+            return false;
+        }
+        
+        // Phone validation (basic)
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(phone.replace(/\D/g, ''))) {
+            alert('Please enter a valid 10-digit phone number.');
+            return false;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            return false;
+        }
+        
+        return true;
+    }
+
+    // Function to generate PDF
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Colors
+        const zenGreen = [47, 74, 63];
+        const darkGray = [60, 60, 60];
+        const lightGray = [245, 245, 245];
+        const accentGreen = [67, 120, 96];
+
+        // HEADER
+        doc.setFillColor(...zenGreen);
+        doc.rect(0, 0, 210, 30, "F");
+
+        doc.setFontSize(22);
+        doc.setTextColor(255, 255, 255);
+        doc.text("Zenlife Hospital", 105, 18, { align: "center" });
+
+        // TITLE
+        doc.setFontSize(16);
+        doc.setTextColor(...zenGreen);
+        doc.text("Appointment Confirmation", 105, 45, { align: "center" });
+
+        // MAIN BOX
+        doc.setDrawColor(200, 200, 200);
+        doc.roundedRect(15, 55, 180, 110, 4, 4);
+
+        const confirmId = document.getElementById('confirmId').textContent;
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+
+        const doctorSelect = document.getElementById('doctor');
+        const doctorText = doctorSelect.options[doctorSelect.selectedIndex].text;
+
+        const date = document.getElementById('date').value;
+
+        const timeSelect = document.getElementById('time');
+        const timeText = timeSelect.options[timeSelect.selectedIndex].text;
+
+        // LABELS
+        doc.setFontSize(12);
+        doc.setTextColor(...darkGray);
+        doc.setFont(undefined, "bold");
+        doc.text("Confirmation ID:", 25, 70);
+        doc.text("Patient Name:", 25, 85);
+        doc.text("Phone:", 25, 100);
+        doc.text("Email:", 25, 115);
+        doc.text("Doctor:", 25, 130);
+        doc.text("Date:", 25, 145);
+        doc.text("Time:", 25, 160);
+
+        // VALUES
+        doc.setFont(undefined, "normal");
+        doc.text(confirmId, 75, 70);
+        doc.text(`${firstName} ${lastName}`, 75, 85);
+        doc.text(phone, 75, 100);
+        doc.text(email, 75, 115);
+        doc.text(doctorText, 75, 130);
+        doc.text(date, 75, 145);
+        doc.text(timeText, 75, 160);
+
+        // MESSAGE BOX
+        doc.setFillColor(...lightGray);
+        doc.roundedRect(20, 175, 170, 25, 3, 3, "F");
+
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(...accentGreen);
+        doc.text("Thank you for choosing Zenlife Hospital!", 105, 186, { align: "center" });
+
+        doc.setFont(undefined, "normal");
+        doc.setTextColor(...darkGray);
+        doc.text("Please arrive 15 minutes before your appointment time.", 105, 194, { align: "center" });
+
+        // FOOTER BRANDING
+        doc.setFontSize(11);
+        doc.setTextColor(...zenGreen);
+        doc.setFont(undefined, "bold");
+        doc.text("Zenlife", 105, 215, { align: "center" });
+
+        doc.setFontSize(9);
+        doc.setFont(undefined, "normal");
+        doc.setTextColor(90, 90, 90);
+        doc.text("Premium healthcare experiences since 2010.", 105, 223, { align: "center" });
+        doc.text("We combine medical expertise with personalized care to help you achieve optimal health & wellness.", 105, 230, { align: "center" });
+
+        // CONTACT INFO
+        doc.setFontSize(9);
+        doc.text("NewTown, Kolkata", 105, 245, { align: "center" });
+        doc.text("+91 987654321   |   hello@zenlife.com", 105, 252, { align: "center" });
+        doc.text("Mon–Fri: 6am–8pm   |   Sat: 8am–4pm   |   Sun: 9am–2pm", 105, 259, { align: "center" });
+
+        // SAVE
+        doc.save("Zenlife-Appointment-Confirmation.pdf");
+    }
+
+    // Function to generate cancellation PDF
+    function generateCancellationPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Colors
+        const zenGreen = [47, 74, 63];
+        const darkGray = [60, 60, 60];
+        const lightGray = [245, 245, 245];
+        const accentRed = [217, 83, 79];
+
+        // HEADER
+        doc.setFillColor(...zenGreen);
+        doc.rect(0, 0, 210, 30, "F");
+
+        doc.setFontSize(22);
+        doc.setTextColor(255, 255, 255);
+        doc.text("Zenlife Hospital", 105, 18, { align: "center" });
+
+        // TITLE
+        doc.setFontSize(16);
+        doc.setTextColor(...accentRed);
+        doc.text("Appointment Cancellation", 105, 45, { align: "center" });
+
+        // MAIN BOX
+        doc.setDrawColor(200, 200, 200);
+        doc.roundedRect(15, 55, 180, 110, 4, 4);
+
+        const cancelId = document.getElementById("cancelId").textContent;
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const phone = document.getElementById("phone").value;
+
+        const doctorSelect = document.getElementById("doctor");
+        const doctorText = doctorSelect.options[doctorSelect.selectedIndex].text;
+
+        const date = document.getElementById("date").value;
+
+        const timeSelect = document.getElementById("time");
+        const timeText = timeSelect.options[timeSelect.selectedIndex].text;
+
+        // LABELS
+        doc.setFontSize(12);
+        doc.setTextColor(...darkGray);
+        doc.setFont(undefined, "bold");
+        doc.text("Cancellation ID:", 25, 70);
+        doc.text("Patient Name:", 25, 85);
+        doc.text("Phone:", 25, 100);
+        doc.text("Doctor:", 25, 115);
+        doc.text("Date:", 25, 130);
+        doc.text("Time:", 25, 145);
+
+        // VALUES
+        doc.setFont(undefined, "normal");
+        doc.text(cancelId, 75, 70);
+        doc.text(`${firstName} ${lastName}`, 75, 85);
+        doc.text(phone, 75, 100);
+        doc.text(doctorText, 75, 115);
+        doc.text(date, 75, 130);
+        doc.text(timeText, 75, 145);
+
+        // CANCELLATION MESSAGE BOX
+        doc.setFillColor(...lightGray);
+        doc.roundedRect(20, 165, 170, 30, 3, 3, "F");
+
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(...accentRed);
+        doc.text("Your appointment has been successfully cancelled.", 105, 178, { align: "center" });
+
+        doc.setFont(undefined, "normal");
+        doc.setTextColor(...darkGray);
+        doc.text("We hope to assist you again in the future.", 105, 187, { align: "center" });
+
+        // FOOTER BRANDING
+        doc.setFontSize(11);
+        doc.setTextColor(...zenGreen);
+        doc.setFont(undefined, "bold");
+        doc.text("Zenlife", 105, 215, { align: "center" });
+
+        doc.setFontSize(9);
+        doc.setFont(undefined, "normal");
+        doc.setTextColor(90, 90, 90);
+        doc.text("Premium healthcare experiences since 2010.", 105, 223, { align: "center" });
+        doc.text(
+            "We combine medical expertise with personalized care to help you achieve optimal health & wellness.",
+            105,
+            230,
+            { align: "center" }
+        );
+
+        // CONTACT INFO
+        doc.setFontSize(9);
+        doc.text("NewTown, Kolkata", 105, 245, { align: "center" });
+        doc.text("+91 987654321   |   hello@zenlife.com", 105, 252, { align: "center" });
+        doc.text("Mon–Fri: 6am–8pm   |   Sat: 8am–4pm   |   Sun: 9am–2pm", 105, 259, { align: "center" });
+
+        // SAVE
+        doc.save("Zenlife-Appointment-Cancellation.pdf");
+    }
+
+    // Function to initialize draggable WhatsApp button
+    function initDraggableWhatsApp() {
+        const whatsappButton = document.getElementById('whatsappButton');
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+        
+        // Set initial position
+        whatsappButton.style.left = "calc(100% - 100px)";
+        whatsappButton.style.top = "calc(100% - 100px)";
+        
+        whatsappButton.addEventListener("mousedown", dragStart);
+        whatsappButton.addEventListener("touchstart", dragStart);
+        
+        function dragStart(e) {
+            if (e.type === "touchstart") {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+            
+            if (e.target === whatsappButton || e.target.parentNode === whatsappButton) {
+                isDragging = true;
+            }
+        }
+        
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+            
+            isDragging = false;
+            
+            // After dragging, make button clickable for WhatsApp
+            if (!isDragging && (e.target === whatsappButton || e.target.parentNode === whatsappButton)) {
+                const message = "Hello! I would like to know more about Zenlife services.";
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/91987654321?text=${encodedMessage}`, '_blank');
+            }
+        }
+        
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                
+                if (e.type === "touchmove") {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+                
+                xOffset = currentX;
+                yOffset = currentY;
+                
+                setTranslate(currentX, currentY, whatsappButton);
+            }
+        }
+        
+        function setTranslate(xPos, yPos, el) {
+            // Constrain the button within the viewport
+            const maxX = window.innerWidth - el.offsetWidth;
+            const maxY = window.innerHeight - el.offsetHeight;
+            
+            xPos = Math.max(0, Math.min(xPos, maxX));
+            yPos = Math.max(0, Math.min(yPos, maxY));
+            
+            el.style.left = xPos + "px";
+            el.style.top = yPos + "px";
+        }
+        
+        document.addEventListener("mousemove", drag);
+        document.addEventListener("touchmove", drag, { passive: false });
+        
+        document.addEventListener("mouseup", dragEnd);
+        document.addEventListener("touchend", dragEnd);
+    }
+  </script>
+</body>
+</html>

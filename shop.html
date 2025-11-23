@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zenlife Shop</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --green: #2f4a3f;
@@ -105,6 +106,29 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
+
+    /* Cart Icon */
+    .cart-icon {
+      position: relative;
+      margin-left: 15px;
+      cursor: pointer;
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--gold);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
     
     /* Mobile Navigation */
     .mobile-menu-toggle {
@@ -118,7 +142,7 @@
       padding: 10px;
     }
 
-    /* Hero Section - UPDATED */
+    /* Hero Section */
     .hero { 
       background: var(--green); 
       color: var(--sand); 
@@ -249,6 +273,429 @@
     
     .sub_foot button:hover {
       background: #9c7749;
+    }
+
+    /* Product Category Pages */
+    .category-page {
+      display: none;
+      padding: 100px 20px 40px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    
+    .back-btn {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+    
+    .back-btn:hover {
+      background: #1f352b;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: var(--transition);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .product-info {
+      padding: 20px;
+    }
+    
+    .product-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--green);
+    }
+    
+    .product-price {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--gold);
+      margin-bottom: 15px;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .add-to-cart-btn, .buy-now-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .add-to-cart-btn {
+      background: var(--green);
+      color: white;
+    }
+    
+    .add-to-cart-btn:hover {
+      background: #1f352b;
+    }
+    
+    .buy-now-btn {
+      background: var(--gold);
+      color: white;
+    }
+    
+    .buy-now-btn:hover {
+      background: #9c7749;
+    }
+
+    /* Cart Modal */
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .cart-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .close-cart {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    
+    .cart-items {
+      margin: 20px 0;
+    }
+    
+    .cart-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .cart-item-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 15px;
+    }
+    
+    .cart-item-details {
+      flex: 1;
+    }
+    
+    .cart-item-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .cart-item-price {
+      color: var(--gold);
+      font-weight: bold;
+    }
+    
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+    
+    .quantity-btn {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .quantity-input {
+      width: 40px;
+      height: 30px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-left: none;
+      border-right: none;
+    }
+    
+    .remove-item {
+      color: #d9534f;
+      cursor: pointer;
+      margin-left: 15px;
+    }
+    
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 20px 0;
+      padding-top: 20px;
+      border-top: 2px solid #eee;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .checkout-btn:hover {
+      background: #1f352b;
+    }
+
+    /* Checkout Steps */
+    .checkout-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .checkout-steps:before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #eee;
+      z-index: 1;
+    }
+    
+    .checkout-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    
+    .step-number.active {
+      background: var(--green);
+      color: white;
+    }
+    
+    .step-number.completed {
+      background: var(--gold);
+      color: white;
+    }
+    
+    .step-title {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
+    .step-title.active {
+      color: var(--green);
+      font-weight: bold;
+    }
+    
+    .checkout-form {
+      display: none;
+    }
+    
+    .checkout-form.active {
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--green);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .payment-methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .payment-method {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .payment-method.selected {
+      border-color: var(--green);
+      background: rgba(47, 74, 63, 0.05);
+    }
+    
+    .payment-method i {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--green);
+    }
+    
+    .checkout-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+    
+    .btn-secondary:hover {
+      background: #e5e5e5;
+    }
+    
+    .btn-primary {
+      background: var(--green);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #1f352b;
+    }
+    
+    .order-summary {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .confirmation-message {
+      text-align: center;
+      padding: 30px 0;
+    }
+    
+    .confirmation-icon {
+      font-size: 60px;
+      color: var(--green);
+      margin-bottom: 20px;
     }
 
     /* FOOTER SECTION */
@@ -468,6 +915,56 @@
       background: #1f352b;
     }
 
+    /* WhatsApp Button Styles */
+    .whatsapp-button {
+      position: fixed;
+      width: 70px;
+      height: 70px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      user-select: none;
+      touch-action: none;
+      right: 30px;
+      bottom: 30px;
+    }
+    
+    .whatsapp-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.7);
+    }
+    
+    .whatsapp-button i {
+      font-size: 36px;
+      color: white;
+    }
+    
+    .whatsapp-tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      white-space: nowrap;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .whatsapp-button:hover .whatsapp-tooltip {
+      opacity: 1;
+    }
+
     /* Responsive Styles */
     @media (max-width: 1024px) {
       .header-container {
@@ -495,6 +992,25 @@
       footer .inner {
         grid-template-columns: 1fr 1fr;
         gap: 40px;
+      }
+      
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+      
+      .payment-methods {
+        grid-template-columns: 1fr;
+      }
+      
+      .whatsapp-button {
+        width: 60px;
+        height: 60px;
+        right: 25px;
+        bottom: 25px;
+      }
+      
+      .whatsapp-button i {
+        font-size: 30px;
       }
     }
 
@@ -599,6 +1115,45 @@
         flex-direction: column;
         gap: 20px;
       }
+      
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+      }
+      
+      .product-actions {
+        flex-direction: column;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .checkout-actions {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .checkout-actions .btn {
+        width: 100%;
+      }
+      
+      .whatsapp-button {
+        width: 55px;
+        height: 55px;
+        right: 20px;
+        bottom: 20px;
+      }
+      
+      .whatsapp-button i {
+        font-size: 26px;
+      }
+      
+      .whatsapp-tooltip {
+        font-size: 12px;
+        padding: 6px 10px;
+        top: -40px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -635,6 +1190,37 @@
       .sub_foot input {
         width: 180px;
       }
+      
+      .category-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cart-content {
+        padding: 20px;
+      }
+      
+      .whatsapp-button {
+        width: 50px;
+        height: 50px;
+        right: 15px;
+        bottom: 15px;
+      }
+      
+      .whatsapp-button i {
+        font-size: 24px;
+      }
+      
+      .whatsapp-tooltip {
+        font-size: 12px;
+        padding: 6px 10px;
+        top: -40px;
+      }
     }
   </style>
 </head>
@@ -653,77 +1239,397 @@
         <a href="locations.html">Locations</a>
         <a href="shop.html">Shop</a>
         <a href="articles.html">Articles</a>
-        <a href="#" class="nav-btn outline" onclick="openModal()">Book A Visit</a>
+        <a href="Book_A_Visit.html" class="nav-btn outline" >Book A Visit</a>
         <a href="get-started.html" class="nav-btn solid">Get Started</a>
+        <div class="cart-icon" id="cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </div>
       </nav>
     </div>
   </header>
   
-  <!-- UPDATED HERO SECTION -->
-  <div class="hero">We have your favorite Shop</div>
-  
-  <div class="grid grid-3">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop" alt="Beauty, Skincare & Lifestyle" />
-      <div class="card-title">Beauty, Skincare & Lifestyle →</div>
+  <!-- Main Shop Page -->
+  <div id="main-shop">
+    <!-- HERO SECTION -->
+    <div class="hero">We have your favorite Shop</div>
+    
+    <div class="grid grid-3">
+      <div class="card" data-category="beauty">
+        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop" alt="Beauty, Skincare & Lifestyle" />
+        <div class="card-title">Beauty, Skincare & Lifestyle →</div>
+      </div>
+
+      <div class="card" data-category="gut-health">
+        <img src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=400&h=300&fit=crop" alt="Gut Health and Digestion" />
+        <div class="card-title">Gut Health and Digestion →</div>
+      </div>
+
+      <div class="card" data-category="movement">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop" alt="Movement and Recovery" />
+        <div class="card-title">Movement and Recovery →</div>
+      </div>
+
+      <div class="card" data-category="immune">
+        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop" alt="Immune and Inflammatory Health" />
+        <div class="card-title">Immune and Inflammatory Health →</div>
+      </div>
+
+      <div class="card" data-category="metabolic">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Metabolic and Hormone Health" />
+        <div class="card-title">Metabolic and Hormone Health →</div>
+      </div>
+
+      <div class="card" data-category="stress">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Stress and Sleep Support" />
+        <div class="card-title">Stress and Sleep Support →</div>
+      </div>
     </div>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=400&h=300&fit=crop" alt="Gut Health and Digestion" />
-      <div class="card-title">Gut Health and Digestion →</div>
+    <div class="section-title">Featured Collections</div>
+    
+    <div class="grid grid-3">
+      <div class="card" data-category="metagenics">
+        <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop" alt="Zenlife × Metagenics" />
+        <div class="card-title">Zenlife × Metagenics →</div>
+      </div>
+
+      <div class="card" data-category="thorne">
+        <img src="https://images.unsplash.com/photo-1585435557343-3b092031d5ad?w=400&h=300&fit=crop" alt="Zenlife × Thorne" />
+        <div class="card-title">Zenlife × Thorne →</div>
+      </div>
+
+      <div class="card" data-category="fullscript">
+        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop" alt="Zenlife × Fullscript" />
+        <div class="card-title">Zenlife × Fullscript →</div>
+      </div>
     </div>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop" alt="Movement and Recovery" />
-      <div class="card-title">Movement and Recovery →</div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop" alt="Immune and Inflammatory Health" />
-      <div class="card-title">Immune and Inflammatory Health →</div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Metabolic and Hormone Health" />
-      <div class="card-title">Metabolic and Hormone Health →</div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Stress and Sleep Support" />
-      <div class="card-title">Stress and Sleep Support →</div>
+    <div class="section-title">Our Trusted Brands</div>
+    <div class="brands">
+      <img src="https://via.placeholder.com/120x45?text=Brand+1" alt="Brand 1" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+2" alt="Brand 2" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+3" alt="Brand 3" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+4" alt="Brand 4" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+5" alt="Brand 5" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+6" alt="Brand 6" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+7" alt="Brand 7" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+8" alt="Brand 8" />
+      <img src="https://via.placeholder.com/120x45?text=Brand+9" alt="Brand 9" />
     </div>
   </div>
 
-  <div class="section-title">Featured Collections</div>
-  
-  <div class="grid grid-3">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop" alt="Zenlife × Metagenics" />
-      <div class="card-title">Zenlife × Metagenics →</div>
+  <!-- Category Pages -->
+  <div id="category-pages">
+    <!-- Beauty, Skincare & Lifestyle -->
+    <div class="category-page" id="beauty-page">
+      <div class="category-header">
+        <button class="back-btn" onclick="goBackToShop()">
+          <i class="fas fa-arrow-left"></i> Back to Shop
+        </button>
+        <h2 class="section-title">Beauty, Skincare & Lifestyle</h2>
+      </div>
+      
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop" alt="Premium Face Serum" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Premium Face Serum</h3>
+            <div class="product-price">₹499</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="1" data-name="Premium Face Serum" data-price="499" data-image="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop" alt="Hydrating Moisturizer" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Hydrating Moisturizer</h3>
+            <div class="product-price">₹349</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="2" data-name="Hydrating Moisturizer" data-price="349" data-image="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1556228579-6d3d0cca0e44?w=400&h=300&fit=crop" alt="Vitamin C Cream" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Vitamin C Cream</h3>
+            <div class="product-price">₹425</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="3" data-name="Vitamin C Cream" data-price="425" data-image="https://images.unsplash.com/photo-1556228579-6d3d0cca0e44?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1556228578-6d3d0cca0e44?w=400&h=300&fit=crop" alt="Night Repair Cream" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Night Repair Cream</h3>
+            <div class="product-price">₹599</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="4" data-name="Night Repair Cream" data-price="599" data-image="https://images.unsplash.com/photo-1556228578-6d3d0cca0e44?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1556228578-7d3d0cca0e44?w=400&h=300&fit=crop" alt="Anti-Aging Serum" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Anti-Aging Serum</h3>
+            <div class="product-price">₹679</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="5" data-name="Anti-Aging Serum" data-price="679" data-image="https://images.unsplash.com/photo-1556228578-7d3d0cca0e44?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1585435557343-3b092031d5ad?w=400&h=300&fit=crop" alt="Zenlife × Thorne" />
-      <div class="card-title">Zenlife × Thorne →</div>
+    
+    <!-- Gut Health and Digestion -->
+    <div class="category-page" id="gut-health-page">
+      <div class="category-header">
+        <button class="back-btn" onclick="goBackToShop()">
+          <i class="fas fa-arrow-left"></i> Back to Shop
+        </button>
+        <h2 class="section-title">Gut Health and Digestion</h2>
+      </div>
+      
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=400&h=300&fit=crop" alt="Probiotic Supplement" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Probiotic Supplement</h3>
+            <div class="product-price">₹299</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="6" data-name="Probiotic Supplement" data-price="299" data-image="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop" alt="Digestive Enzymes" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Digestive Enzymes</h3>
+            <div class="product-price">₹249</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="7" data-name="Digestive Enzymes" data-price="249" data-image="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop" alt="Fiber Supplement" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Fiber Supplement</h3>
+            <div class="product-price">₹199</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="8" data-name="Fiber Supplement" data-price="199" data-image="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1585435557343-3b092031d5ad?w=400&h=300&fit=crop" alt="Gut Health Tea" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Gut Health Tea</h3>
+            <div class="product-price">₹149</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="9" data-name="Gut Health Tea" data-price="149" data-image="https://images.unsplash.com/photo-1585435557343-3b092031d5ad?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop" alt="Prebiotic Powder" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Prebiotic Powder</h3>
+            <div class="product-price">₹225</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="10" data-name="Prebiotic Powder" data-price="225" data-image="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop" alt="Zenlife × Fullscript" />
-      <div class="card-title">Zenlife × Fullscript →</div>
+    
+    <!-- Movement and Recovery -->
+    <div class="category-page" id="movement-page">
+      <div class="category-header">
+        <button class="back-btn" onclick="goBackToShop()">
+          <i class="fas fa-arrow-left"></i> Back to Shop
+        </button>
+        <h2 class="section-title">Movement and Recovery</h2>
+      </div>
+      
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop" alt="Foam Roller" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Foam Roller</h3>
+            <div class="product-price">₹249</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="11" data-name="Foam Roller" data-price="249" data-image="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400&h=300&fit=crop" alt="Resistance Bands Set" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Resistance Bands Set</h3>
+            <div class="product-price">₹299</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="12" data-name="Resistance Bands Set" data-price="299" data-image="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=400&h=300&fit=crop" alt="Yoga Mat" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Yoga Mat</h3>
+            <div class="product-price">₹349</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="13" data-name="Yoga Mat" data-price="349" data-image="https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=300&fit=crop" alt="Massage Gun" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Massage Gun</h3>
+            <div class="product-price">₹899</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="14" data-name="Massage Gun" data-price="899" data-image="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400&h=300&fit=crop" alt="Compression Sleeves" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Compression Sleeves</h3>
+            <div class="product-price">₹199</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="15" data-name="Compression Sleeves" data-price="199" data-image="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="section-title">Our Trusted Brands</div>
-  <div class="brands">
-    <img src="https://via.placeholder.com/120x45?text=Brand+1" alt="Brand 1" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+2" alt="Brand 2" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+3" alt="Brand 3" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+4" alt="Brand 4" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+5" alt="Brand 5" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+6" alt="Brand 6" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+7" alt="Brand 7" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+8" alt="Brand 8" />
-    <img src="https://via.placeholder.com/120x45?text=Brand+9" alt="Brand 9" />
+    
+    <!-- Immune and Inflammatory Health -->
+    <div class="category-page" id="immune-page">
+      <div class="category-header">
+        <button class="back-btn" onclick="goBackToShop()">
+          <i class="fas fa-arrow-left"></i> Back to Shop
+        </button>
+        <h2 class="section-title">Immune and Inflammatory Health</h2>
+      </div>
+      
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop" alt="Vitamin D3 Supplement" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Vitamin D3 Supplement</h3>
+            <div class="product-price">₹189</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="16" data-name="Vitamin D3 Supplement" data-price="189" data-image="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop" alt="Zinc Lozenges" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Zinc Lozenges</h3>
+            <div class="product-price">₹129</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="17" data-name="Zinc Lozenges" data-price="129" data-image="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop" alt="Turmeric Curcumin" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Turmeric Curcumin</h3>
+            <div class="product-price">₹249</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="18" data-name="Turmeric Curcumin" data-price="249" data-image="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1585435557343-3b092031d5ad?w=400&h=300&fit=crop" alt="Elderberry Syrup" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Elderberry Syrup</h3>
+            <div class="product-price">₹169</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="19" data-name="Elderberry Syrup" data-price="169" data-image="https://images.unsplash.com/photo-1585435557343-3b092031d5ad?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop" alt="Vitamin C Complex" class="product-image">
+          <div class="product-info">
+            <h3 class="product-title">Vitamin C Complex</h3>
+            <div class="product-price">₹215</div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" data-id="20" data-name="Vitamin C Complex" data-price="215" data-image="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop">Add to Cart</button>
+              <button class="buy-now-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Add more category pages as needed -->
   </div>
 
   <section class="sub_foot">
@@ -735,27 +1641,195 @@
     </div>
   </section>
 
-  <!-- Modal for Booking -->
-  <div id="booking-modal" class="modal">
+  <!-- Cart Modal -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-content">
+      <span class="close-cart" onclick="closeCart()">&times;</span>
+      <h2>Your Shopping Cart</h2>
+      <div class="cart-items" id="cart-items">
+        <!-- Cart items will be added here dynamically -->
+      </div>
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cart-total">₹0.00</span>
+      </div>
+      <button class="checkout-btn" id="proceed-to-checkout">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div class="modal" id="checkout-modal">
     <div class="modal-content">
-      <span class="close-modal" onclick="closeModal()">&times;</span>
-      <h2>Book Your Visit</h2>
-      <p>Schedule an appointment with one of our wellness experts.</p>
-      <form id="booking-form">
-        <input type="text" placeholder="Full Name" required>
-        <input type="email" placeholder="Email Address" required>
-        <input type="tel" placeholder="Phone Number">
-        <select required>
-          <option value="">Select Service</option>
-          <option value="medicine">Medical Consultation</option>
-          <option value="therapy">Physical Therapy</option>
-          <option value="fitness">Fitness Training</option>
-          <option value="biometrics">Biometric Screening</option>
-        </select>
-        <input type="date" required>
-        <textarea placeholder="Additional Notes" rows="3"></textarea>
-        <button type="submit">Submit Booking Request</button>
-      </form>
+      <span class="close-modal" onclick="closeCheckout()">&times;</span>
+      
+      <!-- Checkout Steps -->
+      <div class="checkout-steps">
+        <div class="checkout-step">
+          <div class="step-number" id="step-1">1</div>
+          <div class="step-title">Information</div>
+        </div>
+        <div class="checkout-step">
+          <div class="step-number" id="step-2">2</div>
+          <div class="step-title">Shipping</div>
+        </div>
+        <div class="checkout-step">
+          <div class="step-number" id="step-3">3</div>
+          <div class="step-title">Payment</div>
+        </div>
+        <div class="checkout-step">
+          <div class="step-number" id="step-4">4</div>
+          <div class="step-title">Confirmation</div>
+        </div>
+      </div>
+      
+      <!-- Step 1: Customer Information -->
+      <div class="checkout-form active" id="step-1-form">
+        <h2>Customer Information</h2>
+        <form id="customer-info-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" class="form-control" required>
+          </div>
+          <div class="checkout-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeCheckout()">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="goToStep(2)">Continue to Shipping</button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Step 2: Shipping Information -->
+      <div class="checkout-form" id="step-2-form">
+        <h2>Shipping Information</h2>
+        <form id="shipping-info-form">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" class="form-control" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="postal-code">Postal Code</label>
+              <input type="text" id="postal-code" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" class="form-control" required>
+              <option value="">Select Country</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="CA">Canada</option>
+              <option value="AU">Australia</option>
+              <option value="IN">India</option>
+            </select>
+          </div>
+          <div class="checkout-actions">
+            <button type="button" class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+            <button type="button" class="btn btn-primary" onclick="goToStep(3)">Continue to Payment</button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Step 3: Payment Information -->
+      <div class="checkout-form" id="step-3-form">
+        <h2>Payment Method</h2>
+        <div class="payment-methods">
+          <div class="payment-method" onclick="selectPaymentMethod('credit-card')">
+            <i class="fas fa-credit-card"></i>
+            <div>Credit Card</div>
+          </div>
+          <div class="payment-method" onclick="selectPaymentMethod('paypal')">
+            <i class="fab fa-paypal"></i>
+            <div>PayPal</div>
+          </div>
+          <div class="payment-method" onclick="selectPaymentMethod('upi')">
+            <i class="fas fa-mobile-alt"></i>
+            <div>UPI</div>
+          </div>
+          <div class="payment-method" onclick="selectPaymentMethod('cod')">
+            <i class="fas fa-money-bill-wave"></i>
+            <div>Cash on Delivery</div>
+          </div>
+        </div>
+        
+        <div id="credit-card-form" style="display: none;">
+          <div class="form-group">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expiry-date">Expiry Date</label>
+              <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY">
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" class="form-control" placeholder="123">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="card-name">Name on Card</label>
+            <input type="text" id="card-name" class="form-control">
+          </div>
+        </div>
+
+        <div id="upi-form" style="display: none;">
+          <div class="form-group">
+            <label for="upi-id">UPI ID</label>
+            <input type="text" id="upi-id" class="form-control" placeholder="yourname@upi">
+          </div>
+        </div>
+        
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items">
+            <!-- Order items will be added here dynamically -->
+          </div>
+          <div class="order-total">
+            <span>Total:</span>
+            <span id="checkout-total">₹0.00</span>
+          </div>
+        </div>
+        
+        <div class="checkout-actions">
+          <button type="button" class="btn btn-secondary" onclick="goToStep(2)">Back</button>
+          <button type="button" class="btn btn-primary" onclick="processPayment()">Complete Order</button>
+        </div>
+      </div>
+      
+      <!-- Step 4: Order Confirmation -->
+      <div class="checkout-form" id="step-4-form">
+        <div class="confirmation-message">
+          <div class="confirmation-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h2>Thank You for Your Order!</h2>
+          <p>Your order has been placed successfully.</p>
+          <p>Order ID: <strong id="order-id">ZL-2023-001</strong></p>
+          <p>We've sent a confirmation email to your email address.</p>
+          <div class="checkout-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeCheckout()">Continue Shopping</button>
+            <button type="button" class="btn btn-primary" onclick="downloadInvoice()">Download Invoice</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -790,7 +1864,7 @@
           <a href="locations.html">Locations</a>
           <a href="shop.html">Shop</a>
           <a href="articles.html">Articles</a>
-          <a href="#" onclick="openModal()">Book A Visit</a>
+          <a href="Book_A_Visit.html" >Book A Visit</a>
           <a href="get-started.html">Get Started</a>
         </div>
       </div>
@@ -806,362 +1880,689 @@
       </div>
     </div>
   </footer>
- <!-- Draggable WhatsApp Button -->
- <div 
- id="whatsappButton" 
- style="
-     position: fixed;
-     width: 70px;
-     height: 70px;
-     background: #25D366;
-     border-radius: 50%;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
-     cursor: pointer;
-     z-index: 1000;
-     transition: all 0.3s ease;
-     user-select: none;
-     touch-action: none;
-     right: 30px;
-     bottom: 30px;
- "
->
- <i class="fab fa-whatsapp" style="font-size: 36px; color: white;"></i>
- <div id="whatsappTooltip" style="
-     position: absolute;
-     background: rgba(0, 0, 0, 0.8);
-     color: white;
-     padding: 8px 12px;
-     border-radius: 4px;
-     font-size: 14px;
-     white-space: nowrap;
-     top: -45px;
-     left: 50%;
-     transform: translateX(-50%);
-     opacity: 0;
-     transition: all 0.3s ease;
-     pointer-events: none;
- ">
-We are waiting for your message.</div>
-</div>
+  
+  <!-- Fixed WhatsApp Button -->
+  <div class="whatsapp-button" id="whatsappButton">
+    <i class="fab fa-whatsapp"></i>
+    <div class="whatsapp-tooltip">We are waiting for your message.</div>
+  </div>
 
   <script>
-        // Enhanced Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const mainNav = document.getElementById('main-nav');
-            
-            if (mobileMenuToggle && mainNav) {
-                mobileMenuToggle.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Prevent event from bubbling up
-                    mainNav.classList.toggle('active');
-                    
-                    // Change icon based on menu state
-                    if (mainNav.classList.contains('active')) {
-                        mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
-                    } else {
-                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                });
+    // Cart functionality
+    let cart = [];
+    let cartCount = 0;
+    let cartTotal = 0;
+    let currentCheckoutStep = 1;
+    let selectedPaymentMethod = '';
+    let currentOrder = null;
+    
+    // WhatsApp Button functionality
+    let isDragging = false;
+    let startX, startY, initialX, initialY;
+    
+    // Initialize the shop
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize mobile menu
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+        
+        if (mobileMenuToggle && mainNav) {
+            mobileMenuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mainNav.classList.toggle('active');
                 
-                // Close mobile menu when clicking on a link
-                const navLinks = mainNav.querySelectorAll('a');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        mainNav.classList.remove('active');
-                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                    });
+                if (mainNav.classList.contains('active')) {
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = mainNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mainNav.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                 });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = mainNav.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
                 
-                // Close mobile menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    const isClickInsideNav = mainNav.contains(event.target);
-                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
-                    
-                    if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
-                        mainNav.classList.remove('active');
-                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                });
-            }
-            
-            // Initialize page navigation
-            initializePageNavigation();
-            
-            // Initialize get started tabs
-            initializeGetStartedTabs();
-        });
-
-        // Page Navigation
-        function initializePageNavigation() {
-            // Get all navigation elements with data-page attribute
-            const navElements = document.querySelectorAll('[data-page]');
-            
-            navElements.forEach(element => {
-                element.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetPage = this.getAttribute('data-page');
-                    
-                    // Hide all pages
-                    document.querySelectorAll('.page-section').forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    
-                    // Show target page
-                    document.getElementById(targetPage + '-page').classList.add('active');
-                    
-                    // Scroll to top
-                    window.scrollTo(0, 0);
-                    
-                    // Close mobile menu if open
-                    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-                    const mainNav = document.getElementById('main-nav');
-                    if (mainNav.classList.contains('active')) {
-                        mainNav.classList.remove('active');
-                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                });
+                if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
             });
         }
-
-
-    // Modal Functions
-    function openModal() {
-      document.getElementById('booking-modal').style.display = 'flex';
-    }
-
-    function closeModal() {
-      document.getElementById('booking-modal').style.display = 'none';
-    }
-
-    // Close modal when clicking outside
-    window.addEventListener('click', function(e) {
-      const modal = document.getElementById('booking-modal');
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-
-    // Form submission
-    document.getElementById('booking-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Thank you for your booking request! We will contact you shortly to confirm your appointment.');
-      closeModal();
-    });
-
-    // Newsletter form submission
-    document.querySelector('.sub_foot button').addEventListener('click', function(e) {
-      e.preventDefault();
-      const email = document.querySelector('.sub_foot input').value;
-      if (email && email.includes('@')) {
-        alert('Thank you for subscribing to our newsletter!');
-        document.querySelector('.sub_foot input').value = '';
-      } else {
-        alert('Please enter a valid email address.');
-      }
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-            const whatsappButton = document.getElementById('whatsappButton');
-            const tooltip = document.getElementById('whatsappTooltip');
-            let isDragging = false;
-            let startX, startY, initialX, initialY;
-            
-            // WhatsApp number and message
-            const phoneNumber = "+8801911436463"; // Replace with your actual WhatsApp number
-            const message = "Hello, I'm interested in learning more about Zenlife services.";
-            
-            // Load saved position or set default
-            const savedPosition = JSON.parse(localStorage.getItem('whatsappButtonPosition'));
-            if (savedPosition) {
-                whatsappButton.style.left = savedPosition.x + 'px';
-                whatsappButton.style.top = savedPosition.y + 'px';
-                whatsappButton.style.right = 'auto';
-                whatsappButton.style.bottom = 'auto';
-            }
-            
-            // Show tooltip on hover
-            whatsappButton.addEventListener('mouseenter', function() {
-                if (!isDragging) {
-                    tooltip.style.opacity = '1';
-                    whatsappButton.style.transform = 'scale(1.1)';
-                    whatsappButton.style.boxShadow = '0 6px 25px rgba(37, 211, 102, 0.7)';
-                }
+        
+        // Initialize category cards
+        const categoryCards = document.querySelectorAll('.card[data-category]');
+        categoryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                showCategoryPage(category);
             });
-            
-            whatsappButton.addEventListener('mouseleave', function() {
-                if (!isDragging) {
-                    tooltip.style.opacity = '0';
-                    whatsappButton.style.transform = '';
-                    whatsappButton.style.boxShadow = '0 4px 20px rgba(37, 211, 102, 0.5)';
-                }
-            });
-            
-            // Make button draggable
-            whatsappButton.addEventListener('mousedown', startDrag);
-            whatsappButton.addEventListener('touchstart', startDrag, { passive: false });
-            
-            function startDrag(e) {
-                isDragging = true;
-                
-                // Get initial position
-                const rect = whatsappButton.getBoundingClientRect();
-                initialX = rect.left;
-                initialY = rect.top;
-                
-                if (e.type === "touchstart") {
-                    startX = e.touches[0].clientX;
-                    startY = e.touches[0].clientY;
-                } else {
-                    startX = e.clientX;
-                    startY = e.clientY;
-                }
-                
-                // Switch to absolute positioning for dragging
-                whatsappButton.style.right = 'auto';
-                whatsappButton.style.bottom = 'auto';
-                whatsappButton.style.left = initialX + 'px';
-                whatsappButton.style.top = initialY + 'px';
-                
-                // Add visual feedback
-                whatsappButton.style.opacity = '0.8';
-                tooltip.style.opacity = '0';
-                
-                // Add event listeners
-                document.addEventListener('mousemove', drag);
-                document.addEventListener('touchmove', drag, { passive: false });
-                document.addEventListener('mouseup', endDrag);
-                document.addEventListener('touchend', endDrag);
-            }
-            
-            function drag(e) {
-                if (!isDragging) return;
-                
-                e.preventDefault();
-                
-                let currentX, currentY;
-                if (e.type === "touchmove") {
-                    currentX = e.touches[0].clientX;
-                    currentY = e.touches[0].clientY;
-                } else {
-                    currentX = e.clientX;
-                    currentY = e.clientY;
-                }
-                
-                // Calculate new position
-                const deltaX = currentX - startX;
-                const deltaY = currentY - startY;
-                const newX = initialX + deltaX;
-                const newY = initialY + deltaY;
-                
-                // Keep within viewport
-                const maxX = window.innerWidth - whatsappButton.offsetWidth;
-                const maxY = window.innerHeight - whatsappButton.offsetHeight;
-                
-                const boundedX = Math.max(0, Math.min(newX, maxX));
-                const boundedY = Math.max(0, Math.min(newY, maxY));
-                
-                // Update position
-                whatsappButton.style.left = boundedX + 'px';
-                whatsappButton.style.top = boundedY + 'px';
-            }
-            
-            function endDrag() {
-                isDragging = false;
-                
-                // Remove visual feedback
-                whatsappButton.style.opacity = '1';
-                
-                // Save position
-                const rect = whatsappButton.getBoundingClientRect();
-                const position = {
-                    x: rect.left,
-                    y: rect.top
-                };
-                localStorage.setItem('whatsappButtonPosition', JSON.stringify(position));
-                
-                // Remove event listeners
-                document.removeEventListener('mousemove', drag);
-                document.removeEventListener('touchmove', drag);
-                document.removeEventListener('mouseup', endDrag);
-                document.removeEventListener('touchend', endDrag);
-            }
-            
-            // Open WhatsApp when clicked
-            whatsappButton.addEventListener('click', function(e) {
-                if (!isDragging) {
-                    const encodedMessage = encodeURIComponent(message);
-                    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-                    window.open(whatsappURL, '_blank');
-                }
-            });
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                const rect = whatsappButton.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                
-                // If button is out of view, move it back in
-                if (rect.right > viewportWidth || rect.bottom > viewportHeight || rect.left < 0 || rect.top < 0) {
-                    const maxX = viewportWidth - whatsappButton.offsetWidth;
-                    const maxY = viewportHeight - whatsappButton.offsetHeight;
-                    
-                    const newX = Math.max(0, Math.min(rect.left, maxX));
-                    const newY = Math.max(0, Math.min(rect.top, maxY));
-                    
-                    whatsappButton.style.left = newX + 'px';
-                    whatsappButton.style.top = newY + 'px';
-                    
-                    // Save new position
-                    const position = { x: newX, y: newY };
-                    localStorage.setItem('whatsappButtonPosition', JSON.stringify(position));
-                }
-                
-                // Adjust button size for responsive design
-                adjustWhatsAppButton();
-            });
-            
-            // Responsive adjustments
-            function adjustWhatsAppButton() {
-                const width = window.innerWidth;
-                
-                if (width <= 360) {
-                    whatsappButton.style.width = '50px';
-                    whatsappButton.style.height = '50px';
-                    whatsappButton.querySelector('i').style.fontSize = '24px';
-                    tooltip.style.fontSize = '12px';
-                    tooltip.style.padding = '6px 10px';
-                    tooltip.style.top = '-40px';
-                } else if (width <= 480) {
-                    whatsappButton.style.width = '55px';
-                    whatsappButton.style.height = '55px';
-                    whatsappButton.querySelector('i').style.fontSize = '26px';
-                    tooltip.style.fontSize = '12px';
-                    tooltip.style.padding = '6px 10px';
-                    tooltip.style.top = '-40px';
-                } else if (width <= 768) {
-                    whatsappButton.style.width = '60px';
-                    whatsappButton.style.height = '60px';
-                    whatsappButton.querySelector('i').style.fontSize = '30px';
-                    tooltip.style.fontSize = '12px';
-                    tooltip.style.padding = '6px 10px';
-                    tooltip.style.top = '-40px';
-                } else {
-                    whatsappButton.style.width = '70px';
-                    whatsappButton.style.height = '70px';
-                    whatsappButton.querySelector('i').style.fontSize = '36px';
-                    tooltip.style.fontSize = '14px';
-                    tooltip.style.padding = '8px 12px';
-                    tooltip.style.top = '-45px';
-                }
-            }
-            
-            // Initial adjustment
-            adjustWhatsAppButton();
         });
+        
+        // Initialize cart icon
+        const cartIcon = document.getElementById('cart-icon');
+        if (cartIcon) {
+            cartIcon.addEventListener('click', function() {
+                openCart();
+            });
+        }
+        
+        // Initialize add to cart buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('add-to-cart-btn')) {
+                const id = e.target.getAttribute('data-id');
+                const name = e.target.getAttribute('data-name');
+                const price = parseFloat(e.target.getAttribute('data-price'));
+                const image = e.target.getAttribute('data-image');
+                
+                addToCart(id, name, price, image);
+            }
+            
+            if (e.target.classList.contains('buy-now-btn')) {
+                const id = e.target.parentElement.querySelector('.add-to-cart-btn').getAttribute('data-id');
+                const name = e.target.parentElement.querySelector('.add-to-cart-btn').getAttribute('data-name');
+                const price = parseFloat(e.target.parentElement.querySelector('.add-to-cart-btn').getAttribute('data-price'));
+                const image = e.target.parentElement.querySelector('.add-to-cart-btn').getAttribute('data-image');
+                
+                addToCart(id, name, price, image);
+                openCart();
+            }
+        });
+        
+        // Initialize checkout button
+        document.getElementById('proceed-to-checkout').addEventListener('click', function() {
+            closeCart();
+            openCheckout();
+        });
+        
+        // Initialize newsletter form
+        document.querySelector('.sub_foot button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('.sub_foot input').value;
+            if (email && email.includes('@')) {
+                alert('Thank you for subscribing to our newsletter!');
+                document.querySelector('.sub_foot input').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+        
+        // Initialize WhatsApp Button
+        initWhatsAppButton();
+        
+        // Load cart from localStorage if available
+        loadCart();
+    });
+    
+    // WhatsApp Button Initialization
+    function initWhatsAppButton() {
+        const whatsappButton = document.getElementById('whatsappButton');
+        const tooltip = document.querySelector('.whatsapp-tooltip');
+        
+        // WhatsApp number and message
+        const phoneNumber = "+8801911436463";
+        const message = "Hello, I'm interested in learning more about Zenlife services.";
+        
+        // Load saved position or set default
+        const savedPosition = JSON.parse(localStorage.getItem('whatsappButtonPosition'));
+        if (savedPosition) {
+            whatsappButton.style.left = savedPosition.x + 'px';
+            whatsappButton.style.top = savedPosition.y + 'px';
+            whatsappButton.style.right = 'auto';
+            whatsappButton.style.bottom = 'auto';
+        }
+        
+        // Make button draggable
+        whatsappButton.addEventListener('mousedown', startDrag);
+        whatsappButton.addEventListener('touchstart', startDrag, { passive: false });
+        
+        function startDrag(e) {
+            isDragging = true;
+            
+            // Get initial position
+            const rect = whatsappButton.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+            
+            if (e.type === "touchstart") {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else {
+                startX = e.clientX;
+                startY = e.clientY;
+            }
+            
+            // Switch to absolute positioning for dragging
+            whatsappButton.style.right = 'auto';
+            whatsappButton.style.bottom = 'auto';
+            whatsappButton.style.left = initialX + 'px';
+            whatsappButton.style.top = initialY + 'px';
+            
+            // Add visual feedback
+            whatsappButton.style.opacity = '0.8';
+            tooltip.style.opacity = '0';
+            
+            // Add event listeners
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+        }
+        
+        function drag(e) {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            
+            let currentX, currentY;
+            if (e.type === "touchmove") {
+                currentX = e.touches[0].clientX;
+                currentY = e.touches[0].clientY;
+            } else {
+                currentX = e.clientX;
+                currentY = e.clientY;
+            }
+            
+            // Calculate new position
+            const deltaX = currentX - startX;
+            const deltaY = currentY - startY;
+            const newX = initialX + deltaX;
+            const newY = initialY + deltaY;
+            
+            // Keep within viewport
+            const maxX = window.innerWidth - whatsappButton.offsetWidth;
+            const maxY = window.innerHeight - whatsappButton.offsetHeight;
+            
+            const boundedX = Math.max(0, Math.min(newX, maxX));
+            const boundedY = Math.max(0, Math.min(newY, maxY));
+            
+            // Update position
+            whatsappButton.style.left = boundedX + 'px';
+            whatsappButton.style.top = boundedY + 'px';
+        }
+        
+        function endDrag() {
+            isDragging = false;
+            
+            // Remove visual feedback
+            whatsappButton.style.opacity = '1';
+            
+            // Save position
+            const rect = whatsappButton.getBoundingClientRect();
+            const position = {
+                x: rect.left,
+                y: rect.top
+            };
+            localStorage.setItem('whatsappButtonPosition', JSON.stringify(position));
+            
+            // Remove event listeners
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchend', endDrag);
+        }
+        
+        // Open WhatsApp when clicked
+        whatsappButton.addEventListener('click', function(e) {
+            if (!isDragging) {
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                window.open(whatsappURL, '_blank');
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const rect = whatsappButton.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // If button is out of view, move it back in
+            if (rect.right > viewportWidth || rect.bottom > viewportHeight || rect.left < 0 || rect.top < 0) {
+                const maxX = viewportWidth - whatsappButton.offsetWidth;
+                const maxY = viewportHeight - whatsappButton.offsetHeight;
+                
+                const newX = Math.max(0, Math.min(rect.left, maxX));
+                const newY = Math.max(0, Math.min(rect.top, maxY));
+                
+                whatsappButton.style.left = newX + 'px';
+                whatsappButton.style.top = newY + 'px';
+                
+                // Save new position
+                const position = { x: newX, y: newY };
+                localStorage.setItem('whatsappButtonPosition', JSON.stringify(position));
+            }
+        });
+    }
+    
+    // Show category page
+    function showCategoryPage(category) {
+        document.getElementById('main-shop').style.display = 'none';
+        document.getElementById(category + '-page').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+    
+    // Go back to main shop
+    function goBackToShop() {
+        document.getElementById('main-shop').style.display = 'block';
+        const categoryPages = document.querySelectorAll('.category-page');
+        categoryPages.forEach(page => {
+            page.style.display = 'none';
+        });
+        window.scrollTo(0, 0);
+    }
+    
+    // Cart functions
+    function addToCart(id, name, price, image) {
+        // Check if item already exists in cart
+        const existingItem = cart.find(item => item.id === id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: id,
+                name: name,
+                price: price,
+                image: image,
+                quantity: 1
+            });
+        }
+        
+        updateCart();
+        saveCart();
+        
+        // Show confirmation
+        const notification = document.createElement('div');
+        notification.textContent = `${name} added to cart!`;
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: var(--green);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 4px;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 2000);
+    }
+    
+    function updateCart() {
+        // Update cart count
+        cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cart-count').textContent = cartCount;
+        
+        // Update cart total
+        cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        document.getElementById('cart-total').textContent = `₹${cartTotal.toFixed(2)}`;
+        
+        // Update cart items
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = '';
+        
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p>Your cart is empty</p>';
+            return;
+        }
+        
+        cart.forEach(item => {
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+                        <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                    </div>
+                </div>
+                <div class="remove-item" onclick="removeFromCart('${item.id}')">
+                    <i class="fas fa-trash"></i>
+                </div>
+            `;
+            cartItems.appendChild(cartItem);
+        });
+    }
+    
+    function updateQuantity(id, change) {
+        const item = cart.find(item => item.id === id);
+        if (item) {
+            item.quantity += change;
+            
+            if (item.quantity <= 0) {
+                removeFromCart(id);
+            } else {
+                updateCart();
+                saveCart();
+            }
+        }
+    }
+    
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        updateCart();
+        saveCart();
+    }
+    
+    function openCart() {
+        document.getElementById('cart-modal').style.display = 'flex';
+    }
+    
+    function closeCart() {
+        document.getElementById('cart-modal').style.display = 'none';
+    }
+    
+    function saveCart() {
+        localStorage.setItem('zenlife-cart', JSON.stringify(cart));
+    }
+    
+    function loadCart() {
+        const savedCart = localStorage.getItem('zenlife-cart');
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+            updateCart();
+        }
+    }
+    
+    // Checkout functions
+    function openCheckout() {
+        document.getElementById('checkout-modal').style.display = 'flex';
+        updateCheckoutOrderSummary();
+    }
+    
+    function closeCheckout() {
+        document.getElementById('checkout-modal').style.display = 'none';
+        resetCheckout();
+    }
+    
+    function resetCheckout() {
+        currentCheckoutStep = 1;
+        updateCheckoutSteps();
+        document.querySelectorAll('.checkout-form').forEach(form => {
+            form.classList.remove('active');
+        });
+        document.getElementById('step-1-form').classList.add('active');
+        selectedPaymentMethod = '';
+        document.getElementById('credit-card-form').style.display = 'none';
+        document.getElementById('upi-form').style.display = 'none';
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.classList.remove('selected');
+        });
+    }
+    
+    function goToStep(step) {
+        // Validate current step before proceeding
+        if (step === 2 && !validateStep1()) return;
+        if (step === 3 && !validateStep2()) return;
+        
+        currentCheckoutStep = step;
+        updateCheckoutSteps();
+        
+        // Hide all forms
+        document.querySelectorAll('.checkout-form').forEach(form => {
+            form.classList.remove('active');
+        });
+        
+        // Show current step form
+        document.getElementById(`step-${step}-form`).classList.add('active');
+    }
+    
+    function updateCheckoutSteps() {
+        // Reset all steps
+        for (let i = 1; i <= 4; i++) {
+            const stepNumber = document.getElementById(`step-${i}`);
+            stepNumber.classList.remove('active', 'completed');
+        }
+        
+        // Update steps based on current step
+        for (let i = 1; i <= currentCheckoutStep; i++) {
+            const stepNumber = document.getElementById(`step-${i}`);
+            if (i < currentCheckoutStep) {
+                stepNumber.classList.add('completed');
+            } else {
+                stepNumber.classList.add('active');
+            }
+        }
+    }
+    
+    function validateStep1() {
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        
+        if (!firstName || !lastName || !email || !phone) {
+            alert('Please fill in all required fields.');
+            return false;
+        }
+        
+        if (!email.includes('@')) {
+            alert('Please enter a valid email address.');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    function validateStep2() {
+        const address = document.getElementById('address').value;
+        const city = document.getElementById('city').value;
+        const postalCode = document.getElementById('postal-code').value;
+        const country = document.getElementById('country').value;
+        
+        if (!address || !city || !postalCode || !country) {
+            alert('Please fill in all required fields.');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    function selectPaymentMethod(method) {
+        selectedPaymentMethod = method;
+        
+        // Update UI
+        document.querySelectorAll('.payment-method').forEach(m => {
+            m.classList.remove('selected');
+        });
+        event.currentTarget.classList.add('selected');
+        
+        // Show appropriate form
+        document.getElementById('credit-card-form').style.display = 'none';
+        document.getElementById('upi-form').style.display = 'none';
+        
+        if (method === 'credit-card') {
+            document.getElementById('credit-card-form').style.display = 'block';
+        } else if (method === 'upi') {
+            document.getElementById('upi-form').style.display = 'block';
+        }
+    }
+    
+    function updateCheckoutOrderSummary() {
+        const checkoutItems = document.getElementById('checkout-items');
+        checkoutItems.innerHTML = '';
+        
+        if (cart.length === 0) {
+            checkoutItems.innerHTML = '<p>No items in cart</p>';
+            return;
+        }
+        
+        cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'order-item';
+            itemElement.innerHTML = `
+                <span>${item.name} (x${item.quantity})</span>
+                <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+            `;
+            checkoutItems.appendChild(itemElement);
+        });
+        
+        document.getElementById('checkout-total').textContent = `₹${cartTotal.toFixed(2)}`;
+    }
+    
+    function processPayment() {
+        if (!selectedPaymentMethod) {
+            alert('Please select a payment method.');
+            return;
+        }
+        
+        if (selectedPaymentMethod === 'credit-card') {
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardName = document.getElementById('card-name').value;
+            
+            if (!cardNumber || !expiryDate || !cvv || !cardName) {
+                alert('Please fill in all credit card details.');
+                return;
+            }
+        } else if (selectedPaymentMethod === 'upi') {
+            const upiId = document.getElementById('upi-id').value;
+            if (!upiId) {
+                alert('Please enter your UPI ID.');
+                return;
+            }
+        }
+        
+        // Generate order ID
+        const orderId = 'ZL-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('order-id').textContent = orderId;
+        
+        // Store current order for invoice
+        currentOrder = {
+            id: orderId,
+            items: [...cart],
+            total: cartTotal,
+            customer: {
+                firstName: document.getElementById('first-name').value,
+                lastName: document.getElementById('last-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                postalCode: document.getElementById('postal-code').value,
+                country: document.getElementById('country').value
+            },
+            paymentMethod: selectedPaymentMethod
+        };
+        
+        // Proceed to confirmation
+        goToStep(4);
+        
+        // Clear cart only after storing the order
+        cart = [];
+        updateCart();
+        saveCart();
+    }
+    
+    function downloadInvoice() {
+        if (!currentOrder) {
+            alert('No order data available for invoice.');
+            return;
+        }
+        
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Colors
+        const zenGreen = [47, 74, 63];
+        const darkGray = [60, 60, 60];
+        const lightGray = [245, 245, 245];
+        const accentGreen = [67, 120, 96];
+        
+        // HEADER
+        doc.setFillColor(...zenGreen);
+        doc.rect(0, 0, 210, 30, "F");
+        
+        doc.setFontSize(22);
+        doc.setTextColor(255, 255, 255);
+        doc.text("Zenlife Shop", 105, 18, { align: "center" });
+        
+        // TITLE
+        doc.setFontSize(16);
+        doc.setTextColor(...zenGreen);
+        doc.text("Order Invoice", 105, 45, { align: "center" });
+        
+        // ORDER DETAILS
+        doc.setFontSize(12);
+        doc.setTextColor(...darkGray);
+        
+        doc.text(`Order ID: ${currentOrder.id}`, 20, 65);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 75);
+        doc.text(`Customer: ${currentOrder.customer.firstName} ${currentOrder.customer.lastName}`, 20, 85);
+        doc.text(`Email: ${currentOrder.customer.email}`, 20, 95);
+        doc.text(`Phone: ${currentOrder.customer.phone}`, 20, 105);
+        doc.text(`Address: ${currentOrder.customer.address}, ${currentOrder.customer.city}, ${currentOrder.customer.postalCode}, ${currentOrder.customer.country}`, 20, 115);
+        doc.text(`Payment Method: ${currentOrder.paymentMethod}`, 20, 125);
+        
+        // ORDER ITEMS
+        doc.setFontSize(14);
+        doc.setTextColor(...zenGreen);
+        doc.text("Order Items", 20, 145);
+        
+        doc.setFontSize(10);
+        doc.setTextColor(...darkGray);
+        
+        let yPosition = 155;
+        currentOrder.items.forEach(item => {
+            doc.text(`${item.name} (x${item.quantity})`, 20, yPosition);
+            doc.text(`₹${(item.price * item.quantity).toFixed(2)}`, 180, yPosition, { align: "right" });
+            yPosition += 8;
+        });
+        
+        // TOTAL
+        doc.setFontSize(12);
+        doc.setTextColor(...zenGreen);
+        doc.setFont(undefined, "bold");
+        doc.text("Total:", 150, yPosition + 10);
+        doc.text(`₹${currentOrder.total.toFixed(2)}`, 180, yPosition + 10, { align: "right" });
+        
+        // FOOTER
+        doc.setFontSize(9);
+        doc.setFont(undefined, "normal");
+        doc.setTextColor(90, 90, 90);
+        doc.text("Thank you for your purchase!", 105, yPosition + 30, { align: "center" });
+        doc.text("We hope to serve you again soon.", 105, yPosition + 37, { align: "center" });
+        
+        // SAVE
+        doc.save(`Zenlife-Invoice-${currentOrder.id}.pdf`);
+    }
+    
+    // Close modals when clicking outside
+    window.addEventListener('click', function(e) {
+        const cartModal = document.getElementById('cart-modal');
+        const checkoutModal = document.getElementById('checkout-modal');
+        
+        if (e.target === cartModal) {
+            closeCart();
+        }
+        
+        if (e.target === checkoutModal) {
+            closeCheckout();
+        }
+    });
   </script>
 </body>
 </html>
